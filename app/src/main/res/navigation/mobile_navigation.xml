@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.group7.studdibuddi.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+        <fragment
+        android:id="@+id/nav_t1"
+        android:name="com.group7.studdibuddi.ui.t1.T1Fragment"
+        android:label="@string/menu_t1"
+        tools:layout="@layout/fragment_t1" />
+
+    <fragment
+        android:id="@+id/nav_t2"
+        android:name="com.group7.studdibuddi.ui.t2.T2Fragment"
+        android:label="@string/menu_t2"
+        tools:layout="@layout/fragment_t2" />
+
+    <fragment
+        android:id="@+id/nav_t3"
+        android:name="com.group7.studdibuddi.ui.t3.T3Fragment"
+        android:label="@string/menu_t3"
+        tools:layout="@layout/fragment_t3" />
+</navigation>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">StuddiBuddi</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Studi Buddi</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_t1">T1</string>
+    <string name="menu_t2">T2</string>
+    <string name="menu_t3">T3</string>
+</resources>
