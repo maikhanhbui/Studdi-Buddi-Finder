@@ -1,1 +1,1 @@
-# StudiBuddiFinder
+# StuddiBuddiFinder
