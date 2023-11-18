@@ -18,7 +18,6 @@
     <string name="text_email">Email:</string>
     <string name="your_number">Your phone number here</string>
     <string name="text_number">Phone Number:</string>
-    <string name="change_button">Change</string>
     <string name="profile_photo"> Profile photo:</string>
     <string name="gender">Gender:</string>
     <string name="female_option">Female</string>
@@ -30,5 +29,6 @@
 
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
+    <string name="change_button">Change</string>
 
 </resources>
