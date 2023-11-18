@@ -4,16 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,18 +32,18 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="25dp"
-                    android:contentDescription="@string/profile_photo" />
-<!--                android:src="@drawable/default_picture"-->
+                    android:contentDescription="@string/profile_photo"
+                    android:src="@drawable/default_pfp" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/change_button"
                     android:paddingLeft= "8dp"
                     android:paddingRight= "8dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="6"
-                    android:layout_marginStart="25dp"
+                    android:layout_marginStart="50dp"
                     android:text="@string/change_button"
                     android:textAllCaps="true" />
             </LinearLayout>
@@ -133,12 +126,12 @@
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/class_year"
+                android:id="@+id/courses"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:inputType="number"
-                android:hint="@string/class_year" />
+                android:inputType="textCapCharacters"
+                android:hint="@string/courses" />
 
             <TextView
                 android:layout_width="wrap_content"

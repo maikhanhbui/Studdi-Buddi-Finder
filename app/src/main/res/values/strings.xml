@@ -24,7 +24,7 @@
     <string name="female_option">Female</string>
     <string name="male_option">Male</string>
     <string name="text_class_year">Courses Enrolled:</string>
-    <string name="class_year">e.g. CMPT362, CMPT300, etc.</string>
+    <string name="courses">e.g. CMPT362, CMPT300, etc.</string>
     <string name="text_major">Major:</string>
     <string name="major">Your Major</string>
 
