@@ -1,7 +1,9 @@
 package com.group7.studdibuddi
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private var PROFILE_BUTTON_ID = 123
+    private var PROFILE_BUTTON_TITLE = "PROFILE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+
+        //modify toolbar to not include setting button
+        menu.removeItem(R.id.action_settings)
+
+        val buttonItem = menu.add(Menu.NONE, PROFILE_BUTTON_ID, Menu.NONE, PROFILE_BUTTON_TITLE)
+        buttonItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
+        buttonItem.setOnMenuItemClickListener {item ->
+            if (item.itemId == PROFILE_BUTTON_ID) {
+                var intent: Intent? = null
+                intent = Intent(this, UserProfileActivity::class.java)
+                startActivity(intent)
+                finish()
+                true
+            } else {
+                false
+            }
+        }
+        return true
+
         return true
     }
 
