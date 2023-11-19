@@ -1,11 +1,11 @@
 # Studdi-Buddi-Finder
 
 ### The team - Group 7
-Mai Khanh Bui - 301 424 355
-Billy Shi - 301 435 867
-Jachak Sekhon - 301 282 163
-Abiel Kim - 301 375 278
-Zhenao Li - 301 424 546
+- Mai Khanh Bui - 301 424 355
+- Billy Shi - 301 435 867
+- Jachak Sekhon - 301 282 163
+- Abiel Kim - 301 375 278
+- Zhenao Li - 301 424 546
 
 ### The idea 
 #### Problems: 
@@ -30,6 +30,6 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)
 - [ ] log in activity
 - [ ] connect database
 - [ ] update database
-- [ ] 
+
 
 ### Notes
