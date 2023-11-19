@@ -10,7 +10,7 @@
 ### The idea 
 #### Problems: 
 Students enroll in a course with no friends, forcing students to study alone! 
-Students want to create formal group study sessions with peers in the same course 
+Students want to create formal group study sessions with peers in the same course.
 
 #### Solution: 
 Connect students with formal group study sessions on campus!
@@ -22,7 +22,7 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 #### Show and tell 1
 - [x] landing barebones (Jachak Sekhon)
 - [x] user profile activity (Mai Khanh Bui)
-- [x] adding pin activity (Zhenao Li)
+- [x] pin activity (Zhenao Li)
 - [x] map activity (Jachak Sekhon)
 - [x] online database initial setup (Billy Shi)
 
