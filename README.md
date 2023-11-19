@@ -1,4 +1,4 @@
-# Studdi-Buddi-Finder
+# Studdi Buddi Finder
 
 ### The team - Group 7
 - Mai Khanh Bui - 301 424 355
@@ -19,15 +19,17 @@ Connect students with formal group study sessions on campus!
 Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 
 ### Completed Tasks:
-#### Show and tell 1 - All about UI
+#### Show and tell 1 - All about UI + database initial set up
 - [x] landing barebones (Jachak Sekhon)
 - [x] user profile activity (Mai Khanh Bui)
 - [x] pin activity (Zhenao Li)
 - [x] map activity (Jachak Sekhon)
 - [x] online database initial setup (Billy Shi)
+- [x] register activity
+- [x] log in activity (Abiel Kim)
 
 #### Show and tell 2 - All about database
-- [ ] log in activity
+- [ ] email verification
 - [ ] connect database
 - [ ] update database
 
