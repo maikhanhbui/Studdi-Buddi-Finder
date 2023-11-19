@@ -1,4 +1,4 @@
-# Studdi-Buddi-Finder
+# Studdi Buddi Finder
 
 ### The team - Group 7
 - Mai Khanh Bui - 301 424 355
