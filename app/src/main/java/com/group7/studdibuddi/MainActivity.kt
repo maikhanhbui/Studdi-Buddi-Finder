@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        // Database set up
+        DatabaseUtil.initDatabase()
+
         binding.appBarMain.fab.setOnClickListener { view ->
             val intent = Intent(this, PinActivity::class.java)
             startActivity(intent)

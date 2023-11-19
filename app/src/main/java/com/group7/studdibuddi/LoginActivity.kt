@@ -1,5 +1,6 @@
 package com.group7.studdibuddi
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -17,19 +18,30 @@ class LoginActivity : ComponentActivity() {
         val passwordEntry = binding.passwordEntry
 
         binding.loginButton.setOnClickListener{
-            if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()){
-                Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
+            if (FirebaseAuth.getInstance().currentUser != null){
+                Toast.makeText(this,"Already logged in", Toast.LENGTH_SHORT).show()
             }
-
-            DatabaseUtil.signIn(this, emailEntry.text.toString(), passwordEntry.text.toString()) { success ->
-                if (success) {
-                    println("SIGN IN SUCCESSFUL")
-                }
-                else {
-                    println("SIGN IN FAILURE")
+            else {
+                if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()) {
+                    Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
+                } else {
+                    DatabaseUtil.signIn(
+                        this,
+                        emailEntry.text.toString(),
+                        passwordEntry.text.toString()
+                    ) { success ->
+                        if (success) {
+                            println("SIGN IN SUCCESSFUL")
+                        } else {
+                            println("SIGN IN FAILURE")
+                        }
+                    }
                 }
             }
-
+        }
+        binding.goRegisterButton.setOnClickListener{
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }

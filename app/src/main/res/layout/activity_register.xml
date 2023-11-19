@@ -41,20 +41,12 @@
         android:inputType="textEmailAddress"/>
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_gravity="center"
-        android:text="Login"
-        />
-    <Button
-        android:id="@+id/go_register_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:text="toRegister"
+        android:text="register"
         />
 
 </LinearLayout>

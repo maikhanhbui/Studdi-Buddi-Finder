@@ -7,7 +7,9 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 
 object DatabaseUtil {
@@ -15,6 +17,10 @@ object DatabaseUtil {
     lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
+
+    fun initDatabase(){
+        auth = Firebase.auth
+    }
     fun createAccount(
         activity: Activity,
         email: String,

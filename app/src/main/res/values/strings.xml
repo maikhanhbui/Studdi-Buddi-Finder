@@ -40,5 +40,6 @@
     <string name="session_course">Course ID</string>
     <string name="session_course_hint">Your course ID here</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 </resources>
