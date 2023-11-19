@@ -31,4 +31,6 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 - [ ] connect database
 - [ ] update database
 
+...To be updated
+
 ### Notes
