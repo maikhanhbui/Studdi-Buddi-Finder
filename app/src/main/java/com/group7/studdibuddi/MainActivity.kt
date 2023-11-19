@@ -63,14 +63,12 @@ class MainActivity : AppCompatActivity() {
                 var intent: Intent? = null
                 intent = Intent(this, UserProfileActivity::class.java)
                 startActivity(intent)
-                finish()
+//                finish()
                 true
             } else {
                 false
             }
         }
-        return true
-
         return true
     }
 

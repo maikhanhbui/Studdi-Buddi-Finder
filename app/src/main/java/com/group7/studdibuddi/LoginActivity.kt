@@ -1,46 +1,25 @@
 package com.group7.studdibuddi
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.group7.studdibuddi.ui.theme.StuddiBuddiTheme
+import com.google.firebase.auth.FirebaseAuth
+import com.group7.studdibuddi.databinding.ActivityLoginBinding
 
+private lateinit var binding: ActivityLoginBinding
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            StuddiBuddiTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.loginButton.setOnClickListener{
+            if (binding.passwordEntry.text.isEmpty() or binding.emailEntry.text.isEmpty()){
+                Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
             }
+
+
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    StuddiBuddiTheme {
-        Greeting("Android")
-    }
 }
