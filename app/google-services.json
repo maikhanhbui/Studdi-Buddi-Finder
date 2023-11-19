@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "343936052217",
+    "firebase_url": "https://studi-buddy-finder-default-rtdb.firebaseio.com",
+    "project_id": "studi-buddy-finder",
+    "storage_bucket": "studi-buddy-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343936052217:android:9d9cd7e4816d7fcb55eb28",
+        "android_client_info": {
+          "package_name": "com.group7.studdibuddi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKRW-FinYIM0QU8i71Wvj2rftPs7bFkMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
