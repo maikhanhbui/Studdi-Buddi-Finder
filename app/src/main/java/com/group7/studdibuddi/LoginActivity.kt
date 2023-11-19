@@ -13,13 +13,23 @@ class LoginActivity : ComponentActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val emailEntry = binding.emailEntry
+        val passwordEntry = binding.passwordEntry
+
         binding.loginButton.setOnClickListener{
-            if (binding.passwordEntry.text.isEmpty() or binding.emailEntry.text.isEmpty()){
+            if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()){
                 Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
             }
 
+            DatabaseUtil.signIn(this, emailEntry.text.toString(), passwordEntry.text.toString()) { success ->
+                if (success) {
+                    println("SIGN IN SUCCESSFUL")
+                }
+                else {
+                    println("SIGN IN FAILURE")
+                }
+            }
 
         }
     }
-
 }
