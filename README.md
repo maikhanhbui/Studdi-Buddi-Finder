@@ -25,9 +25,11 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 - [x] pin activity (Zhenao Li)
 - [x] map activity (Jachak Sekhon)
 - [x] online database initial setup (Billy Shi)
+- [x] register activity
 - [x] log in activity (Abiel Kim)
 
 #### Show and tell 2 - All about database
+- [ ] email verification
 - [ ] connect database
 - [ ] update database
 
