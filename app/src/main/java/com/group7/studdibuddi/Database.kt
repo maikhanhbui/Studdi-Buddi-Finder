@@ -6,7 +6,7 @@ object Utils {
 
     // Connect to database, use local cache if failed
     fun establishConnection(activity: Activity){
-        
+
     }
 
     // Room database local access

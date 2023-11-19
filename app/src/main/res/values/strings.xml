@@ -10,4 +10,34 @@
     <string name="menu_t1">T1</string>
     <string name="menu_t2">T2</string>
     <string name="menu_t3">T3</string>
+
+    //user-profile
+    <string name="your_name">Your name here</string>
+    <string name="text_name">Account Name:</string>
+    <string name="your_email">Your email here</string>
+    <string name="text_email">Email:</string>
+    <string name="your_number">Your phone number here</string>
+    <string name="text_number">Phone Number:</string>
+    <string name="profile_photo"> Profile photo:</string>
+    <string name="gender">Gender:</string>
+    <string name="female_option">Female</string>
+    <string name="male_option">Male</string>
+    <string name="text_class_year">Courses Enrolled:</string>
+    <string name="courses">e.g. CMPT362, CMPT300, etc.</string>
+    <string name="text_major">Major:</string>
+    <string name="major">Your Major</string>
+
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="change_button">Change</string>
+
+    //pin-activity
+    <string name="session_id">Session ID</string>
+    <string name="session_id_hint">Enter your session ID here</string>
+    <string name="session_name">Session Name</string>
+    <string name="session_name_hint">Your session name here</string>
+    <string name="session_location">Location</string>
+    <string name="session_course">Course ID</string>
+    <string name="session_course_hint">Your course ID here</string>
+
 </resources>
