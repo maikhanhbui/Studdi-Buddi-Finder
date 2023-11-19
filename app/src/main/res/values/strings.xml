@@ -31,4 +31,13 @@
     <string name="cancel_button">Cancel</string>
     <string name="change_button">Change</string>
 
+    //pin-activity
+    <string name="session_id">Session ID</string>
+    <string name="session_id_hint">Enter your session ID here</string>
+    <string name="session_name">Session Name</string>
+    <string name="session_name_hint">Your session name here</string>
+    <string name="session_location">Location</string>
+    <string name="session_course">Course ID</string>
+    <string name="session_course_hint">Your course ID here</string>
+
 </resources>
