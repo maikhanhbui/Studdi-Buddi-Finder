@@ -42,4 +42,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
 
+    <string name="google_maps_api_key">AIzaSyDvBFjEZuab7iyeSeb20xSf7iAFI5jkpfQ</string>
+
 </resources>
