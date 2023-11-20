@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 
@@ -36,12 +39,24 @@ object DatabaseUtil {
                     callback(true)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        activity,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val exception = task.exception
+                    Log.w(TAG, "createUserWithEmail:failure", exception)
+
+                    // Check specific error cases and display relevant error messages
+                    if (exception is FirebaseAuthUserCollisionException) {
+                        // User with this email already exists
+                        Toast.makeText(activity, "User with this email already exists", Toast.LENGTH_SHORT).show()
+                    } else if (exception is FirebaseAuthWeakPasswordException) {
+                        // Password is too weak
+                        Toast.makeText(activity, "Password is too weak", Toast.LENGTH_SHORT).show()
+                    } else if (exception is FirebaseAuthInvalidCredentialsException) {
+                        // Invalid email format
+                        Toast.makeText(activity, "Invalid email format", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Other authentication failures
+                        Toast.makeText(activity, "Authentication failed: " + exception?.message, Toast.LENGTH_SHORT).show()
+                    }
+
                     callback(false)
                 }
             }
