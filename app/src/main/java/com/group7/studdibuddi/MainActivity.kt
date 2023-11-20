@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        // Database set up
+        DatabaseUtil.initDatabase()
+
         binding.appBarMain.fab.setOnClickListener { view ->
             val intent = Intent(this, PinActivity::class.java)
             startActivity(intent)
@@ -63,14 +66,12 @@ class MainActivity : AppCompatActivity() {
                 var intent: Intent? = null
                 intent = Intent(this, UserProfileActivity::class.java)
                 startActivity(intent)
-                finish()
+//                finish()
                 true
             } else {
                 false
             }
         }
-        return true
-
         return true
     }
 
