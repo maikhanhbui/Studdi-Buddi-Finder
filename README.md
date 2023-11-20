@@ -18,7 +18,7 @@ Connect students with formal group study sessions on campus!
 ### Pitch slides
 Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 
-### Completed Tasks:
+### Completed and Upcoming Tasks:
 #### Show and tell 1
 - [x] landing barebones (Jachak Sekhon)
 - [x] create user profile activity (Mai Khanh Bui)
@@ -38,5 +38,3 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 - [ ] handle activity transitions
 
 ...To be updated
-
-### Notes
