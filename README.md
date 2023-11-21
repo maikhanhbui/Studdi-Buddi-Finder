@@ -15,8 +15,11 @@ Students want to create formal group study sessions with peers in the same cours
 #### Solution: 
 Connect students with formal group study sessions on campus!
 
-### Pitch slides
+### Pitch video
 Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
+
+### Show and tell 1 video
+Check it out at [Show and Tell 1](https://youtu.be/-4krcnvZXWI)!
 
 ### Completed and Upcoming Tasks:
 #### Show and tell 1
