@@ -15,24 +15,29 @@ Students want to create formal group study sessions with peers in the same cours
 #### Solution: 
 Connect students with formal group study sessions on campus!
 
-### Pitch slides
+### Pitch video
 Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 
-### Completed Tasks:
-#### Show and tell 1 - All about UI + database initial set up
-- [x] landing barebones (Jachak Sekhon)
-- [x] user profile activity (Mai Khanh Bui)
-- [x] pin activity (Zhenao Li)
-- [x] map activity (Jachak Sekhon)
-- [x] online database initial setup (Billy Shi)
-- [x] register activity
-- [x] log in activity (Abiel Kim)
+### Show and tell 1 video
+Check it out at [Show and Tell 1](https://youtu.be/-4krcnvZXWI)!
 
-#### Show and tell 2 - All about database
-- [ ] email verification
-- [ ] connect database
-- [ ] update database
+### Completed and Upcoming Tasks:
+#### Show and tell 1
+- [x] landing barebones (Jachak Sekhon)
+- [x] create user profile activity (Mai Khanh Bui)
+- [x] create pin activity (for creating a study session) (Zhenao Li)
+- [x] create map activity (Jachak Sekhon)
+- [x] online database initial setup (Billy Shi)
+- [x] create register activity (Billy Shi + Abiel Kim)
+- [x] create log in activity (Abiel Kim)
+
+#### Show and tell 2
+- [ ] create pin activity (for viewing a created study session)
+- [ ] add pins to map based on address
+- [ ] email verification (for creating a user account)
+- [ ] set up database for study sessions
+- [ ] update database for user accounts
+- [ ] handle app state (when user is logged in and not logged in)
+- [ ] handle activity transitions
 
 ...To be updated
-
-### Notes
