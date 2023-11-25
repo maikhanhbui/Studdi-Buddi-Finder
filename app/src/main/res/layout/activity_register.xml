@@ -4,11 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/tool_bar" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Email:"
+        android:text="@string/email"
         android:textSize="25sp"
         android:textStyle="bold"
         />
@@ -19,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:ems="10"
-        android:hint="Enter your Emaill"
+        android:hint="@string/enter_your_email"
         android:inputType="textEmailAddress"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Password:"
+        android:text="@string/password"
         android:textSize="25sp"
         android:textStyle="bold"
         />
@@ -37,16 +40,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:ems="10"
-        android:hint="Enter your Password"
-        android:inputType="textEmailAddress"/>
+        android:hint="@string/enter_your_password"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        android:text="register"
-        />
+        android:text="@string/register"
+        android:background="?attr/colorPrimary"
+        android:textColor="@color/white" />
 
 </LinearLayout>

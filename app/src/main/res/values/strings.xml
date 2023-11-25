@@ -49,4 +49,12 @@
     <string name="description">Description</string>
     <string name="session_description_hint">About your study session</string>
 
+    //log in, register, log out
+    <string name="log_in_button">Log in</string>
+    <string name="log_out_button">Log out</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="password">Password:</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="email">Email:</string>
+    <string name="register">Register</string>
 </resources>
