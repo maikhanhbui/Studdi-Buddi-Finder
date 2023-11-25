@@ -32,12 +32,18 @@ Check it out at [Show and Tell 1](https://youtu.be/-4krcnvZXWI)!
 - [x] create log in activity (Abiel Kim)
 
 #### Show and tell 2
-- [ ] create pin activity (for viewing a created study session)
-- [ ] add pins to map based on address
-- [ ] email verification (for creating a user account)
-- [ ] set up database for study sessions
-- [ ] update database for user accounts
-- [ ] handle app state (when user is logged in and not logged in)
-- [ ] handle activity transitions
+- [x] create pin (for viewing a created study session) (Billy Shi)
+- [x] add pins to map based on address (Billy Shi)
+- [x] set up database for study sessions (Billy Shi)
+- [x] handle app state (when user is logged in and not logged in) (Mai Khanh Bui)
+- [x] handle activity transitions (Mai Khanh Bui)
+- [ ] email verification (for creating a user account) (Abiel Kim)
+- [ ] delete pin on map (Zhenao Li)
+- [ ] create popped up dialog box for viewing study session information (Jachak Sekhon)
+
+### Final
+- [ ] add private/public study sessions (log in required/not required)
+- [ ] add study session list
+- [ ] add database for user profile settings associated with each user account
 
 ...To be updated
