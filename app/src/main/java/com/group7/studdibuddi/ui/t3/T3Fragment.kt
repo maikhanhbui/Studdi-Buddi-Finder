@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.LoginActivity
-import com.group7.studdibuddi.UserProfileActivity
 import com.group7.studdibuddi.databinding.FragmentT3Binding
 import com.group7.studdibuddi.ui.t1.T3ViewModel
 
@@ -46,9 +45,20 @@ class T3Fragment : Fragment() {
                 startActivity(intent)
             }
             else{
-                Toast.makeText(requireContext(),"Already Logged in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Logged in", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.logoutActivityButton.setOnClickListener{
+            if (FirebaseAuth.getInstance().currentUser != null) {
+                FirebaseAuth.getInstance().signOut()
+                Toast.makeText(requireContext(),"Logged out", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(),"Not logged in", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 
         return root
     }

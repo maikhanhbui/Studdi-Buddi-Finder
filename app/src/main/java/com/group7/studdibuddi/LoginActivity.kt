@@ -7,8 +7,8 @@ import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.databinding.ActivityLoginBinding
 
-private lateinit var binding: ActivityLoginBinding
 class LoginActivity : ComponentActivity() {
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -19,7 +19,11 @@ class LoginActivity : ComponentActivity() {
 
         binding.loginButton.setOnClickListener{
             if (FirebaseAuth.getInstance().currentUser != null){
-                Toast.makeText(this,"Already logged in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Logged in", Toast.LENGTH_SHORT).show()
+                //go back to home page
+                var intent: Intent? = null
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
             else {
                 if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()) {
@@ -31,9 +35,13 @@ class LoginActivity : ComponentActivity() {
                         passwordEntry.text.toString()
                     ) { success ->
                         if (success) {
-                            println("SIGN IN SUCCESSFUL")
+                            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                            //go back to home page
+                            var intent: Intent? = null
+                            intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
                         } else {
-                            println("SIGN IN FAILURE")
+                            //authentication failure
                         }
                     }
                 }

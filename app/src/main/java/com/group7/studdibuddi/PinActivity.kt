@@ -56,10 +56,9 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
                     session_description.text.toString()){ success ->
                     if (success) {
                         // TODO: HANDLE CASE USER CLICK SAVE TOO MANY TIMES MIGHT RESULT IN DUPLICATES
-                        println("SIGN IN SUCCESSFUL")
                         finish()
                     } else {
-                        println("SIGN IN FAILURE")
+                        //displays error messages
                     }
                 }
             }

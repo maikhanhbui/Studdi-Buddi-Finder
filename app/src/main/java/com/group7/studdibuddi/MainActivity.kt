@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var PROFILE_BUTTON_ID = 123
+    private var LOG_IN_BUTTON_ID = 321
     private var PROFILE_BUTTON_TITLE = "PROFILE"
+    private var LOG_IN_BUTTON_TITLE = "LOG IN"
+    private lateinit var profileButton: MenuItem
+    private lateinit var logInButton: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +38,14 @@ class MainActivity : AppCompatActivity() {
         DatabaseUtil.initDatabase()
 
         binding.appBarMain.fab.setOnClickListener { view ->
-            val intent = Intent(this, PinActivity::class.java)
-            startActivity(intent)
+            if (FirebaseAuth.getInstance().currentUser != null) {
+                val intent = Intent(this, PinActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent: Intent?
+                intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -51,25 +61,72 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
 
+        if (menu != null) {
+            profileButton = menu.add(Menu.NONE, PROFILE_BUTTON_ID, Menu.NONE, PROFILE_BUTTON_TITLE)
+        }
+        if (menu != null) {
+            logInButton = menu.add(Menu.NONE, LOG_IN_BUTTON_ID, Menu.NONE, LOG_IN_BUTTON_TITLE)
+        }
+
+        profileButton.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        logInButton.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+
         //modify toolbar to not include setting button
-        menu.removeItem(R.id.action_settings)
+        menu?.removeItem(R.id.action_settings)
 
-        val buttonItem = menu.add(Menu.NONE, PROFILE_BUTTON_ID, Menu.NONE, PROFILE_BUTTON_TITLE)
-        buttonItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        return true
+    }
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            menu.findItem(PROFILE_BUTTON_ID)?.isVisible = true
+            menu.findItem(LOG_IN_BUTTON_ID)?.isVisible = false
+        } else {
+            menu.findItem(PROFILE_BUTTON_ID)?.isVisible = false
+            menu.findItem(LOG_IN_BUTTON_ID)?.isVisible = true
+        }
 
-        buttonItem.setOnMenuItemClickListener {item ->
-            if (item.itemId == PROFILE_BUTTON_ID) {
-                var intent: Intent? = null
-                intent = Intent(this, UserProfileActivity::class.java)
-                startActivity(intent)
-//                finish()
-                true
-            } else {
-                false
+        profileButton.setOnMenuItemClickListener {item ->
+            when (item.itemId) {
+                PROFILE_BUTTON_ID -> {
+                    //add another check layer
+                    if (FirebaseAuth.getInstance().currentUser != null) {
+                        val intent: Intent?
+                        intent = Intent(this, UserProfileActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent: Intent?
+                        intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
+        logInButton.setOnMenuItemClickListener {item ->
+            when (item.itemId) {
+                LOG_IN_BUTTON_ID -> {
+                    //add another check layer
+                    if (FirebaseAuth.getInstance().currentUser != null) {
+                        val intent: Intent?
+                        intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val intent: Intent?
+                        intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                    true
+                }
+                else -> {
+                    false
+                }
             }
         }
         return true
