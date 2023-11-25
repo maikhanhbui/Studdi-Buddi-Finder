@@ -2,11 +2,8 @@ package com.group7.studdibuddi
 
 import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -14,12 +11,15 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.android.gms.maps.model.LatLng
 
 object DatabaseUtil {
 
     lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
+
+    val sfuLocation = LatLng(49.279, -122.918)
 
     fun initDatabase(){
         auth = Firebase.auth
@@ -86,6 +86,14 @@ object DatabaseUtil {
                     callback(false)
                 }
             }
+    }
+
+    fun createSession(name: String, location: Int, latLng: LatLng, courseId: String, description: String){
+
+    }
+
+    fun loadSession(){
+
     }
 
     // Room database local access

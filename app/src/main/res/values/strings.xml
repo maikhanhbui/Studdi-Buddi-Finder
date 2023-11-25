@@ -43,5 +43,10 @@
     <string name="title_activity_register">RegisterActivity</string>
 
     <string name="google_maps_api_key">AIzaSyDvBFjEZuab7iyeSeb20xSf7iAFI5jkpfQ</string>
+    <string name="map_picker_save">Save</string>
+    <string name="map_picker_cancel">Cancel</string>
+    <string name="map_picker_button">Choose Location on Map</string>
+    <string name="description">Description</string>
+    <string name="session_description_hint">About your study session</string>
 
 </resources>
