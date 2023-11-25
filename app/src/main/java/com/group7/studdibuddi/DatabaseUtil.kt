@@ -3,10 +3,8 @@ package com.group7.studdibuddi
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -14,16 +12,26 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 
 object DatabaseUtil {
 
     lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private lateinit var database: FirebaseDatabase
 
+    var currentUser: FirebaseUser? = null
+
+
+    val sfuLocation = LatLng(49.279, -122.918)
 
     fun initDatabase(){
+        database = FirebaseDatabase.getInstance()
         auth = Firebase.auth
+        currentUser = FirebaseAuth.getInstance().currentUser
     }
+
     fun createAccount(
         activity: Activity,
         email: String,
@@ -86,6 +94,55 @@ object DatabaseUtil {
                     callback(false)
                 }
             }
+    }
+
+    fun createSession(activity: Activity,
+                      sessionName: String,
+                      location: Int,
+                      latLng: LatLng,
+                      courseId: String,
+                      description: String,
+                      callback: (Boolean) -> Unit) {
+        if (currentUser == null){
+            Toast.makeText(activity, "Login required", Toast.LENGTH_SHORT).show()
+            callback(false)
+        }
+        val sessionDatabase = database.getReference("session")
+        // push assigns the session with a random unique id
+        val newSessionRef = sessionDatabase.push()
+
+//        val session = mapOf(
+//            "session_name" to sessionName,
+//            "location" to mapOf(
+//                "latitude" to latLng.latitude,
+//                "longitude" to latLng.longitude
+//            ),
+//            "owner_id" to currentUser!!.uid
+//        )
+        val newSession = Session(sessionName, latLng.latitude,latLng.longitude, description, currentUser!!.uid)
+        newSessionRef.setValue(newSession).addOnCompleteListener(activity) { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "createSession:success$sessionName")
+                Toast.makeText(
+                    activity,
+                    "Create Session Successfully",
+                    Toast.LENGTH_SHORT,
+                ).show()
+                callback(true)
+            } else {
+                Log.e(TAG, "createSession:failure", task.exception)
+                Toast.makeText(
+                    activity,
+                    "Create Session Error: ${task.exception?.message}",
+                    Toast.LENGTH_SHORT,
+                ).show()
+                callback(false)
+            }
+        }
+    }
+
+    fun loadSession(){
+
     }
 
     // Room database local access

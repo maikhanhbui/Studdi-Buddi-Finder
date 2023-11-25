@@ -19,7 +19,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.R
+import com.group7.studdibuddi.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -28,6 +34,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 123
+
+    private lateinit var gMap: GoogleMap
 
     private val binding get() = _binding!!
 
@@ -55,6 +63,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        gMap = googleMap
+
         // Set the initial camera position to show the entire SFU Burnaby area
 
         // Placeholder coordinates for SFU Burnaby
@@ -82,6 +92,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 LOCATION_PERMISSION_REQUEST_CODE
             )
         }
+
+        // Start fetching sessions and update the map
+        this.updateSessionData()
     }
 
     override fun onRequestPermissionsResult(
@@ -126,6 +139,35 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             // For example, you might disable the "My Location" layer or show a message to the user
         }
     }
+
+    private fun updateSessionData() {
+        val sessionsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("session")
+
+        sessionsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Clear existing markers
+                gMap.clear()
+
+                for (sessionSnapshot in dataSnapshot.children) {
+                    val sessionId = sessionSnapshot.key.toString()
+                    val session = sessionSnapshot.getValue(Session::class.java)
+                    session?.let {
+                        val sessionLatLng = LatLng(it.latitude, it.longitude)
+                        // TODO: Session click shows a detailed session page (ideally dialog), in there
+                        //  we have all the information and actions we can perform (join, contact, etc.)
+                        // Set pin with title of the session name
+                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(it.sessionName))
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // TODO: Handle error
+                // Handle errors here
+            }
+        })
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
