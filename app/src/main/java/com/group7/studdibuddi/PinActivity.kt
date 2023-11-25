@@ -1,7 +1,9 @@
 package com.group7.studdibuddi
 
+import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -46,12 +48,20 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
                 Toast.makeText(this, "Give your session a name", Toast.LENGTH_SHORT).show()
             }
             else {
-                DatabaseUtil.createSession(session_name.text.toString(),
+                DatabaseUtil.createSession(this,
+                    session_name.text.toString(),
                     locationSpinner.selectedItemPosition,
                     selectLatLng,
                     session_course.text.toString(),
-                    session_description.text.toString())
-                finish()
+                    session_description.text.toString()){ success ->
+                    if (success) {
+                        // TODO: HANDLE CASE USER CLICK SAVE TOO MANY TIMES MIGHT RESULT IN DUPLICATES
+                        println("SIGN IN SUCCESSFUL")
+                        finish()
+                    } else {
+                        println("SIGN IN FAILURE")
+                    }
+                }
             }
         }
         cancelButton.setOnClickListener { finish() }
@@ -95,7 +105,7 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
 
     override fun onLocationPicked(latLng: LatLng) {
         selectLatLng = latLng
-        Toast.makeText(this, "$selectLatLng", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "location selected: $selectLatLng")
     }
 
     override fun onPause() {
