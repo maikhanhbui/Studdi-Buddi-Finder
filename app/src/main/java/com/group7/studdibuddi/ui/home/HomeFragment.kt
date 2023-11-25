@@ -1,7 +1,6 @@
 package com.group7.studdibuddi.ui.home
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -52,9 +51,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Initialize the map fragment
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-            ?: SupportMapFragment.newInstance().also {
-                childFragmentManager.beginTransaction().replace(R.id.map, it).commit()
-            }
 
         // Set the callback for when the map is ready
         mapFragment.getMapAsync(this)
@@ -65,18 +61,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
 
-        // Set the initial camera position to show the entire SFU Burnaby area
+        // Ensure map is fully loaded before manipulating it
+        googleMap.setOnMapLoadedCallback {
+            // Set the initial camera position to show the entire SFU Burnaby area
 
-        // Placeholder coordinates for SFU Burnaby
-        val southwest = LatLng(49.270316, -122.931407) // Replace with actual southwest coordinates
-        val northeast = LatLng(49.281851, -122.901690) // Replace with actual northeast coordinates
+            // Placeholder coordinates for SFU Burnaby
+            val southwest = LatLng(49.270316, -122.931407)
+            val northeast = LatLng(49.281851, -122.901690)
 
-        val sfuBurnabyBounds = LatLngBounds(southwest, northeast)
+            val sfuBurnabyBounds = LatLngBounds(southwest, northeast)
 
-        // Set padding if needed
-        val padding = 100 // You can adjust this value based on your preference
+            // Set padding if needed
+            val padding = 100
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(sfuBurnabyBounds, padding))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(sfuBurnabyBounds, padding))
+        }
 
         // Check and request location permissions
         if (ContextCompat.checkSelfPermission(
@@ -97,6 +96,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         this.updateSessionData()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -149,7 +149,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 gMap.clear()
 
                 for (sessionSnapshot in dataSnapshot.children) {
-                    val sessionId = sessionSnapshot.key.toString()
+                    sessionSnapshot.key.toString()
                     val session = sessionSnapshot.getValue(Session::class.java)
                     session?.let {
                         val sessionLatLng = LatLng(it.latitude, it.longitude)
