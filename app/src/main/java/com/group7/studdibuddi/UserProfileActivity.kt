@@ -1,6 +1,5 @@
 package com.group7.studdibuddi
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioGroup
@@ -22,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 import java.io.File
 import java.io.FileOutputStream
 
@@ -52,10 +51,12 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
     private lateinit var changeButton: Button
+    private lateinit var logOutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
+        title = "PROFILE"
 
         //Find views
         imageView = findViewById(R.id.profile_photo)
@@ -68,6 +69,7 @@ class UserProfileActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.save_button)
         cancelButton = findViewById(R.id.cancel_button)
         changeButton = findViewById(R.id.change_button)
+        logOutButton = findViewById(R.id.logout_activity_button)
 
         Util.checkPermissions(this)
 
@@ -135,7 +137,7 @@ class UserProfileActivity : AppCompatActivity() {
             majorView.text = savedInstanceState.getString("MAJORVIEW_KEY")
         }
 
-        saveButton.setOnClickListener() {
+        saveButton.setOnClickListener {
             if (tempProfilePicture.exists()) {
                 tempProfilePicture.renameTo(profilePicture)
             }
@@ -143,19 +145,16 @@ class UserProfileActivity : AppCompatActivity() {
                 pickedProfilePicture.renameTo(profilePicture)
             }
             saveProfile()
-            var intent: Intent? = null
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            finish()
+//            var intent: Intent? = null
+//            intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
-        cancelButton.setOnClickListener() {
-            var intent: Intent? = null
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        cancelButton.setOnClickListener {
+            finish()
         }
-
-        changeButton.setOnClickListener() {
+        changeButton.setOnClickListener {
             val items = arrayOf("Take from camera", "Select from gallery")
             val alertDialogBuilder = AlertDialog.Builder(this)
             var intent: Intent
@@ -174,6 +173,17 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                 }
             alertDialogBuilder.show()
+        }
+        logOutButton.setOnClickListener{
+            if (FirebaseAuth.getInstance().currentUser != null) {
+                FirebaseAuth.getInstance().signOut()
+                Toast.makeText(this,"Logged out", Toast.LENGTH_SHORT).show()
+                val intent: Intent?
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this,"Not logged in", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

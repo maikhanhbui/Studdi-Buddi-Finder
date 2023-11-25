@@ -175,6 +175,14 @@
                     android:textAllCaps="true"
                     android:textSize="15sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/logout_activity_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="45dp"
+                android:text="@string/log_out_button" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
