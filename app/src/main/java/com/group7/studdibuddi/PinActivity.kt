@@ -97,6 +97,9 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
         val bundle = Bundle()
         isPickingLocation = true
         bundle.putInt(Dialogs.DIALOG_KEY, Dialogs.MAP_PICKER_KEY)
+
+        // Pass session information to the dialog
+        bundle.putString("SESSION_NAME", session_name.text.toString())
         mapPickerDialog!!.setLocationPickerCallback(this)
         mapPickerDialog!!.arguments = bundle
         mapPickerDialog!!.show(supportFragmentManager, "map_picker_dialog")
