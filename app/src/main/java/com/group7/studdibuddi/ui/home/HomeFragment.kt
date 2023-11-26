@@ -1,12 +1,14 @@
 package com.group7.studdibuddi.ui.home
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -17,12 +19,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.R
 import com.group7.studdibuddi.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
@@ -94,6 +98,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Start fetching sessions and update the map
         this.updateSessionData()
+
+        gMap.setOnMarkerClickListener { marker ->
+            marker.title?.let { showSessionDialog(it, marker) }
+            true
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -150,13 +159,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
                 for (sessionSnapshot in dataSnapshot.children) {
                     sessionSnapshot.key.toString()
+                    val sessionKey = sessionSnapshot.key.toString()
                     val session = sessionSnapshot.getValue(Session::class.java)
                     session?.let {
                         val sessionLatLng = LatLng(it.latitude, it.longitude)
                         // TODO: Session click shows a detailed session page (ideally dialog), in there
                         //  we have all the information and actions we can perform (join, contact, etc.)
                         // Set pin with title of the session name
-                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(it.sessionName))
+                        // Modified to establish relationship between marker and session
+                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
                     }
                 }
             }
@@ -172,5 +183,52 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // Temporary function for session dialog and session deletion
+    // Compare the currentUser with ownerId so that only the owner can view and delete
+    private fun showSessionDialog(sessionId: String, marker: Marker) {
+        val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+        sessionsRef.child(sessionId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val session = snapshot.getValue(Session::class.java)
+                session?.let {
+                    if (DatabaseUtil.currentUser?.uid == it.ownerId) {
+                        // Current user is the owner, show delete option
+                        val dialogBuilder = AlertDialog.Builder(context)
+                        dialogBuilder.setTitle(it.sessionName)
+                        dialogBuilder.setMessage("Do you want to delete this session?")
+                        dialogBuilder.setPositiveButton("Delete") { dialog, _ ->
+                            deleteSessionFromDatabase(sessionId, marker)
+                            dialog.dismiss()
+                        }
+                        dialogBuilder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                        dialogBuilder.create().show()
+                    } else {
+                        // Current user is not the owner, show message
+                        Toast.makeText(context, "You are not the owner of this session", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(context, "Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // Function to delete session from database and the corresponding marker
+    private fun deleteSessionFromDatabase(sessionId: String, marker: Marker) {
+        val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+        sessionsRef.child(sessionId).removeValue()
+            .addOnSuccessListener {
+                // Successfully deleted, now remove the marker
+                marker.remove()
+                Toast.makeText(context, "Session deleted successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                // Handle failure, e.g., show a toast
+                Toast.makeText(context, "Failed to delete session: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }
