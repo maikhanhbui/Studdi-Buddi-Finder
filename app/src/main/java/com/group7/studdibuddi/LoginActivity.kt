@@ -18,34 +18,28 @@ class LoginActivity : ComponentActivity() {
         val passwordEntry = binding.passwordEntry
 
         binding.loginButton.setOnClickListener{
-            if (FirebaseAuth.getInstance().currentUser != null){
-                Toast.makeText(this,"Logged in", Toast.LENGTH_SHORT).show()
-                //go back to home page
-                var intent: Intent? = null
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+
+            if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()) {
+                Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
             }
             else {
-                if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()) {
-                    Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
-                } else {
-                    DatabaseUtil.signIn(
-                        this,
-                        emailEntry.text.toString(),
-                        passwordEntry.text.toString()
-                    ) { success ->
-                        if (success) {
-                            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                            //go back to home page
-                            var intent: Intent? = null
-                            intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            //authentication failure
-                        }
+                DatabaseUtil.signIn(
+                    this,
+                    emailEntry.text.toString(),
+                    passwordEntry.text.toString()
+                ) { success ->
+                    if (success) {
+                        Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                        //go back to home page
+                        var intent: Intent? = null
+                        intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        //authentication failure
                     }
                 }
             }
+
         }
         binding.goRegisterButton.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)

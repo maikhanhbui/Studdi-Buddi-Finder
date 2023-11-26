@@ -59,7 +59,6 @@ object DatabaseUtil {
                             }
                         }
 
-
                 } else {
                     // If sign in fails, display a message to the user.
                     val exception = task.exception
@@ -123,9 +122,22 @@ object DatabaseUtil {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
 
+
+
                     // Email is successfully verified
                     val user = auth.currentUser
-                    if (user!!.isEmailVerified) {
+                    println("************************************************************")
+                    if (user != null) {
+                        println(user.isEmailVerified)
+                    }
+                    println("************************************************************")
+
+
+                    if (user != null && user.isEmailVerified) {
+                        println("************************************************************")
+                        println(user.isEmailVerified)
+                        println("************************************************************")
+
                         callback(true)
                     }
                     // Sign in successful, but email is not verified
@@ -158,8 +170,6 @@ object DatabaseUtil {
         val emailParts = email.split("@")
         if (emailParts.size == 2) {
             val userEmailDomain = emailParts[1]
-            println(userEmailDomain)
-            println("********************************")
             return userEmailDomain == domain
         }
         return false
@@ -186,7 +196,7 @@ object DatabaseUtil {
 //            "location" to mapOf(
 //                "latitude" to latLng.latitude,
 //                "longitude" to latLng.longitude
-//            ),
+//            ),cd .
 //            "owner_id" to currentUser!!.uid
 //        )
         val newSession = Session(sessionName, courseId, location, latLng.latitude,latLng.longitude, description, currentUser!!.uid)
