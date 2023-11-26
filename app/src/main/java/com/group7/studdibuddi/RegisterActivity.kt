@@ -17,8 +17,14 @@ class RegisterActivity : ComponentActivity() {
         val passwordEntry = binding.passwordEntry
 
         binding.registerButton.setOnClickListener{
+            val userEmailEntry = emailEntry.text.toString()
+            val requiredEmailDomain = "sfu.ca"
+
             if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()){
-                Toast.makeText(this, "Entry cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Entry can not be empty", Toast.LENGTH_SHORT).show()
+            }
+            else if (!DatabaseUtil.isEmailDomainValid(userEmailEntry, requiredEmailDomain)) {
+                Toast.makeText(this, "Email domain must be SFU", Toast.LENGTH_SHORT).show()
             }
             else {
                 DatabaseUtil.createAccount(
@@ -27,7 +33,7 @@ class RegisterActivity : ComponentActivity() {
                     passwordEntry.text.toString()
                 ) { success ->
                     if (success) {
-                        Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Registered successfully! Please verify your email", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
                         // Error messages are displayed
