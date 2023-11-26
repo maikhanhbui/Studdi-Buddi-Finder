@@ -196,17 +196,30 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     if (DatabaseUtil.currentUser?.uid == it.ownerId) {
                         // Current user is the owner, show delete option
                         val dialogBuilder = AlertDialog.Builder(context)
+                        val locationId = it.location
+                        val locationString = getLocationStringFromInt(locationId)
                         dialogBuilder.setTitle(it.sessionName)
-                        dialogBuilder.setMessage("Do you want to delete this session?")
+                        dialogBuilder.setMessage("\nLocation: ${locationString ?: "Unknown Location"}\nDescription: ${it.description ?: "No description available"}\nCourse: ${it.courseId ?: "No course ID available"}")
                         dialogBuilder.setPositiveButton("Delete") { dialog, _ ->
                             deleteSessionFromDatabase(sessionId, marker)
                             dialog.dismiss()
                         }
                         dialogBuilder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
                         dialogBuilder.create().show()
+
                     } else {
                         // Current user is not the owner, show message
-                        Toast.makeText(context, "You are not the owner of this session", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "You are not the owner of this session", Toast.LENGTH_SHORT).show()
+                        val dialogBuilder = AlertDialog.Builder(context)
+                        val locationId = it.location
+                        val locationString = getLocationStringFromInt(locationId)
+                        dialogBuilder.setTitle(it.sessionName)
+                        dialogBuilder.setMessage("\nLocation: ${locationString ?: "Unknown Location"}\nDescription: ${it.description ?: "No description available"}\nCourse: ${it.courseId ?: "No course ID available"}")
+
+                        dialogBuilder.setPositiveButton("OK") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        dialogBuilder.create().show()
                     }
                 }
             }
@@ -215,6 +228,40 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(context, "Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun showDeleteConfirmation(sessionId: String, marker: Marker) {
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setTitle("Delete Confirmation")
+        dialogBuilder.setMessage("Are you sure you want to delete this session?")
+        dialogBuilder.setPositiveButton("Delete") { dialog, _ ->
+            deleteSessionFromDatabase(sessionId, marker)
+            dialog.dismiss()
+        }
+        dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        dialogBuilder.create().show()
+    }
+
+    fun getLocationStringFromInt(locationId: Int): String {
+        return when (locationId) {
+            0 -> "AQ"
+            1 -> "AAB"
+            2 -> "ASB"
+            3 -> "BEE"
+            4 -> "BFC"
+            5 -> "T3"
+            6 -> "BLU"
+            7 -> "CCC"
+            8 -> "CML"
+            9 -> "CSTN"
+            10 -> "DAC"
+            11 -> "DIS1"
+            12 -> "DIS2"
+            13 -> "ECC"
+            else -> "Unknown Location"
+        }
     }
 
     // Function to delete session from database and the corresponding marker

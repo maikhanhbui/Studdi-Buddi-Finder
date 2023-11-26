@@ -119,7 +119,7 @@ object DatabaseUtil {
 //            ),
 //            "owner_id" to currentUser!!.uid
 //        )
-        val newSession = Session(sessionName, latLng.latitude,latLng.longitude, description, currentUser!!.uid)
+        val newSession = Session(sessionName, courseId, location, latLng.latitude,latLng.longitude, description, currentUser!!.uid)
         newSessionRef.setValue(newSession).addOnCompleteListener(activity) { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "createSession:success$sessionName")
