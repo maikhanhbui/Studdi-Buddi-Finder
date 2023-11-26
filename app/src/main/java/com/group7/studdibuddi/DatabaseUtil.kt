@@ -43,8 +43,23 @@ object DatabaseUtil {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
+
+                    // Email verification
                     val user = auth.currentUser
-                    callback(true)
+                    user!!.sendEmailVerification()
+                        .addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful) {
+                                // Email sent, inform the user to check their email
+                                Toast.makeText(activity, "Verification link sent to ${user.email}", Toast.LENGTH_SHORT).show()
+                                callback(true)
+                            } else {
+                                // Failed to send verification email, show error message
+                                Toast.makeText(activity, "Failed to send verification email, try again", Toast.LENGTH_SHORT).show()
+                                callback(false)
+                            }
+                        }
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     val exception = task.exception
@@ -70,6 +85,32 @@ object DatabaseUtil {
             }
     }
 
+    private fun sendEmailVerification(activity: Activity, user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Email sent, inform the user to check their email
+                    // Toast.makeText(activity, "Verification email sent to ${user.email}", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Failed to send verification email, show error message
+                    Toast.makeText(activity, "Failed to send verification email, try again", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+
+    private fun checkEmailVerification(activity: Activity) {
+        // Check if the user's email is verified
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user?.isEmailVerified == true) {
+            // User's email is verified, proceed to the next screen or action
+        } else {
+            // Inform the user that their email is not verified yet
+            Toast.makeText(activity, "Email not yet verified", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     fun signIn(
         activity: Activity,
         email: String,
@@ -81,20 +122,49 @@ object DatabaseUtil {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
+
+                    // Email is successfully verified
                     val user = auth.currentUser
-                    callback(true)
+                    if (user!!.isEmailVerified) {
+                        callback(true)
+                    }
+                    // Sign in successful, but email is not verified
+                    else {
+                        Toast.makeText(
+                            activity,
+                            "Please verify your email.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                        callback(false)
+                    }
+
                 } else {
                     // If sign in fails, display a message to the user.
+                    val exception = task.exception
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
+
                     Toast.makeText(
                         activity,
                         "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
+
                     callback(false)
                 }
             }
     }
+
+    fun isEmailDomainValid(email: String, domain: String): Boolean {
+        val emailParts = email.split("@")
+        if (emailParts.size == 2) {
+            val userEmailDomain = emailParts[1]
+            println(userEmailDomain)
+            println("********************************")
+            return userEmailDomain == domain
+        }
+        return false
+    }
+
 
     fun createSession(activity: Activity,
                       sessionName: String,
