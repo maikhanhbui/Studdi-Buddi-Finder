@@ -21,6 +21,9 @@ Check it out at [Project Pitch](https://youtu.be/mcLWXShvOro)!
 ### Show and tell 1 video
 Check it out at [Show and Tell 1](https://youtu.be/-4krcnvZXWI)!
 
+### Show and tell 2 video
+Check it out at [Show and Tell 2](https://youtu.be/MU-1P7AF3Eg)!
+
 ### Completed and Upcoming Tasks:
 #### Show and tell 1
 - [x] landing barebones (Jachak Sekhon)
