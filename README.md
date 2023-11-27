@@ -40,13 +40,15 @@ Check it out at [Show and Tell 2](https://youtu.be/MU-1P7AF3Eg)!
 - [x] set up database for study sessions (Billy Shi)
 - [x] handle app state (when user is logged in and not logged in) (Mai Khanh Bui)
 - [x] handle activity transitions (Mai Khanh Bui)
-- [ ] email verification (for creating a user account) (Abiel Kim)
-- [ ] delete pin on map (Zhenao Li)
-- [ ] create popped up dialog box for viewing study session information (Jachak Sekhon)
+- [x] email verification (for creating a user account) (Abiel Kim)
+- [x] delete pin on map (Zhenao Li)
+- [x] create popped up dialog box for viewing study session information (Jachak Sekhon)
 
 ### Final
 - [ ] add private/public study sessions (log in required/not required)
 - [ ] add study session list
 - [ ] add database for user profile settings associated with each user account
+- [ ] add time slots for study sessions
+- [ ] add support for different languages
 
 ...To be updated
