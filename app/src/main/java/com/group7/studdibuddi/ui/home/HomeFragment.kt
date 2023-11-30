@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,6 +31,9 @@ import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.R
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
+import com.group7.studdibuddi.session.SessionListAdapter
+import com.group7.studdibuddi.session.SessionViewModel
+import com.group7.studdibuddi.session.SessionViewModelFactory
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
@@ -39,6 +43,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private val LOCATION_PERMISSION_REQUEST_CODE = 123
 
     private lateinit var gMap: GoogleMap
+
+    private lateinit var sessionViewModel: SessionViewModel
+    private lateinit var sessionListAdapter: SessionListAdapter
+    private lateinit var viewModelFactory: SessionViewModelFactory
 
     private val binding get() = _binding!!
 
@@ -58,6 +66,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Set the callback for when the map is ready
         mapFragment.getMapAsync(this)
+
+
+        viewModelFactory = SessionViewModelFactory()
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
+
+        sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
+
+        sessionViewModel.allSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+            // Update the list in the adapter when the LiveData changes
+            sessionListAdapter.replace(sessions)
+            sessionListAdapter.notifyDataSetChanged()
+        }
+
+        // Populate the session list
+        binding.sessionList.adapter = sessionListAdapter
+
 
         return root
     }
