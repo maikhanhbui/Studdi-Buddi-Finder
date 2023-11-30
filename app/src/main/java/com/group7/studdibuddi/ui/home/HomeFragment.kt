@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.R
-import com.group7.studdibuddi.Session
+import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
