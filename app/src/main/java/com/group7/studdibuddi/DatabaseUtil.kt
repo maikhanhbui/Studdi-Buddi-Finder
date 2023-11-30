@@ -191,6 +191,7 @@ object DatabaseUtil {
         val newSessionRef = sessionDatabase.push()
 
         val newSession = Session()
+        newSession.sessionKey = newSessionRef.key.toString()
         newSession.sessionName = sessionName
         newSession.courseId = courseId
         newSession.location = location

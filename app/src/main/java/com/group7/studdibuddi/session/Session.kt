@@ -10,6 +10,9 @@ data class Session (
     @PrimaryKey(autoGenerate = true)
     var sessionId: Long = 0L,
 
+    @ColumnInfo(name = "session_key_column")
+    var sessionKey: String = "",
+
     @ColumnInfo(name = "session_name_column")
     var sessionName: String = "",
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,8 @@ import com.group7.studdibuddi.databinding.FragmentHomeBinding
 import com.group7.studdibuddi.session.SessionListAdapter
 import com.group7.studdibuddi.session.SessionViewModel
 import com.group7.studdibuddi.session.SessionViewModelFactory
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import java.lang.Exception
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
@@ -49,6 +52,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var viewModelFactory: SessionViewModelFactory
 
     private val binding get() = _binding!!
+
+    val markerMap = HashMap<String, Marker>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,20 +73,41 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
+        // Session List:
         viewModelFactory = SessionViewModelFactory()
         sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
         sessionViewModel.allSessionLiveData.observe(viewLifecycleOwner) { sessions ->
-            // Update the list in the adapter when the LiveData changes
+            // Update when observe changes
             sessionListAdapter.replace(sessions)
             sessionListAdapter.notifyDataSetChanged()
         }
 
-        // Populate the session list
         binding.sessionList.adapter = sessionListAdapter
 
+        binding.sessionList.setOnItemClickListener { _, _, position, _ ->
+            try {
+                val targetKey = sessionListAdapter.getItem(position).sessionKey
+                Log.d("marker", "key:$targetKey")
+                val targetMarker = markerMap[targetKey]
+                if (targetMarker != null){
+                    // Draw back the slider
+                    binding.sessionPullUp.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                    // Move the camera towards the target marker
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(offSetLocation(targetMarker.position), 17f)
+                    gMap.animateCamera(cameraUpdate)
+                    // Start the target dialog
+                    showSessionDialog(targetKey, targetMarker)
+                }
+                else{
+                    Toast.makeText(requireActivity(), "Marker not found", Toast.LENGTH_SHORT).show()
+                }
+            }catch (e: Exception){
+                Toast.makeText(requireActivity(), "Error: $e", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return root
     }
@@ -124,6 +150,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         this.updateSessionData()
 
         gMap.setOnMarkerClickListener { marker ->
+            // Move the camera towards the target marker
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(offSetLocation(marker.position), 17f)
+            gMap.animateCamera(cameraUpdate)
             marker.title?.let { showSessionDialog(it, marker) }
             true
         }
@@ -180,6 +209,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Clear existing markers
                 gMap.clear()
+                markerMap.clear()
 
                 for (sessionSnapshot in dataSnapshot.children) {
                     sessionSnapshot.key.toString()
@@ -191,7 +221,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         //  we have all the information and actions we can perform (join, contact, etc.)
                         // Set pin with title of the session name
                         // Modified to establish relationship between marker and session
-                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                        val newMarker = gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                        markerMap[sessionKey] = newMarker!!
                     }
                 }
             }
@@ -301,5 +332,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 // Handle failure, e.g., show a toast
                 Toast.makeText(context, "Failed to delete session: ${it.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+
+    val METERS_PER_DEGREE_LATITUDE = 111319.9
+
+    // Offset the view location to south in order to view the pin better
+    fun offSetLocation(location: LatLng): LatLng {
+        val originalLocation = Location("original_location")
+        originalLocation.latitude = location.latitude
+        originalLocation.longitude = location.longitude
+
+        val offsetDistance = 100.0 // offset amount in meters
+        val offsetLocation = Location(originalLocation)
+        offsetLocation.latitude =
+            originalLocation.latitude - (offsetDistance / METERS_PER_DEGREE_LATITUDE)
+        return LatLng(offsetLocation.latitude, offsetLocation.longitude)
     }
 }

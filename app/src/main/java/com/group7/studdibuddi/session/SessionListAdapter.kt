@@ -11,7 +11,7 @@ import java.text.DecimalFormat
 
 class SessionListAdapter(private val context: Context, private var sessionList: List<Session>) : BaseAdapter(){
 
-    override fun getItem(position: Int): Any {
+    override fun getItem(position: Int): Session {
         return sessionList[position]
     }
 
