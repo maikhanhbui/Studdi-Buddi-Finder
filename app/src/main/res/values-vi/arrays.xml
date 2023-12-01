@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="location_list">
+        <item>AQ</item>
+        <item>AAB</item>
+        <item>ASB</item>
+        <item>BEE</item>
+        <item>BFC</item>
+        <item>T3</item>
+        <item>BLU</item>
+        <item>CCC</item>
+        <item>CML</item>
+        <item>CSTN</item>
+        <item>DAC</item>
+        <item>DIS1</item>
+        <item>DIS2</item>
+        <item>ECC</item>
+    </string-array>
+
+    <string-array name="language_list">
+        <item>Tiếng Anh</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+
+    <string-array name="language_list_data">
+        <item>en</item>
+        <item>vi</item>
+    </string-array>
+
+    <string-array name="change_profile_picture">
+        <item>Chụp từ camera</item>
+        <item>Chọn từ thư viện ảnh</item>
+    </string-array>
+
+</resources>

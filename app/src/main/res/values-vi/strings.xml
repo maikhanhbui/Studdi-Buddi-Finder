@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StuddiBuddi</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">StuddiBuddi</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">TRANG CHỦ</string>
+    <string name="menu_pref">CÀI ĐẶT</string>
+    <string name="menu_t2">T2</string>
+    <string name="menu_t3">T3</string>
+
+    //user-profile
+    <string name="your_name">Điền họ và tên</string>
+    <string name="text_name">Họ và tên:</string>
+    <string name="your_email">Điền địa chỉ email</string>
+    <string name="text_email">Địa chỉ email:</string>
+    <string name="your_number">Điền số điện thoại</string>
+    <string name="text_number">Số điện thoại:</string>
+    <string name="profile_photo"> Ảnh đại diện</string>
+    <string name="gender">Giới tính:</string>
+    <string name="female_option">Nữ</string>
+    <string name="male_option">Nam</string>
+    <string name="text_class_year">Lớp:</string>
+    <string name="courses">ví dụ: CMPT362, CMPT300, etc.</string>
+    <string name="text_major">Chuyên ngành:</string>
+    <string name="major">Điền chuyên ngành</string>
+    <string name="select_profile_image">Chọn ảnh đại diện</string>
+
+    <string name="save_button">Lưu</string>
+    <string name="cancel_button">Đóng</string>
+    <string name="change_button">Thay đổi</string>
+
+    //pin-activity
+    <string name="session_id">ID phiên học</string>
+    <string name="session_id_hint">Điền phiên học</string>
+    <string name="session_name">Tên phiên học</string>
+    <string name="session_name_hint">Điền tên phiên học</string>
+    <string name="session_location">Địa điểm</string>
+    <string name="session_course">ID lớp học</string>
+    <string name="session_course_hint">Điền ID lớp học</string>
+    <string name="title_activity_login">Đăng nhập</string>
+    <string name="title_activity_register">Đăng kí</string>
+    <string name="give_a_name">Hãy đặt tên cho phiên học</string>
+    <string name="location_selected">Đã chọn địa điểm</string>
+    <string name="delete_button">Xoá</string>
+    <string name="delete_successfully">Đã xoá phiên học thành công</string>
+    <string name="delete_unsuccessfully">Xoá không thành công</string>
+    <string name="marker_not_found">Không tìm thấy dấu</string>
+    <string name="pick_location">Chọn địa điểm</string>
+    <string name="no_location_selected">Không địa điểm nào được chọn</string>
+
+    <string name="google_maps_api_key">AIzaSyDvBFjEZuab7iyeSeb20xSf7iAFI5jkpfQ</string>
+    <string name="map_picker_save">Lưu</string>
+    <string name="map_picker_cancel">Đóng</string>
+    <string name="map_picker_button">Chọn địa điểm trên bản đồ</string>
+    <string name="description">Miêu tả</string>
+    <string name="session_description_hint">Điền miêu tả phiên học</string>
+
+    //log in, register, log out
+    <string name="log_in_button">Đăng nhập</string>
+    <string name="log_out_button">Đăng xuất</string>
+    <string name="enter_your_password">Điền mật khẩu</string>
+    <string name="password">Mật khẩu:</string>
+    <string name="enter_your_email">Điền địa chỉ email</string>
+    <string name="email">Địa chỉ email:</string>
+    <string name="register">Đăng kí</string>
+    <string name="entry_cant_be_empty">Không được để trống</string>
+    <string name="email_domain_must_be_sfu">Phải là email của SFU</string>
+    <string name="not_logged_in">Đang không đăng nhập</string>
+
+    <string name="language_array_title">Lựa chọn ngôn ngữ</string>
+    <string name="profile">TÀI KHOẢN</string>SETTINGS
+</resources>
