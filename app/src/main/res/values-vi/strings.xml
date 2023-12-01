@@ -72,5 +72,10 @@
     <string name="not_logged_in">Đang không đăng nhập</string>
 
     <string name="language_array_title">Lựa chọn ngôn ngữ</string>
-    <string name="profile">TÀI KHOẢN</string>SETTINGS
+    <string name="profile">TÀI KHOẢN</string>
+
+    //session list
+    <string name="session_list_name">Tên phiên học</string>
+    <string name="session_description">Miêu tả phiên học</string>
+    <string name="session_list">Danh sách phiên học</string>
 </resources>

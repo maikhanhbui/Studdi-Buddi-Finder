@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="Session Name"
+                android:text="@string/session_list_name"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end|top"
-                android:text="Session Description"
+                android:text="@string/session_description"
                 android:textSize="16sp" />
 
         </RelativeLayout>

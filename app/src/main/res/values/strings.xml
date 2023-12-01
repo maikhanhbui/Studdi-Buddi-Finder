@@ -73,4 +73,9 @@
 
     <string name="language_array_title">Language Preference</string>
     <string name="profile">PROFILE</string>
+
+    //session list
+    <string name="session_list_name">Session Name</string>
+    <string name="session_description">Session Description</string>
+    <string name="session_list">Session List</string>
 </resources>
