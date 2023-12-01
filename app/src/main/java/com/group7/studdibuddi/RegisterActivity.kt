@@ -8,6 +8,9 @@ import com.group7.studdibuddi.databinding.ActivityRegisterBinding
 class RegisterActivity : ComponentActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var NON_EMPTY_TITLE: String
+    private lateinit var EMAIL_DOMAIN_TITLE: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -15,16 +18,18 @@ class RegisterActivity : ComponentActivity() {
 
         val emailEntry = binding.emailEntry
         val passwordEntry = binding.passwordEntry
+        NON_EMPTY_TITLE = getString(R.string.entry_cant_be_empty)
+        EMAIL_DOMAIN_TITLE = getString(R.string.email_domain_must_be_sfu)
 
         binding.registerButton.setOnClickListener{
             val userEmailEntry = emailEntry.text.toString()
             val requiredEmailDomain = "sfu.ca"
 
             if (passwordEntry.text.isEmpty() or emailEntry.text.isEmpty()){
-                Toast.makeText(this, "Entry can not be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, NON_EMPTY_TITLE, Toast.LENGTH_SHORT).show()
             }
             else if (!DatabaseUtil.isEmailDomainValid(userEmailEntry, requiredEmailDomain)) {
-                Toast.makeText(this, "Email domain must be SFU", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, EMAIL_DOMAIN_TITLE, Toast.LENGTH_SHORT).show()
             }
             else {
                 DatabaseUtil.createAccount(

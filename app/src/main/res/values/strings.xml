@@ -2,14 +2,15 @@
     <string name="app_name">StuddiBuddi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Studi Buddi</string>
+    <string name="nav_header_title">StuddiBuddi</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_t1">T1</string>
+    <string name="menu_home">HOME</string>
+    <string name="menu_pref">SETTINGS</string>
     <string name="menu_t2">T2</string>
     <string name="menu_t3">T3</string>
+
 
     //user-profile
     <string name="your_name">Your name here</string>
@@ -26,6 +27,7 @@
     <string name="courses">e.g. CMPT362, CMPT300, etc.</string>
     <string name="text_major">Major:</string>
     <string name="major">Your Major</string>
+    <string name="select_profile_image">Select profile image</string>
 
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
@@ -41,6 +43,14 @@
     <string name="session_course_hint">Your course ID here</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="give_a_name">Give your session a name</string>
+    <string name="location_selected">Location selected</string>
+    <string name="delete_button">Delete</string>
+    <string name="delete_successfully">Session deleted successfully</string>
+    <string name="delete_unsuccessfully">Failed to delete session</string>
+    <string name="marker_not_found">Marker not found</string>
+    <string name="pick_location">Pick Location</string>
+    <string name="no_location_selected">No location selected</string>
 
     <string name="google_maps_api_key">AIzaSyDvBFjEZuab7iyeSeb20xSf7iAFI5jkpfQ</string>
     <string name="map_picker_save">Save</string>
@@ -57,4 +67,10 @@
     <string name="enter_your_email">Enter your Email</string>
     <string name="email">Email:</string>
     <string name="register">Register</string>
+    <string name="entry_cant_be_empty">Entry cannot be empty</string>
+    <string name="email_domain_must_be_sfu">Email domain must be SFU</string>
+    <string name="not_logged_in">Not logged in</string>
+
+    <string name="language_array_title">Language Preference</string>
+    <string name="profile">PROFILE</string>
 </resources>
