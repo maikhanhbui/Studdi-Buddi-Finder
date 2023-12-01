@@ -2,7 +2,6 @@ package com.group7.studdibuddi
 
 import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.Firebase
@@ -11,10 +10,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import com.group7.studdibuddi.session.Session
 
 object DatabaseUtil {
 
@@ -191,15 +190,15 @@ object DatabaseUtil {
         // push assigns the session with a random unique id
         val newSessionRef = sessionDatabase.push()
 
-//        val session = mapOf(
-//            "session_name" to sessionName,
-//            "location" to mapOf(
-//                "latitude" to latLng.latitude,
-//                "longitude" to latLng.longitude
-//            ),cd .
-//            "owner_id" to currentUser!!.uid
-//        )
-        val newSession = Session(sessionName, courseId, location, latLng.latitude,latLng.longitude, description, currentUser!!.uid)
+        val newSession = Session()
+        newSession.sessionKey = newSessionRef.key.toString()
+        newSession.sessionName = sessionName
+        newSession.courseId = courseId
+        newSession.location = location
+        newSession.latitude = latLng.latitude
+        newSession.longitude = latLng.longitude
+        newSession.description = description
+        newSession.ownerId = currentUser!!.uid
         newSessionRef.setValue(newSession).addOnCompleteListener(activity) { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "createSession:success$sessionName")
