@@ -29,7 +29,6 @@ object DatabaseUtil {
     private val toastUserExists by lazy { R.string.toast_user_exists }
     private val toastWeakPassword by lazy { R.string.toast_weak_password }
     private val toastInvalidEmailFormat by lazy { R.string.toast_invalid_email_format }
-    private val toastEmailNotVerified by lazy { R.string.toast_email_not_verified }
     private val toastPleaseVerifyEmail by lazy { R.string.toast_please_verify_email }
     private val toastAuthenticationFailed by lazy { R.string.toast_authentication_failed }
     private val toastLoginRequired by lazy { R.string.toast_login_required }
@@ -86,7 +85,7 @@ object DatabaseUtil {
                         Toast.makeText(activity, toastInvalidEmailFormat, Toast.LENGTH_SHORT).show()
                     } else {
                         // Other authentication failures
-                        Toast.makeText(activity, "Authentication failed: " + exception?.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "$toastAuthenticationFailed: " + exception?.message, Toast.LENGTH_SHORT).show()
                     }
 
                     callback(false)

@@ -85,7 +85,6 @@
     <string name="toast_user_exists">User with this email already exists</string>
     <string name="toast_weak_password">Password is too weak</string>
     <string name="toast_invalid_email_format">Invalid email format</string>
-    <string name="toast_email_not_verified">Email not yet verified</string>
     <string name="toast_please_verify_email">Please verify your email.</string>
     <string name="toast_authentication_failed">Authentication failed</string>
     <string name="toast_login_required">Login required</string>
