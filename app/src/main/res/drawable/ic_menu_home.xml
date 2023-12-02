@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="22dp"
+    android:viewportWidth="22.0"
+    android:viewportHeight="22.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M2.587,8.675 A0.136,0.136,0,0,0,2.5,8.748 Z M2.5,8.75 L2.5,18.783
+                          C2.5,20.005,2.738,20.25,3.957,20.25 L7.357,20.25
+                          C8.576,20.25,8.814,20.02,8.814,18.783 L8.814,14.894 L13.185,14.894
+                          L13.185,18.794 C13.185,20.016,13.433,20.244,14.642,20.239
+                          C14.661,20.254,18.042,20.239,18.042,20.239
+                          C19.271,20.239,19.499,19.982,19.499,18.779 L19.499,9.05
+                          A0.173,0.173,0,0,0,19.368,8.938 L11,1.75 L2.587,8.675 Z"  />
+    <!--    online resources used for drawing icon-->
+</vector>

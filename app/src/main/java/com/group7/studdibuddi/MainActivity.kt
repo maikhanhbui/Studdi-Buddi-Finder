@@ -11,18 +11,18 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.databinding.ActivityMainBinding
+import com.group7.studdibuddi.ui.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var PROFILE_BUTTON_ID = 123
     private var LOG_IN_BUTTON_ID = 321
-    private var PROFILE_BUTTON_TITLE = "PROFILE"
-    private var LOG_IN_BUTTON_TITLE = "LOG IN"
+    private lateinit var PROFILE_BUTTON_TITLE: String
+    private lateinit var LOG_IN_BUTTON_TITLE: String
     private lateinit var profileButton: MenuItem
     private lateinit var logInButton: MenuItem
 
@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        PROFILE_BUTTON_TITLE = getString(R.string.profile)
+        LOG_IN_BUTTON_TITLE = getString(R.string.log_in_button)
         // Database set up
         DatabaseUtil.initDatabase()
 

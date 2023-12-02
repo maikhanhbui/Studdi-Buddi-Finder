@@ -5,12 +5,14 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,8 +30,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.R
-import com.group7.studdibuddi.Session
+import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
+import com.group7.studdibuddi.session.SessionListAdapter
+import com.group7.studdibuddi.session.SessionViewModel
+import com.group7.studdibuddi.session.SessionViewModelFactory
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import java.lang.Exception
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
@@ -40,7 +47,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var gMap: GoogleMap
 
+    private lateinit var sessionViewModel: SessionViewModel
+    private lateinit var sessionListAdapter: SessionListAdapter
+    private lateinit var viewModelFactory: SessionViewModelFactory
+
+    private lateinit var DELETE_BUTTON_TITLE: String
+    private lateinit var CANCEL_BUTTON_TITLE: String
+    private lateinit var LOCATION_BUTTON_TITLE: String
+    private lateinit var DESCRIPTION_BUTTON_TITLE: String
+    private lateinit var COURSE_BUTTON_TITLE: String
+    private lateinit var DELETE_SUCCESS_TITLE: String
+    private lateinit var DELETE_NOT_SUCCESS_TITLE: String
+    private lateinit var MARKER_NOT_FOUND_TITLE: String
+
     private val binding get() = _binding!!
+
+    val markerMap = HashMap<String, Marker>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +72,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        DELETE_BUTTON_TITLE = getString(R.string.delete_button)
+        CANCEL_BUTTON_TITLE = getString(R.string.cancel_button)
+        LOCATION_BUTTON_TITLE = getString(R.string.session_location)
+        DESCRIPTION_BUTTON_TITLE = getString(R.string.description)
+        COURSE_BUTTON_TITLE = getString(R.string.session_course)
+        DELETE_SUCCESS_TITLE = getString(R.string.delete_successfully)
+        DELETE_NOT_SUCCESS_TITLE = getString(R.string.delete_unsuccessfully)
+        MARKER_NOT_FOUND_TITLE = getString(R.string.marker_not_found)
+
         // Initialize the FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -58,6 +89,43 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Set the callback for when the map is ready
         mapFragment.getMapAsync(this)
+
+
+        // Session List:
+        viewModelFactory = SessionViewModelFactory()
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
+
+        sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
+
+        sessionViewModel.allSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+            // Update when observe changes
+            sessionListAdapter.replace(sessions)
+            sessionListAdapter.notifyDataSetChanged()
+        }
+
+        binding.sessionList.adapter = sessionListAdapter
+
+        binding.sessionList.setOnItemClickListener { _, _, position, _ ->
+            try {
+                val targetKey = sessionListAdapter.getItem(position).sessionKey
+                Log.d("marker", "key:$targetKey")
+                val targetMarker = markerMap[targetKey]
+                if (targetMarker != null){
+                    // Draw back the slider
+                    binding.sessionPullUp.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                    // Move the camera towards the target marker
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(offSetLocation(targetMarker.position), 17f)
+                    gMap.animateCamera(cameraUpdate)
+                    // Start the target dialog
+                    showSessionDialog(targetKey, targetMarker)
+                }
+                else{
+                    Toast.makeText(requireActivity(), MARKER_NOT_FOUND_TITLE, Toast.LENGTH_SHORT).show()
+                }
+            }catch (e: Exception){
+                Toast.makeText(requireActivity(), "Error: $e", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return root
     }
@@ -100,6 +168,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         this.updateSessionData()
 
         gMap.setOnMarkerClickListener { marker ->
+            // Move the camera towards the target marker
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(offSetLocation(marker.position), 17f)
+            gMap.animateCamera(cameraUpdate)
             marker.title?.let { showSessionDialog(it, marker) }
             true
         }
@@ -138,7 +209,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     val userLatLng = LatLng(it.latitude, it.longitude)
-                    googleMap.addMarker(MarkerOptions().position(userLatLng).title("Your Location"))
+                    googleMap.addMarker(MarkerOptions().position(userLatLng).title(LOCATION_BUTTON_TITLE))
                 }
             }
         } else {
@@ -156,6 +227,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Clear existing markers
                 gMap.clear()
+                markerMap.clear()
 
                 for (sessionSnapshot in dataSnapshot.children) {
                     sessionSnapshot.key.toString()
@@ -163,18 +235,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     val session = sessionSnapshot.getValue(Session::class.java)
                     session?.let {
                         val sessionLatLng = LatLng(it.latitude, it.longitude)
-                        // TODO: Session click shows a detailed session page (ideally dialog), in there
-                        //  we have all the information and actions we can perform (join, contact, etc.)
                         // Set pin with title of the session name
                         // Modified to establish relationship between marker and session
-                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                        val newMarker = gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                        markerMap[sessionKey] = newMarker!!
                     }
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // TODO: Handle error
-                // Handle errors here
             }
         })
     }
@@ -199,12 +268,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         val locationId = it.location
                         val locationString = getLocationStringFromInt(locationId)
                         dialogBuilder.setTitle(it.sessionName)
-                        dialogBuilder.setMessage("\nLocation: ${locationString ?: "Unknown Location"}\nDescription: ${it.description ?: "No description available"}\nCourse: ${it.courseId ?: "No course ID available"}")
-                        dialogBuilder.setPositiveButton("Delete") { dialog, _ ->
+                        dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString ?: "Unknown Location"}\n$DESCRIPTION_BUTTON_TITLE: ${it.description ?: "No description available"}\n$COURSE_BUTTON_TITLE: ${it.courseId ?: "No course ID available"}")
+                        dialogBuilder.setPositiveButton(DELETE_BUTTON_TITLE) { dialog, _ ->
                             deleteSessionFromDatabase(sessionId, marker)
                             dialog.dismiss()
                         }
-                        dialogBuilder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                        dialogBuilder.setNegativeButton(CANCEL_BUTTON_TITLE) { dialog, _ -> dialog.dismiss() }
                         dialogBuilder.create().show()
 
                     } else {
@@ -214,7 +283,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         val locationId = it.location
                         val locationString = getLocationStringFromInt(locationId)
                         dialogBuilder.setTitle(it.sessionName)
-                        dialogBuilder.setMessage("\nLocation: ${locationString ?: "Unknown Location"}\nDescription: ${it.description ?: "No description available"}\nCourse: ${it.courseId ?: "No course ID available"}")
+                        dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString ?: "Unknown Location"}\n$DESCRIPTION_BUTTON_TITLE: ${it.description ?: "No description available"}\n$COURSE_BUTTON_TITLE: ${it.courseId ?: "No course ID available"}")
 
                         dialogBuilder.setPositiveButton("OK") { dialog, _ ->
                             dialog.dismiss()
@@ -228,20 +297,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(context, "Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    private fun showDeleteConfirmation(sessionId: String, marker: Marker) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setTitle("Delete Confirmation")
-        dialogBuilder.setMessage("Are you sure you want to delete this session?")
-        dialogBuilder.setPositiveButton("Delete") { dialog, _ ->
-            deleteSessionFromDatabase(sessionId, marker)
-            dialog.dismiss()
-        }
-        dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-        dialogBuilder.create().show()
     }
 
     fun getLocationStringFromInt(locationId: Int): String {
@@ -260,7 +315,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             11 -> "DIS1"
             12 -> "DIS2"
             13 -> "ECC"
-            else -> "Unknown Location"
+            else -> "NA"
         }
     }
 
@@ -271,11 +326,27 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             .addOnSuccessListener {
                 // Successfully deleted, now remove the marker
                 marker.remove()
-                Toast.makeText(context, "Session deleted successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, DELETE_SUCCESS_TITLE, Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 // Handle failure, e.g., show a toast
-                Toast.makeText(context, "Failed to delete session: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "$DELETE_NOT_SUCCESS_TITLE: ${it.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+
+    val METERS_PER_DEGREE_LATITUDE = 111319.9
+
+    // Offset the view location to south in order to view the pin better
+    fun offSetLocation(location: LatLng): LatLng {
+        val originalLocation = Location("original_location")
+        originalLocation.latitude = location.latitude
+        originalLocation.longitude = location.longitude
+
+        val offsetDistance = 100.0 // offset amount in meters
+        val offsetLocation = Location(originalLocation)
+        offsetLocation.latitude =
+            originalLocation.latitude - (offsetDistance / METERS_PER_DEGREE_LATITUDE)
+        return LatLng(offsetLocation.latitude, offsetLocation.longitude)
     }
 }

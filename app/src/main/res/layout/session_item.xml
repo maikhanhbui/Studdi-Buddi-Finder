@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- ImageView on the left -->
+    <ImageView
+    android:id="@+id/session_im_view"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:src="@drawable/beloved_god"
+    android:scaleType="centerCrop"
+    android:layout_marginEnd="8dp" />
+
+    <!-- Information on the right -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- First row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/session_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/session_list_name"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <!-- Second row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/session_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end|top"
+                android:text="@string/session_description"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <!-- Third row -->
+        <!-- Add more rows as needed -->
+
+    </LinearLayout>
+</LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.group7.studdibuddi.databinding.FragmentT2Binding
-import com.group7.studdibuddi.ui.t1.T2ViewModel
+import com.group7.studdibuddi.ui.settings.T2ViewModel
 
 class T2Fragment : Fragment() {
 
