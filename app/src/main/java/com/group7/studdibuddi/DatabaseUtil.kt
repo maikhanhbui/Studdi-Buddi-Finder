@@ -23,6 +23,19 @@ object DatabaseUtil {
 
     val sfuLocation = LatLng(49.279, -122.918)
 
+    // Strings
+    private val toastVerificationLinkSent by lazy { R.string.toast_verification_link_sent }
+    private val toastFailedVerificationEmail by lazy { R.string.toast_failed_verification_email }
+    private val toastUserExists by lazy { R.string.toast_user_exists }
+    private val toastWeakPassword by lazy { R.string.toast_weak_password }
+    private val toastInvalidEmailFormat by lazy { R.string.toast_invalid_email_format }
+    private val toastEmailNotVerified by lazy { R.string.toast_email_not_verified }
+    private val toastPleaseVerifyEmail by lazy { R.string.toast_please_verify_email }
+    private val toastAuthenticationFailed by lazy { R.string.toast_authentication_failed }
+    private val toastLoginRequired by lazy { R.string.toast_login_required }
+    private val toastCreateSessionSuccess by lazy { R.string.toast_create_session_success }
+    private val toastCreateSessionError by lazy { R.string.toast_create_session_error }
+
     fun initDatabase(){
         database = FirebaseDatabase.getInstance()
         auth = Firebase.auth
@@ -47,11 +60,11 @@ object DatabaseUtil {
                         .addOnCompleteListener { task2 ->
                             if (task2.isSuccessful) {
                                 // Email sent, inform the user to check their email
-                                Toast.makeText(activity, "Verification link sent to ${user.email}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, "$toastVerificationLinkSent ${user.email}", Toast.LENGTH_SHORT).show()
                                 callback(true)
                             } else {
                                 // Failed to send verification email, show error message
-                                Toast.makeText(activity, "Failed to send verification email, try again", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, toastFailedVerificationEmail, Toast.LENGTH_SHORT).show()
                                 callback(false)
                             }
                         }
@@ -64,13 +77,13 @@ object DatabaseUtil {
                     // Check specific error cases and display relevant error messages
                     if (exception is FirebaseAuthUserCollisionException) {
                         // User with this email already exists
-                        Toast.makeText(activity, "User with this email already exists", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, toastUserExists, Toast.LENGTH_SHORT).show()
                     } else if (exception is FirebaseAuthWeakPasswordException) {
                         // Password is too weak
-                        Toast.makeText(activity, "Password is too weak", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, toastWeakPassword, Toast.LENGTH_SHORT).show()
                     } else if (exception is FirebaseAuthInvalidCredentialsException) {
                         // Invalid email format
-                        Toast.makeText(activity, "Invalid email format", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, toastInvalidEmailFormat, Toast.LENGTH_SHORT).show()
                     } else {
                         // Other authentication failures
                         Toast.makeText(activity, "Authentication failed: " + exception?.message, Toast.LENGTH_SHORT).show()
@@ -141,7 +154,7 @@ object DatabaseUtil {
                     else {
                         Toast.makeText(
                             activity,
-                            "Please verify your email.",
+                            toastPleaseVerifyEmail,
                             Toast.LENGTH_SHORT,
                         ).show()
                         callback(false)
@@ -154,7 +167,7 @@ object DatabaseUtil {
 
                     Toast.makeText(
                         activity,
-                        "Authentication failed.",
+                        toastAuthenticationFailed,
                         Toast.LENGTH_SHORT,
                     ).show()
 
@@ -182,7 +195,7 @@ object DatabaseUtil {
                       callback: (Boolean) -> Unit) {
 
         if (currentUser == null){
-            Toast.makeText(activity, "Login required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, toastLoginRequired, Toast.LENGTH_SHORT).show()
             callback(false)
         }
         val sessionDatabase = database.getReference("session")
@@ -203,7 +216,7 @@ object DatabaseUtil {
                 Log.d(TAG, "createSession:success$sessionName")
                 Toast.makeText(
                     activity,
-                    "Create Session Successfully",
+                    toastCreateSessionSuccess,
                     Toast.LENGTH_SHORT,
                 ).show()
                 callback(true)
@@ -211,7 +224,7 @@ object DatabaseUtil {
                 Log.e(TAG, "createSession:failure", task.exception)
                 Toast.makeText(
                     activity,
-                    "Create Session Error: ${task.exception?.message}",
+                    "$toastCreateSessionError ${task.exception?.message}",
                     Toast.LENGTH_SHORT,
                 ).show()
                 callback(false)
