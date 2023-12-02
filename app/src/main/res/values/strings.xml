@@ -28,6 +28,7 @@
     <string name="text_major">Major:</string>
     <string name="major">Your Major</string>
     <string name="select_profile_image">Select profile image</string>
+    <string name="profile">PROFILE</string>
 
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
@@ -71,13 +72,15 @@
     <string name="email_domain_must_be_sfu">Email domain must be SFU</string>
     <string name="not_logged_in">Not logged in</string>
 
+    //preference
     <string name="language_array_title">Language Preference</string>
-    <string name="profile">PROFILE</string>
+    <string name="theme_array_title">Theme Preference</string>
 
     //session list
     <string name="session_list_name">Session Name</string>
     <string name="session_description">Session Description</string>
     <string name="session_list">Session List</string>
+
 
     <string name="start_time">Start Time:</string>
     <string name="choose_time">Choose Time</string>
@@ -92,4 +95,17 @@
     <string name="location_range_in_km">Location Range in KM</string>
     <string name="reset">Reset</string>
     <string name="close">Close</string>
+
+    //toast messages
+    <string name="toast_verification_link_sent">Verification link sent to </string>
+    <string name="toast_failed_verification_email">Failed to send verification email, try again</string>
+    <string name="toast_user_exists">User with this email already exists</string>
+    <string name="toast_weak_password">Password is too weak</string>
+    <string name="toast_invalid_email_format">Invalid email format</string>
+    <string name="toast_please_verify_email">Please verify your email.</string>
+    <string name="toast_authentication_failed">Authentication failed</string>
+    <string name="toast_login_required">Login required</string>
+    <string name="toast_create_session_success">Create Session Successfully</string>
+    <string name="toast_create_session_error">Create Session Error: </string>
+
 </resources>

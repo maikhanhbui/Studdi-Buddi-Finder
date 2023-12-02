@@ -37,12 +37,26 @@
 
     <string-array name="language_list">
         <item>English</item>
+        <item>French</item>
+        <item>Korean</item>
         <item>Vietnamese</item>
     </string-array>
 
     <string-array name="language_list_data">
         <item>en</item>
+        <item>fr</item>
+        <item>ko</item>
         <item>vi</item>
+    </string-array>
+
+    <string-array name="theme_list">
+        <item>Day mode</item>
+        <item>Night mode</item>
+    </string-array>
+
+    <string-array name="theme_list_data">
+        <item>day</item>
+        <item>night</item>
     </string-array>
 
     <string-array name="change_profile_picture">

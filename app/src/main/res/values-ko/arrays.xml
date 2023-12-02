@@ -17,29 +17,11 @@
         <item>ECC</item>
     </string-array>
 
-    <string-array name="filter_location_list">
-        <item>None</item>
-        <item>AQ</item>
-        <item>AAB</item>
-        <item>ASB</item>
-        <item>BEE</item>
-        <item>BFC</item>
-        <item>T3</item>
-        <item>BLU</item>
-        <item>CCC</item>
-        <item>CML</item>
-        <item>CSTN</item>
-        <item>DAC</item>
-        <item>DIS1</item>
-        <item>DIS2</item>
-        <item>ECC</item>
-    </string-array>
-
     <string-array name="language_list">
-        <item>Tiếng Anh</item>
-        <item>Tiếng Pháp</item>
-        <item>Tiếng Hàn</item>
-        <item>Tiếng Việt</item>
+        <item>영어</item>
+        <item>프랑스어</item>
+        <item>한국어</item>
+        <item>베트남어</item>
     </string-array>
 
     <string-array name="language_list_data">
@@ -50,8 +32,8 @@
     </string-array>
 
     <string-array name="theme_list">
-        <item>Giao diện ban ngày</item>
-        <item>Giao diện ban đêm</item>
+        <item>주간 모드</item>
+        <item>야간 모드</item>
     </string-array>
 
     <string-array name="theme_list_data">
@@ -60,8 +42,8 @@
     </string-array>
 
     <string-array name="change_profile_picture">
-        <item>Chụp từ camera</item>
-        <item>Chọn từ thư viện ảnh</item>
+        <item>카메라에서 가져오기</item>
+        <item>갤러리에서 선택하기</item>
     </string-array>
 
 </resources>

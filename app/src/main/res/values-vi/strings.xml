@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">StuddiBuddi</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Mở ngăn trang</string>
+    <string name="navigation_drawer_close">Đóng ngăn trang</string>
     <string name="nav_header_title">StuddiBuddi</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_desc">Tiêu đề ngăn</string>
+    <string name="action_settings">Cài đặt</string>
 
     <string name="menu_home">TRANG CHỦ</string>
     <string name="menu_pref">CÀI ĐẶT</string>
@@ -28,6 +28,7 @@
     <string name="text_major">Chuyên ngành:</string>
     <string name="major">Điền chuyên ngành</string>
     <string name="select_profile_image">Chọn ảnh đại diện</string>
+    <string name="profile">TÀI KHOẢN</string>
 
     <string name="save_button">Lưu</string>
     <string name="cancel_button">Đóng</string>
@@ -71,11 +72,24 @@
     <string name="email_domain_must_be_sfu">Phải là email của SFU</string>
     <string name="not_logged_in">Đang không đăng nhập</string>
 
+    //preference
     <string name="language_array_title">Lựa chọn ngôn ngữ</string>
-    <string name="profile">TÀI KHOẢN</string>
+    <string name="theme_array_title">Lựa chọn giao diện</string>
 
     //session list
     <string name="session_list_name">Tên phiên học</string>
     <string name="session_description">Miêu tả phiên học</string>
     <string name="session_list">Danh sách phiên học</string>
+
+    //toast messages
+    <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
+    <string name="toast_failed_verification_email">Không thể gửi link, hãy thử lại</string>
+    <string name="toast_user_exists">Địa chỉ email này đã được dùng</string>
+    <string name="toast_weak_password">Mật khẩu quá yếu</string>
+    <string name="toast_invalid_email_format">Địa chỉ email sai format</string>
+    <string name="toast_please_verify_email">Hãy xác nhận email</string>
+    <string name="toast_authentication_failed">Mật khẩu hoặc email sai</string>
+    <string name="toast_login_required">Cần đăng nhập</string>
+    <string name="toast_create_session_success">Tạo phiên học thành công</string>
+    <string name="toast_create_session_error">Tạo phiên học không thành công: </string>
 </resources>

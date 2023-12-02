@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StuddiBuddi</string>
+    <string name="navigation_drawer_open">네비게이션 서랍 열기</string>
+    <string name="navigation_drawer_close">네비게이션 서랍 닫기</string>
+    <string name="nav_header_title">StuddiBuddi</string>
+    <string name="nav_header_desc">네비게이션 헤더</string>
+    <string name="action_settings">설정</string>
+
+    <string name="menu_home">홈</string>
+    <string name="menu_pref">설정</string>
+    <string name="menu_t2">T2</string>
+    <string name="menu_t3">T3</string>
+
+
+    //user-profile
+    <string name="your_name">여기에 이름을 입력하세요</string>
+    <string name="text_name">계정 이름:</string>
+    <string name="your_email">여기에 이메일을 입력하세요</string>
+    <string name="text_email">이메일:</string>
+    <string name="your_number">여기에 전화번호를 입력하세요</string>
+    <string name="text_number">전화번호:</string>
+    <string name="profile_photo">프로필 사진:</string>
+    <string name="gender">성별:</string>
+    <string name="female_option">여성</string>
+    <string name="male_option">남성</string>
+    <string name="text_class_year">등록된 과목:</string>
+    <string name="courses">예: CMPT362, CMPT300 등</string>
+    <string name="text_major">전공:</string>
+    <string name="major">당신의 전공</string>
+    <string name="select_profile_image">프로필 이미지 선택</string>
+    <string name="profile">프로필</string>
+
+    <string name="save_button">저장</string>
+    <string name="cancel_button">취소</string>
+    <string name="change_button">변경</string>
+
+    //pin-activity
+    <string name="session_id">세션 ID</string>
+    <string name="session_id_hint">여기에 세션 ID를 입력하세요</string>
+    <string name="session_name">세션 이름</string>
+    <string name="session_name_hint">여기에 세션 이름을 입력하세요</string>
+    <string name="session_location">위치</string>
+    <string name="session_course">과목 ID</string>
+    <string name="session_course_hint">여기에 과목 ID를 입력하세요</string>
+    <string name="title_activity_login">로그인 활동</string>
+    <string name="title_activity_register">등록 활동</string>
+    <string name="give_a_name">세션에 이름을 지정하세요</string>
+    <string name="location_selected">위치 선택됨</string>
+    <string name="delete_button">삭제</string>
+    <string name="delete_successfully">세션 삭제 성공</string>
+    <string name="delete_unsuccessfully">세션 삭제 실패</string>
+    <string name="marker_not_found">마커를 찾을 수 없습니다</string>
+    <string name="pick_location">위치 선택</string>
+    <string name="no_location_selected">선택된 위치 없음</string>
+
+    <string name="google_maps_api_key">AIzaSyDvBFjEZuab7iyeSeb20xSf7iAFI5jkpfQ</string>
+    <string name="map_picker_save">저장</string>
+    <string name="map_picker_cancel">취소</string>
+    <string name="map_picker_button">지도에서 위치 선택</string>
+    <string name="description">설명</string>
+    <string name="session_description_hint">스터디 세션에 대한 설명</string>
+
+    //log in, register, log out
+    <string name="log_in_button">로그인</string>
+    <string name="log_out_button">로그아웃</string>
+    <string name="enter_your_password">비밀번호를 입력하세요</string>
+    <string name="password">비밀번호:</string>
+    <string name="enter_your_email">이메일을 입력하세요</string>
+    <string name="email">이메일:</string>
+    <string name="register">등록</string>
+    <string name="entry_cant_be_empty">항목은 비워둘 수 없습니다</string>
+    <string name="email_domain_must_be_sfu">이메일 도메인은 SFU여야 합니다</string>
+    <string name="not_logged_in">로그인되지 않음</string>
+
+    //preference
+    <string name="language_array_title">언어 설정</string>
+    <string name="theme_array_title">테마 설정</string>
+
+    //session list
+    <string name="session_list_name">세션 이름</string>
+    <string name="session_description">세션 설명</string>
+    <string name="session_list">세션 목록</string>
+
+    //toast messages
+    <string name="toast_verification_link_sent">확인 링크가 전송되었습니다: </string>
+    <string name="toast_failed_verification_email">확인 이메일 전송 실패, 다시 시도하세요</string>
+    <string name="toast_user_exists">이 이메일로 가입된 사용자가 이미 존재합니다</string>
+    <string name="toast_weak_password">비밀번호가 너무 약합니다</string>
+    <string name="toast_invalid_email_format">올바르지 않은 이메일 형식</string>
+    <string name="toast_please_verify_email">이메일을 확인해주세요.</string>
+    <string name="toast_authentication_failed">인증 실패</string>
+    <string name="toast_login_required">로그인이 필요합니다</string>
+    <string name="toast_create_session_success">세션 생성 성공</string>
+    <string name="toast_create_session_error">세션 생성 오류: </string>
+
+</resources>
