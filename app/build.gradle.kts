@@ -110,4 +110,6 @@ dependencies {
     // For for slide window to display session list
     implementation ("com.sothree.slidinguppanel:library:3.4.0")
 
+    // For preference page
+    implementation ("androidx.preference:preference-ktx:1.2.1")
 }

@@ -3,13 +3,10 @@ package com.group7.studdibuddi
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.InputType
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -29,6 +26,10 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
     private var locationPickerCallback: LocationPickerCallback? = null
 
+    private lateinit var LOCATION_SELECTED_TITLE: String
+    private lateinit var CANCEL_BUTTON_TITLE: String
+    private lateinit var PICK_LOCATION_TITLE: String
+    private lateinit var NO_LOCATION_TITLE: String
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bundle = arguments
         val dialogId = bundle!!.getInt(DIALOG_KEY)
@@ -41,8 +42,6 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
 
         val ret = builder.create()
-        // TODO: Add smooth animation to the dialog rise from bottom
-        //  ret.window?.attributes?.windowAnimations = R.style.DialogAnimationFromBottom
 
         return ret
     }
@@ -77,23 +76,27 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
     // Dialogs goes below
     private fun locationPickerDialog(builder: AlertDialog.Builder): AlertDialog.Builder {
+        LOCATION_SELECTED_TITLE = getString(R.string.location_selected)
+        CANCEL_BUTTON_TITLE = getString(R.string.cancel_button)
+        PICK_LOCATION_TITLE = getString(R.string.pick_location)
+        NO_LOCATION_TITLE = getString(R.string.no_location_selected)
         // Title of the dialog
-        builder.setTitle("Pick Location")
+        builder.setTitle(PICK_LOCATION_TITLE)
         val view = requireActivity().layoutInflater.inflate(R.layout.dialog_map_picker, null)
 
         // Set the view first
         builder.setView(view)
         // Button action before the map is ready
-        builder.setNegativeButton("Cancel", this)
+        builder.setNegativeButton(CANCEL_BUTTON_TITLE, this)
 
         builder.setPositiveButton("OK") { dialog, which ->
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 if (selectedLatLng == null) {
-                    Toast.makeText(requireContext(), "No location selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), NO_LOCATION_TITLE, Toast.LENGTH_SHORT)
                         .show()
                 }
                 else{
-                    Toast.makeText(requireContext(), "Location selected", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), LOCATION_SELECTED_TITLE, Toast.LENGTH_SHORT)
                         .show()
                     // Put the location in call back
                     selectedLatLng?.let {

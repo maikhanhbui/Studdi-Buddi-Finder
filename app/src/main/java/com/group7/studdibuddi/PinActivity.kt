@@ -9,10 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.model.LatLng
+import com.group7.studdibuddi.ui.BaseActivity
 
-class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialogs.LocationPickerCallback  {
+class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.LocationPickerCallback  {
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
     private lateinit var locationSpinner: Spinner
@@ -27,6 +27,8 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
     private var mapPickerDialog: Dialogs? = null
 
     private var selectLatLng: LatLng = DatabaseUtil.sfuLocation
+    private lateinit var GIVE_A_NAME_TITLE: String
+    private lateinit var LOCATION_SELECTED_TITLE: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +45,12 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
 
         mapPickerButton.setOnClickListener{ locationPicking() }
 
+        GIVE_A_NAME_TITLE = getString(R.string.give_a_name)
+        LOCATION_SELECTED_TITLE = getString(R.string.location_selected)
+
         saveButton.setOnClickListener {
             if (session_name.text.isEmpty()){
-                Toast.makeText(this, "Give your session a name", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, GIVE_A_NAME_TITLE, Toast.LENGTH_SHORT).show()
             }
             else {
                 DatabaseUtil.createSession(this,
@@ -55,7 +60,6 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
                     session_course.text.toString(),
                     session_description.text.toString()){ success ->
                     if (success) {
-                        // TODO: HANDLE CASE USER CLICK SAVE TOO MANY TIMES MIGHT RESULT IN DUPLICATES
                         finish()
                     } else {
                         //displays error messages
@@ -107,7 +111,7 @@ class PinActivity: AppCompatActivity(), DialogInterface.OnCancelListener, Dialog
 
     override fun onLocationPicked(latLng: LatLng) {
         selectLatLng = latLng
-        Log.d(TAG, "location selected: $selectLatLng")
+        Log.d(TAG, "$LOCATION_SELECTED_TITLE: $selectLatLng")
     }
 
     override fun onPause() {

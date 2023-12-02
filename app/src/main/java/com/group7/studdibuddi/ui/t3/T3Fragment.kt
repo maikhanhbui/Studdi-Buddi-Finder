@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.LoginActivity
 import com.group7.studdibuddi.databinding.FragmentT3Binding
-import com.group7.studdibuddi.ui.t1.T3ViewModel
+import com.group7.studdibuddi.ui.settings.T3ViewModel
 
 class T3Fragment : Fragment() {
 

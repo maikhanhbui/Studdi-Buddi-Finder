@@ -1,4 +1,4 @@
-package com.group7.studdibuddi.ui.t1
+package com.group7.studdibuddi.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

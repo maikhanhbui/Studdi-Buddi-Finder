@@ -18,8 +18,8 @@
     </string-array>
 
     <string-array name="language_list">
-        <item>English</item>
-        <item>Vietnamese</item>
+        <item>Tiếng Anh</item>
+        <item>Tiếng Việt</item>
     </string-array>
 
     <string-array name="language_list_data">
@@ -28,8 +28,8 @@
     </string-array>
 
     <string-array name="change_profile_picture">
-        <item>Take from camera</item>
-        <item>Select from gallery</item>
+        <item>Chụp từ camera</item>
+        <item>Chọn từ thư viện ảnh</item>
     </string-array>
 
 </resources>

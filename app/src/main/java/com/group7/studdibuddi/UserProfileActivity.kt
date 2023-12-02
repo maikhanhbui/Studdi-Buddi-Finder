@@ -17,14 +17,14 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.group7.studdibuddi.ui.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 
-class UserProfileActivity : AppCompatActivity() {
+class UserProfileActivity : BaseActivity() {
     private lateinit var imageView: ImageView
     private lateinit var nameView: TextView
     private lateinit var emailView: TextView
@@ -53,10 +53,18 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var changeButton: Button
     private lateinit var logOutButton: Button
 
+    private lateinit var LOG_OUT_BUTTON_TITLE: String
+    private lateinit var NOT_LOGGED_IN_TITLE: String
+    private lateinit var SELECT_IMAGE_TITLE: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        title = "PROFILE"
+        title = getString(R.string.profile)
+
+        LOG_OUT_BUTTON_TITLE = getString(R.string.log_in_button)
+        NOT_LOGGED_IN_TITLE = getString(R.string.not_logged_in)
+        SELECT_IMAGE_TITLE = getString(R.string.select_profile_image)
 
         //Find views
         imageView = findViewById(R.id.profile_photo)
@@ -155,18 +163,18 @@ class UserProfileActivity : AppCompatActivity() {
             finish()
         }
         changeButton.setOnClickListener {
-            val items = arrayOf("Take from camera", "Select from gallery")
+            val items = resources.getStringArray(R.array.change_profile_picture)
             val alertDialogBuilder = AlertDialog.Builder(this)
             var intent: Intent
-            alertDialogBuilder.setTitle("Select profile image")
-                .setItems(items) { _, index -> when(items[index])
+            alertDialogBuilder.setTitle(SELECT_IMAGE_TITLE)
+                .setItems(items) { _, index -> when(index)
                     {
-                        "Take from camera" -> {
+                        0 -> {
                             intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, tempProfilePictureUri)
                             cameraResult.launch(intent)
                         }
-                        "Select from gallery" -> {
+                        1 -> {
                             intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI)
                             galleryResult.launch(intent)
                         }
@@ -177,12 +185,12 @@ class UserProfileActivity : AppCompatActivity() {
         logOutButton.setOnClickListener{
             if (FirebaseAuth.getInstance().currentUser != null) {
                 FirebaseAuth.getInstance().signOut()
-                Toast.makeText(this,"Logged out", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,LOG_OUT_BUTTON_TITLE, Toast.LENGTH_SHORT).show()
                 val intent: Intent?
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this,"Not logged in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,NOT_LOGGED_IN_TITLE, Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -19,9 +19,7 @@ object DatabaseUtil {
 
     lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-
     var currentUser: FirebaseUser? = null
-
 
     val sfuLocation = LatLng(49.279, -122.918)
 
@@ -182,6 +180,7 @@ object DatabaseUtil {
                       courseId: String,
                       description: String,
                       callback: (Boolean) -> Unit) {
+
         if (currentUser == null){
             Toast.makeText(activity, "Login required", Toast.LENGTH_SHORT).show()
             callback(false)
