@@ -72,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_time"
+                android:padding="10dp"
                 android:textSize="15sp" />
 
             <Button
@@ -79,13 +80,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_time"
-                android:layout_gravity="center"/>
+                android:layout_gravity="left"/>
 
             <TextView
                 android:id="@+id/end_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/end_time"
+                android:padding="10dp"
                 android:textSize="15sp" />
 
             <Button
@@ -93,7 +95,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_time"
-                android:layout_gravity="center"/>
+                android:layout_gravity="left"/>
+
+            <CheckBox
+                android:id="@+id/check_box_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/public_text"
+                android:layout_gravity="left"/>
 
             <Button
                 android:id="@+id/map_picker_button"

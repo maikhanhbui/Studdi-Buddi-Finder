@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextClock
@@ -34,6 +35,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
     private lateinit var mapPickerButton: Button
 
+    private lateinit var publicCheckBox: CheckBox
+
     private var isPickingLocation = false
     private var mapPickerDialog: Dialogs? = null
 
@@ -50,6 +53,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
     private var timePickerShowing = false
     private var isPickingStartTime = true
 
+    private var isPublic = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin_activity)
@@ -69,6 +73,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         endTimeText = findViewById(R.id.end_time_text)
         endTimePickerButton = findViewById(R.id.end_time_picker)
 
+        publicCheckBox = findViewById(R.id.check_box_public)
 
         mapPickerButton.setOnClickListener{ locationPicking() }
 
@@ -85,7 +90,10 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                     locationSpinner.selectedItemPosition,
                     selectLatLng,
                     session_course.text.toString(),
-                    session_description.text.toString()){ success ->
+                    session_description.text.toString(),
+                    isPublic,
+                    selectedStartCalendar.timeInMillis,
+                    selectedEndCalendar.timeInMillis){ success ->
                     if (success) {
                         finish()
                     } else {
@@ -99,8 +107,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
         selectedStartCalendar = Calendar.getInstance()
         selectedEndCalendar = Calendar.getInstance()
-        // Set the end time to 10 min later
-        selectedEndCalendar.timeInMillis = selectedStartCalendar.timeInMillis + 60000
+        // Set the end time to 1 hour later
+        selectedEndCalendar.timeInMillis = selectedStartCalendar.timeInMillis + 3600000
 
         startTimePickerButton.setOnClickListener{
             datePickDialog(true)
@@ -132,6 +140,14 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
             if(savedInstanceState.getBoolean("time_picker_showing", false)){
                 timePickDialog(isPickingStartTime)
             }
+
+            isPublic = savedInstanceState.getBoolean("is_public", true)
+        }
+
+        publicCheckBox.isChecked = isPublic
+
+        publicCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            isPublic = isChecked
         }
 
         this.updateTime()
@@ -195,6 +211,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         // Save the selected time
         outState.putLong("start_time", selectedStartCalendar.timeInMillis)
         outState.putLong("end_time", selectedEndCalendar.timeInMillis)
+
+        outState.putBoolean("is_public", isPublic)
     }
 
     // Code to execute when the dialog is cancelled instead of dismissed

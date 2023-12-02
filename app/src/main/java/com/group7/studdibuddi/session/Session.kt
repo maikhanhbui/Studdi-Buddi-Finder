@@ -26,9 +26,9 @@ data class Session (
 
     var joinedUserIds: String = "",
 
+    var isPublic: Boolean = false,
+
     var startTime: Long = System.currentTimeMillis(),
 
-    var endTime: Long = System.currentTimeMillis()+(1000*600),
-
-    var isPublic: Boolean = false
+    var endTime: Long = System.currentTimeMillis()+(1000*600)
 )
