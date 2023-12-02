@@ -17,6 +17,24 @@
         <item>ECC</item>
     </string-array>
 
+    <string-array name="filter_location_list">
+        <item>None</item>
+        <item>AQ</item>
+        <item>AAB</item>
+        <item>ASB</item>
+        <item>BEE</item>
+        <item>BFC</item>
+        <item>T3</item>
+        <item>BLU</item>
+        <item>CCC</item>
+        <item>CML</item>
+        <item>CSTN</item>
+        <item>DAC</item>
+        <item>DIS1</item>
+        <item>DIS2</item>
+        <item>ECC</item>
+    </string-array>
+
     <string-array name="language_list">
         <item>English</item>
         <item>Vietnamese</item>

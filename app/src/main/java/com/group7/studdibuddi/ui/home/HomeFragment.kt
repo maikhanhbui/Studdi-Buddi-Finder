@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
+import com.group7.studdibuddi.Dialogs
 import com.group7.studdibuddi.R
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
@@ -64,6 +65,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     val markerMap = HashMap<String, Marker>()
 
+    private var isFiltering = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -97,7 +100,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
-        sessionViewModel.allSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+        // Observe the filter sessions
+        sessionViewModel.filteredSessionLiveData.observe(viewLifecycleOwner) { sessions ->
             // Update when observe changes
             sessionListAdapter.replace(sessions)
             sessionListAdapter.notifyDataSetChanged()
@@ -127,7 +131,31 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        // Hide the panel when click outside
+        binding.sessionPullUp.setFadeOnClickListener {
+            if ( binding.sessionPullUp.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                binding.sessionPullUp.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            }
+        }
+
+        binding.filterButton.setOnClickListener{
+            filterDialog()
+        }
+
         return root
+    }
+
+    private fun filterDialog(){
+        val filterDialog = Dialogs()
+        val bundle = Bundle()
+        isFiltering = true
+        bundle.putInt(Dialogs.DIALOG_KEY, Dialogs.FILTER_KEY)
+        filterDialog.arguments = bundle
+
+        filterDialog.setOnDismissListener {
+            sessionViewModel.updateFilterSession()
+        }
+        filterDialog.show(childFragmentManager, "filter_dialog")
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

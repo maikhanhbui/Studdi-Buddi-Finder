@@ -83,4 +83,13 @@
     <string name="choose_time">Choose Time</string>
     <string name="end_time">End Time:</string>
     <string name="public_text">Public</string>
+    <string name="filter">Filter</string>
+    <string name="public_sessions">Public Sessions</string>
+    <string name="select_location">Select Location:</string>
+    <string name="select_time_range">Select Time Range:</string>
+    <string name="location_range">Location Range in KM:</string>
+    <string name="name_contains">Name Contains:</string>
+    <string name="location_range_in_km">Location Range in KM</string>
+    <string name="reset">Reset</string>
+    <string name="close">Close</string>
 </resources>

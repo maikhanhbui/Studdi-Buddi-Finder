@@ -3,6 +3,13 @@ package com.group7.studdibuddi
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.AdapterView
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -19,6 +26,8 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         const val DIALOG_KEY = "KEY"
 
         const val MAP_PICKER_KEY = 0
+
+        const val FILTER_KEY = 1
     }
 
     // Map picker variables:
@@ -28,8 +37,9 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
     private lateinit var LOCATION_SELECTED_TITLE: String
     private lateinit var CANCEL_BUTTON_TITLE: String
-    private lateinit var PICK_LOCATION_TITLE: String
+    private lateinit var DIALOG_TITLE: String
     private lateinit var NO_LOCATION_TITLE: String
+    private lateinit var NEUTURAL_TITLE: String
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bundle = arguments
         val dialogId = bundle!!.getInt(DIALOG_KEY)
@@ -37,6 +47,9 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         if (dialogId == MAP_PICKER_KEY) {
             builder = this.locationPickerDialog(builder)
+        }
+        else if(dialogId == FILTER_KEY) {
+            this.filterDialog(builder)
         }
         // Other Dialog goes here
 
@@ -62,7 +75,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         if (mapFragment != null){
             getFragmentManager()?.beginTransaction()?.remove(mapFragment)?.commit()
         }
-
+        onDismissListener?.invoke()
         super.onDismiss(dialog)
     }
 
@@ -78,10 +91,10 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
     private fun locationPickerDialog(builder: AlertDialog.Builder): AlertDialog.Builder {
         LOCATION_SELECTED_TITLE = getString(R.string.location_selected)
         CANCEL_BUTTON_TITLE = getString(R.string.cancel_button)
-        PICK_LOCATION_TITLE = getString(R.string.pick_location)
+        DIALOG_TITLE = getString(R.string.pick_location)
         NO_LOCATION_TITLE = getString(R.string.no_location_selected)
         // Title of the dialog
-        builder.setTitle(PICK_LOCATION_TITLE)
+        builder.setTitle(DIALOG_TITLE)
         val view = requireActivity().layoutInflater.inflate(R.layout.dialog_map_picker, null)
 
         // Set the view first
@@ -127,8 +140,77 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
                 selectedLatLng = latLng
             }
         }
+        builder.setNegativeButton(CANCEL_BUTTON_TITLE, this)
         return builder
     }
+
+    private fun filterDialog(builder: AlertDialog.Builder): AlertDialog.Builder {
+        CANCEL_BUTTON_TITLE = getString(R.string.close)
+        DIALOG_TITLE = getString(R.string.filter)
+        NO_LOCATION_TITLE = getString(R.string.no_location_selected)
+        // Title of the dialog
+        builder.setTitle(DIALOG_TITLE)
+        val view = requireActivity().layoutInflater.inflate(R.layout.dialog_filter, null)
+
+        val publicCheckBox = view.findViewById<CheckBox>(R.id.checkBoxPublic)
+        publicCheckBox.isChecked = SessionFilter.includePublic
+        publicCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            SessionFilter.includePublic = isChecked
+        }
+
+        val locationSpinner = view.findViewById<Spinner>(R.id.spinnerLocation)
+        locationSpinner.setSelection(SessionFilter.locationFilter)
+        locationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                SessionFilter.locationFilter = position
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        val editLocationRange = view.findViewById<EditText>(R.id.editTextLocationRange)
+        editLocationRange.setText(SessionFilter.distanceFilter.toString())
+        editLocationRange.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (!s.isNullOrEmpty()) {
+                    SessionFilter.distanceFilter = s.toString().toDouble()
+                } else{SessionFilter.distanceFilter = 0.0}
+            }
+        })
+
+        val editTextNameContains = view.findViewById<EditText>(R.id.editTextNameContains)
+        editTextNameContains.setText(SessionFilter.nameContain)
+        editTextNameContains.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (!s.isNullOrEmpty()) {
+                    SessionFilter.nameContain = s.toString()
+                }else{SessionFilter.nameContain = ""}
+            }
+        })
+
+        builder.setView(view)
+
+        builder.setPositiveButton(getString(R.string.reset)) { dialog, which ->
+                SessionFilter.resetFilter()
+        }
+        .setNegativeButton(CANCEL_BUTTON_TITLE){ dialog, which ->
+//                dialog.cancel()
+        }
+
+        return builder
+    }
+
+    private var onDismissListener: (() -> Unit)? = null
+
+    // Setter method to set the onDismissListener
+    fun setOnDismissListener(listener: () -> Unit) {
+        this.onDismissListener = listener
+    }
+
+
 
     // To pass the selected latLng back to the activity
     interface LocationPickerCallback {
