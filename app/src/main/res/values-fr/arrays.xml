@@ -18,10 +18,10 @@
     </string-array>
 
     <string-array name="language_list">
-        <item>Tiếng Anh</item>
-        <item>Tiếng Pháp</item>
-        <item>Tiếng Hàn</item>
-        <item>Tiếng Việt</item>
+        <item>Anglais</item>
+        <item>Français</item>
+        <item>Coréen</item>
+        <item>Vietnamien</item>
     </string-array>
 
     <string-array name="language_list_data">
@@ -32,8 +32,7 @@
     </string-array>
 
     <string-array name="change_profile_picture">
-        <item>Chụp từ camera</item>
-        <item>Chọn từ thư viện ảnh</item>
+        <item>Prendre depuis l\'appareil photo</item>
+        <item>Sélectionner depuis la galerie</item>
     </string-array>
-
 </resources>

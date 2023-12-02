@@ -19,12 +19,14 @@
 
     <string-array name="language_list">
         <item>영어</item>
+        <item>프랑스어</item>
         <item>한국어</item>
         <item>베트남어</item>
     </string-array>
 
     <string-array name="language_list_data">
         <item>en</item>
+        <item>fr</item>
         <item>ko</item>
         <item>vi</item>
     </string-array>
