@@ -1,6 +1,7 @@
 package com.group7.studdibuddi
 
 import android.util.Log
+import com.google.android.gms.maps.model.LatLng
 import com.group7.studdibuddi.session.Session
 
 object SessionFilter {
@@ -11,7 +12,10 @@ object SessionFilter {
     var startTime: Long? = null
     var endTime: Long? = null
     var nameContain: String = ""
-    var distanceFilter: Double = 0.0
+    var distanceRange: Double = 0.0
+
+
+    var currentLatLng: LatLng? = null
 
     fun filterSessions(sessions: List<Session>): List<Session> {
         return sessions.filter { session ->
@@ -37,13 +41,23 @@ object SessionFilter {
                 return@filter false
             }
 
+            if (currentLatLng != null && distanceRange != 0.0){
+                if (!isWithinRange(session.latitude,session.longitude)){
+                    return@filter false
+                }
+            }
+
             // Include the session in the filtered list
             return@filter true
         }
     }
 
-    fun isWithinRange(lat: Double, lon: Double){
-
+    fun isWithinRange(lat: Double, lon: Double): Boolean{
+        val distance = Util.calculateDistance(
+            lat, lon,
+            currentLatLng!!.latitude, currentLatLng!!.longitude
+        )
+        return (distance <= distanceRange)
     }
 
 
@@ -53,7 +67,7 @@ object SessionFilter {
         startTime = null
         endTime = null
         nameContain = ""
-        distanceFilter = 0.0
+        distanceRange = 0.0
         Log.d("filter", "filter resetted")
     }
 }

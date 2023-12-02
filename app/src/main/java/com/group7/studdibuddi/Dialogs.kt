@@ -168,14 +168,14 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         }
 
         val editLocationRange = view.findViewById<EditText>(R.id.editTextLocationRange)
-        editLocationRange.setText(SessionFilter.distanceFilter.toString())
+        editLocationRange.setText(SessionFilter.distanceRange.toString())
         editLocationRange.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrEmpty()) {
-                    SessionFilter.distanceFilter = s.toString().toDouble()
-                } else{SessionFilter.distanceFilter = 0.0}
+                    SessionFilter.distanceRange = s.toString().toDouble()
+                } else{SessionFilter.distanceRange = 0.0}
             }
         })
 

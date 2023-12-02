@@ -43,13 +43,13 @@ class SessionViewModel : ViewModel() {
         })
     }
 
-    fun updateFilterSession(){
-        _filteredSessionLiveData.value = _allSessionLiveData.value?.let {
-            SessionFilter.filterSessions(
-                it
-            )
+
+    fun updateFilter() {
+        _filteredSessionLiveData.value = _allSessionLiveData.value?.let { sessions ->
+            SessionFilter.filterSessions(sessions)
         }
     }
+
 
     // Function to update data in Firebase
     fun updateData(newSessions: List<Session>) {
