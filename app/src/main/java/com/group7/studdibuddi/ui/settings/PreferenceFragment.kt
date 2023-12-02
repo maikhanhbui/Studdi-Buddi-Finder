@@ -35,7 +35,8 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     private fun initLangPreferenceValue(language: String, it: ListPreference) {
         val array = requireContext().resources.getStringArray(R.array.language_list_data)
         val langCode = when (language) {
-            "vi" -> array[1]
+            "ko" -> array[1]
+            "vi" -> array[2]
             else -> array[0]
         }
         it.value = langCode.toString()
@@ -44,7 +45,8 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     private fun handleChangeLanguage(newLanguage: String) {
         val array = requireContext().resources.getStringArray(R.array.language_list_data)
         val langCode = when (newLanguage) {
-            array[1] -> "vi"
+            array[1] -> "ko"
+            array[2] -> "vi"
             else -> "en"
         }
         requireContext()

@@ -18,9 +18,9 @@
     </string-array>
 
     <string-array name="language_list">
-        <item>English</item>
-        <item>Korean</item>
-        <item>Vietnamese</item>
+        <item>영어</item>
+        <item>한국어</item>
+        <item>베트남어</item>
     </string-array>
 
     <string-array name="language_list_data">
@@ -30,8 +30,8 @@
     </string-array>
 
     <string-array name="change_profile_picture">
-        <item>Take from camera</item>
-        <item>Select from gallery</item>
+        <item>카메라에서 가져오기</item>
+        <item>갤러리에서 선택하기</item>
     </string-array>
 
 </resources>
