@@ -1,6 +1,5 @@
 package com.group7.studdibuddi.session
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.group7.studdibuddi.SessionFilter
 
 // View Model where contains livedata pulled from the repository,
 // any database actions can be defined here for easy access and the livedata can update accordingly for observer
@@ -18,9 +18,15 @@ class SessionViewModel : ViewModel() {
     val allSessionLiveData: LiveData<List<Session>>
         get() = _allSessionLiveData
 
+    private val _filteredSessionLiveData = MutableLiveData<List<Session>>()
+    val filteredSessionLiveData: LiveData<List<Session>>
+        get() = _filteredSessionLiveData
+
     // Step 4: Fetch and Update Data
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val sessionDataReference = firebaseDatabase.getReference("session")
+
+
 
     init {
         // Set up a ValueEventListener to listen for changes in Firebase
@@ -28,6 +34,7 @@ class SessionViewModel : ViewModel() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val sessions = snapshot.children.mapNotNull { it.getValue(Session::class.java) }
                 _allSessionLiveData.value = sessions
+                _filteredSessionLiveData.value = SessionFilter.filterSessions(sessions)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -36,11 +43,17 @@ class SessionViewModel : ViewModel() {
         })
     }
 
+
+    fun updateFilter() {
+        _filteredSessionLiveData.value = _allSessionLiveData.value?.let { sessions ->
+            SessionFilter.filterSessions(sessions)
+        }
+    }
+
+
     // Function to update data in Firebase
     fun updateData(newSessions: List<Session>) {
         // Update data in Firebase
-        // Here, you might want to update each session individually or handle the list as per your data structure
-        // For simplicity, this example assumes you're updating the entire list
         sessionDataReference.setValue(newSessions)
     }
 }

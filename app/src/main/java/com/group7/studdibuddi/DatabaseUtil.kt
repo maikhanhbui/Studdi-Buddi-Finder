@@ -191,6 +191,9 @@ object DatabaseUtil {
                       latLng: LatLng,
                       courseId: String,
                       description: String,
+                      isPublic: Boolean,
+                      startTime: Long,
+                      endTime: Long,
                       callback: (Boolean) -> Unit) {
 
         if (currentUser == null){
@@ -210,6 +213,9 @@ object DatabaseUtil {
         newSession.longitude = latLng.longitude
         newSession.description = description
         newSession.ownerId = currentUser!!.uid
+        newSession.isPublic = isPublic
+        newSession.startTime = startTime
+        newSession.endTime = endTime
         newSessionRef.setValue(newSession).addOnCompleteListener(activity) { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "createSession:success$sessionName")

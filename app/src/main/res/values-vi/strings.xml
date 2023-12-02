@@ -81,6 +81,21 @@
     <string name="session_description">Miêu tả phiên học</string>
     <string name="session_list">Danh sách phiên học</string>
 
+    //map filter
+    <string name="start_time">Bắt đầu:</string>
+    <string name="choose_time">Chọn thời gian</string>
+    <string name="end_time">Kết thúc:</string>
+    <string name="public_text">Công khai</string>
+    <string name="filter">Lọc</string>
+    <string name="public_sessions">Phiên học công khai</string>
+    <string name="select_location">Chọn địa điểm:</string>
+    <string name="select_time_range">Chọn thời gian:</string>
+    <string name="location_range">Khoảng cách KM tới địa điểm:</string>
+    <string name="name_contains">Tên bao gồm:</string>
+    <string name="location_range_in_km">Khoảng cách KM tới địa điểm</string>
+    <string name="reset">Đặt lại</string>
+    <string name="close">Đóng</string>
+
     //toast messages
     <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
     <string name="toast_failed_verification_email">Không thể gửi link, hãy thử lại</string>

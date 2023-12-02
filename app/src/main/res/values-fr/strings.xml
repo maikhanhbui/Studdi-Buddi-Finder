@@ -82,6 +82,21 @@
     <string name="session_description">Description de la session</string>
     <string name="session_list">Liste de sessions</string>
 
+    //map filter
+    <string name="start_time">Heure de début :</string>
+    <string name="choose_time">Choisir l\'heure</string>
+    <string name="end_time">Heure de fin :</string>
+    <string name="public_text">Public</string>
+    <string name="filter">Filtre</string>
+    <string name="public_sessions">Sessions publiques</string>
+    <string name="select_location">Sélectionner l\'emplacement :</string>
+    <string name="select_time_range">Sélectionner la plage horaire :</string>
+    <string name="location_range">Plage de localisation en KM :</string>
+    <string name="name_contains">Le nom contient :</string>
+    <string name="location_range_in_km">Plage de localisation en KM</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="close">Fermer</string>
+
     //toast messages
     <string name="toast_verification_link_sent">Lien de vérification envoyé à </string>
     <string name="toast_failed_verification_email">Échec de l\'envoi de l\'e-mail de vérification, réessayez</string>

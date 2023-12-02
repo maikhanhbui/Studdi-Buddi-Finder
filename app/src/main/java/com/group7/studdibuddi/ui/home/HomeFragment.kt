@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,13 +24,16 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
+import com.group7.studdibuddi.Dialogs
 import com.group7.studdibuddi.R
+import com.group7.studdibuddi.SessionFilter
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
 import com.group7.studdibuddi.session.SessionListAdapter
@@ -44,6 +48,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 123
+
+    private lateinit var locationCallback: LocationCallback
 
     private lateinit var gMap: GoogleMap
 
@@ -63,6 +69,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private val binding get() = _binding!!
 
     val markerMap = HashMap<String, Marker>()
+
+    private var isFiltering = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,14 +102,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // Session List:
         viewModelFactory = SessionViewModelFactory()
         sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
+//        sessionViewModel.fetchData()
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
-        sessionViewModel.allSessionLiveData.observe(viewLifecycleOwner) { sessions ->
-            // Update when observe changes
-            sessionListAdapter.replace(sessions)
-            sessionListAdapter.notifyDataSetChanged()
-        }
+
+        // All using session livedata, observing on filtered data
+        // Observe the filter sessions
+
+        // Set the observe to update pin
+
 
         binding.sessionList.adapter = sessionListAdapter
 
@@ -127,11 +137,62 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        // Hide the panel when click outside
+        binding.sessionPullUp.setFadeOnClickListener {
+            if ( binding.sessionPullUp.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                binding.sessionPullUp.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            }
+        }
+
+        binding.filterButton.setOnClickListener{
+            filterDialog()
+        }
+
         return root
+    }
+
+    private fun filterDialog(){
+        val filterDialog = Dialogs()
+        val bundle = Bundle()
+        isFiltering = true
+        bundle.putInt(Dialogs.DIALOG_KEY, Dialogs.FILTER_KEY)
+        filterDialog.arguments = bundle
+
+        filterDialog.setOnDismissListener {
+            sessionViewModel.updateFilter()
+        }
+        filterDialog.show(childFragmentManager, "filter_dialog")
+    }
+
+    private fun pinUpdate(sessions: List<Session>){
+        if (::gMap.isInitialized) {
+            // Clear existing markers
+            gMap.clear()
+            markerMap.clear()
+
+            for (session in sessions) {
+                val sessionKey = session.sessionKey
+                session.let {
+                    val sessionLatLng = LatLng(it.latitude, it.longitude)
+                    // Set pin with title of the session name
+                    // Modified to establish relationship between marker and session
+                    val newMarker =
+                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                    markerMap[sessionKey] = newMarker!!
+                }
+            }
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
+
+        sessionViewModel.filteredSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+            // Update when observe changes
+            this.pinUpdate(sessions)
+            sessionListAdapter.replace(sessions)
+            sessionListAdapter.notifyDataSetChanged()
+        }
 
         // Ensure map is fully loaded before manipulating it
         googleMap.setOnMapLoadedCallback {
@@ -165,7 +226,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
 
         // Start fetching sessions and update the map
-        this.updateSessionData()
+//        this.updateSessionData()
 
         gMap.setOnMarkerClickListener { marker ->
             // Move the camera towards the target marker
@@ -208,10 +269,30 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             // Get the last known location and add a marker
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
-                    val userLatLng = LatLng(it.latitude, it.longitude)
-                    googleMap.addMarker(MarkerOptions().position(userLatLng).title(LOCATION_BUTTON_TITLE))
+//                    val userLatLng = LatLng(it.latitude, it.longitude)
+//                    googleMap.addMarker(MarkerOptions().position(userLatLng).title(LOCATION_BUTTON_TITLE))
                 }
             }
+            // Create a location request to set the priority and interval
+            val locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10000)     // Passive interval: 10sec
+                .setFastestInterval(5000)   // Min interval: 5sec
+
+            // Create a location callback
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    // Get the current LatLng from the location result
+                    val location = locationResult.lastLocation
+                    if (location != null) {
+                        SessionFilter.currentLatLng = LatLng(location.latitude, location.longitude)
+                    }
+                    if (::sessionViewModel.isInitialized) {
+//                        sessionViewModel.updateFilter()
+                    }
+                }
+            }
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         } else {
             // You may want to handle the case where permission is not granted
             // Show a message or request permission again
@@ -220,33 +301,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun updateSessionData() {
-        val sessionsRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("session")
-
-        sessionsRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Clear existing markers
-                gMap.clear()
-                markerMap.clear()
-
-                for (sessionSnapshot in dataSnapshot.children) {
-                    sessionSnapshot.key.toString()
-                    val sessionKey = sessionSnapshot.key.toString()
-                    val session = sessionSnapshot.getValue(Session::class.java)
-                    session?.let {
-                        val sessionLatLng = LatLng(it.latitude, it.longitude)
-                        // Set pin with title of the session name
-                        // Modified to establish relationship between marker and session
-                        val newMarker = gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
-                        markerMap[sessionKey] = newMarker!!
-                    }
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-            }
-        })
-    }
 
 
     override fun onDestroyView() {

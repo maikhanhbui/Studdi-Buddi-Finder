@@ -25,7 +25,6 @@ class SessionListAdapter(private val context: Context, private var sessionList: 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = View.inflate(context, R.layout.session_item,null)
-
         val sessionImage: ImageView = view.findViewById(R.id.session_im_view)
         val sessionName: TextView = view.findViewById(R.id.session_name)
         val sessionDescription: TextView = view.findViewById(R.id.session_description)
