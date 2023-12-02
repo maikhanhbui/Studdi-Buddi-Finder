@@ -82,6 +82,21 @@
     <string name="session_description">세션 설명</string>
     <string name="session_list">세션 목록</string>
 
+    //map filter
+    <string name="start_time">시작 시간:</string>
+    <string name="choose_time">시간 선택</string>
+    <string name="end_time">종료 시간:</string>
+    <string name="public_text">공개</string>
+    <string name="filter">필터</string>
+    <string name="public_sessions">공개 세션</string>
+    <string name="select_location">위치 선택:</string>
+    <string name="select_time_range">시간 범위 선택:</string>
+    <string name="location_range">위치 범위 (KM):</string>
+    <string name="name_contains">이름 포함:</string>
+    <string name="location_range_in_km">위치 범위 (KM)</string>
+    <string name="reset">초기화</string>
+    <string name="close">닫기</string>
+
     //toast messages
     <string name="toast_verification_link_sent">확인 링크가 전송되었습니다: </string>
     <string name="toast_failed_verification_email">확인 이메일 전송 실패, 다시 시도하세요</string>
