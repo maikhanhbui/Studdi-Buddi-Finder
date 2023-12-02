@@ -78,4 +78,8 @@
     <string name="session_list_name">Session Name</string>
     <string name="session_description">Session Description</string>
     <string name="session_list">Session List</string>
+
+    <string name="start_time">Start Time:</string>
+    <string name="choose_time">Choose Time</string>
+    <string name="end_time">End Time:</string>
 </resources>
