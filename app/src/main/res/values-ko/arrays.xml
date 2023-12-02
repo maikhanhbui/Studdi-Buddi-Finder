@@ -18,10 +18,10 @@
     </string-array>
 
     <string-array name="language_list">
-        <item>Tiếng Anh</item>
-        <item>Tiếng Pháp</item>
-        <item>Tiếng Hàn</item>
-        <item>Tiếng Việt</item>
+        <item>영어</item>
+        <item>프랑스어</item>
+        <item>한국어</item>
+        <item>베트남어</item>
     </string-array>
 
     <string-array name="language_list_data">
@@ -32,8 +32,8 @@
     </string-array>
 
     <string-array name="change_profile_picture">
-        <item>Chụp từ camera</item>
-        <item>Chọn từ thư viện ảnh</item>
+        <item>카메라에서 가져오기</item>
+        <item>갤러리에서 선택하기</item>
     </string-array>
 
 </resources>

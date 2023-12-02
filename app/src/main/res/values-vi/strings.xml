@@ -78,4 +78,16 @@
     <string name="session_list_name">Tên phiên học</string>
     <string name="session_description">Miêu tả phiên học</string>
     <string name="session_list">Danh sách phiên học</string>
+
+    //toast messages
+    <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
+    <string name="toast_failed_verification_email">Không thể gửi link, hãy thử lại</string>
+    <string name="toast_user_exists">Địa chỉ email này đã được dùng</string>
+    <string name="toast_weak_password">Mật khẩu quá yếu</string>
+    <string name="toast_invalid_email_format">Địa chỉ email sai format</string>
+    <string name="toast_please_verify_email">Hãy xác nhận email</string>
+    <string name="toast_authentication_failed">Mật khẩu hoặc email sai</string>
+    <string name="toast_login_required">Cần đăng nhập</string>
+    <string name="toast_create_session_success">Tạo phiên học thành công</string>
+    <string name="toast_create_session_error">Tạo phiên học không thành công: </string>
 </resources>
