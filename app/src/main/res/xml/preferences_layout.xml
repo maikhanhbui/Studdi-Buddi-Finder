@@ -9,4 +9,11 @@
         app:title="@string/language_array_title"
         app:useSimpleSummaryProvider="true" />
 
+    <ListPreference
+        app:entries="@array/theme_list"
+        app:entryValues="@array/theme_list_data"
+        app:key="THEME_PREF"
+        app:title="@string/theme_array_title"
+        app:useSimpleSummaryProvider="true" />
+
 </PreferenceScreen>

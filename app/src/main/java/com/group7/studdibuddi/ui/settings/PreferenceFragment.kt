@@ -17,7 +17,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
         val sharedPreferences = requireContext().getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
         val language = sharedPreferences.getString("LANGUAGE_PREF", "en")
-        println("debug: $language")
+        val theme = sharedPreferences.getString("THEME_PREF", "day")
 
         val languagePreferences: ListPreference? = findPreference("LANGUAGE_PREF")
         languagePreferences?.let {
@@ -26,6 +26,17 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             }
             it.setOnPreferenceChangeListener { _, newValue ->
                 handleChangeLanguage(newValue.toString())
+                true
+            }
+        }
+
+        val themePreferences: ListPreference? = findPreference("THEME_PREF")
+        themePreferences?.let {
+            if (theme != null) {
+                initThemePreferenceValue(it, theme)
+            }
+            it.setOnPreferenceChangeListener { _, newValue ->
+                handleThemeSwitch(newValue.toString())
                 true
             }
         }
@@ -40,6 +51,14 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             else -> array[0]
         }
         it.value = langCode.toString()
+    }
+
+    private fun initThemePreferenceValue(it: ListPreference, theme: String) {
+        val array = requireContext().resources.getStringArray(R.array.theme_list_data)
+        it.value = when (theme) {
+            "day" -> array[0]
+            else -> array[1]
+        }
     }
 
     private fun handleChangeLanguage(newLanguage: String) {
@@ -57,4 +76,18 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             }
         requireActivity().recreate()
     }
+
+    private fun handleThemeSwitch(newTheme: String) {
+        val array = requireContext().resources.getStringArray(R.array.theme_list_data)
+        val theme = when (newTheme) {
+            array[0] -> "day"
+            else -> "night"
+        }
+        requireContext().getSharedPreferences("app", Context.MODE_PRIVATE).edit().apply {
+            putString("THEME_PREF", theme)
+            apply()
+        }
+        requireActivity().recreate()
+    }
+    //online resources used
 }

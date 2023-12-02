@@ -31,6 +31,16 @@
         <item>vi</item>
     </string-array>
 
+    <string-array name="theme_list">
+        <item>Giao diện ban ngày</item>
+        <item>Giao diện ban đêm</item>
+    </string-array>
+
+    <string-array name="theme_list_data">
+        <item>day</item>
+        <item>night</item>
+    </string-array>
+
     <string-array name="change_profile_picture">
         <item>Chụp từ camera</item>
         <item>Chọn từ thư viện ảnh</item>
