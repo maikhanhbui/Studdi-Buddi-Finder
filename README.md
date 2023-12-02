@@ -1,5 +1,7 @@
 # Studdi Buddi Finder
 
+## Project Webpage: Check it out at [StuddiBuddi](https://sites.google.com/view/studdibuddi/main-page)
+
 ### The team - Group 7
 - Mai Khanh Bui - 301 424 355
 - Billy Shi - 301 435 867
