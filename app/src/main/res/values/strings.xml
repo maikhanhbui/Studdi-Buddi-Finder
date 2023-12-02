@@ -28,6 +28,7 @@
     <string name="text_major">Major:</string>
     <string name="major">Your Major</string>
     <string name="select_profile_image">Select profile image</string>
+    <string name="profile">PROFILE</string>
 
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
@@ -71,8 +72,9 @@
     <string name="email_domain_must_be_sfu">Email domain must be SFU</string>
     <string name="not_logged_in">Not logged in</string>
 
+    //preference
     <string name="language_array_title">Language Preference</string>
-    <string name="profile">PROFILE</string>
+    <string name="theme_array_title">Theme Preference</string>
 
     //session list
     <string name="session_list_name">Session Name</string>
