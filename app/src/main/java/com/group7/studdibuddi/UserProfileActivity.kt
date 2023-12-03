@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.group7.studdibuddi.ui.BaseActivity
+import com.group7.studdibuddi.session.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -62,7 +63,7 @@ class UserProfileActivity : BaseActivity() {
         setContentView(R.layout.activity_user_profile)
         title = getString(R.string.profile)
 
-        LOG_OUT_BUTTON_TITLE = getString(R.string.log_in_button)
+        LOG_OUT_BUTTON_TITLE = getString(R.string.log_out_button)
         NOT_LOGGED_IN_TITLE = getString(R.string.not_logged_in)
         SELECT_IMAGE_TITLE = getString(R.string.select_profile_image)
 
@@ -152,8 +153,23 @@ class UserProfileActivity : BaseActivity() {
             if (pickedProfilePicture.exists()) {
                 pickedProfilePicture.renameTo(profilePicture)
             }
-            saveProfile()
-            finish()
+
+            DatabaseUtil.userProfileUpdate(
+                this,
+                    nameView.text.toString(),
+                emailView.text.toString(),
+                phoneView.text.toString(),
+                this.getCheckedRadioButtonPosition(genderView),
+                courseView.text.toString(),
+                majorView.text.toString()) { success ->
+                if (success) {
+                    saveProfile()
+                    finish()
+                } else {
+                    //displays error messages
+                }
+            }
+
 //            var intent: Intent? = null
 //            intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
@@ -207,13 +223,28 @@ class UserProfileActivity : BaseActivity() {
     }
 
     private fun loadProfile() {
-        sharedPreference = getSharedPreferences("SAVE_PROFILE", Context.MODE_PRIVATE)
-        nameView.text = sharedPreference.getString("NAMEVIEW_KEY", "")
-        emailView.text = sharedPreference.getString("EMAILVIEW_KEY", "")
-        phoneView.text = sharedPreference.getString("PHONEVIEW_KEY", "")
-        genderView.check(sharedPreference.getInt("GENDERVIEW_KEY", -1))
-        courseView.text = sharedPreference.getString("CLASSVIEW_KEY", "")
-        majorView.text = sharedPreference.getString("MAJORVIEW_KEY", "")
+        // Load the user's profile from database
+        if(DatabaseUtil.currentUserProfile != null){
+            nameView.text = DatabaseUtil.currentUserProfile!!.userName
+            emailView.text = DatabaseUtil.currentUserProfile!!.personalEmail
+            phoneView.text = DatabaseUtil.currentUserProfile!!.phoneNumber
+            genderView.check(DatabaseUtil.currentUserProfile!!.gender)
+            val genderIndex = DatabaseUtil.currentUserProfile!!.gender
+            if (genderIndex >= 0 && genderIndex < genderView.childCount) {
+                val radioButton = genderView.getChildAt(genderIndex) as RadioButton
+                radioButton.isChecked = true
+            }
+            courseView.text = DatabaseUtil.currentUserProfile!!.coursesEnrolled
+            majorView.text = DatabaseUtil.currentUserProfile!!.major
+        }else {
+            sharedPreference = getSharedPreferences("SAVE_PROFILE", Context.MODE_PRIVATE)
+            nameView.text = sharedPreference.getString("NAMEVIEW_KEY", "")
+            emailView.text = sharedPreference.getString("EMAILVIEW_KEY", "")
+            phoneView.text = sharedPreference.getString("PHONEVIEW_KEY", "")
+            genderView.check(sharedPreference.getInt("GENDERVIEW_KEY", -1))
+            courseView.text = sharedPreference.getString("CLASSVIEW_KEY", "")
+            majorView.text = sharedPreference.getString("MAJORVIEW_KEY", "")
+        }
     }
 
     private fun saveProfile() {
@@ -227,5 +258,16 @@ class UserProfileActivity : BaseActivity() {
             .putString("CLASSVIEW_KEY", courseView.text.toString())
             .putString("MAJORVIEW_KEY", majorView.text.toString())
             .apply()
+    }
+
+    private fun getCheckedRadioButtonPosition(radioGroup: RadioGroup): Int {
+        val checkedRadioButtonId = radioGroup.checkedRadioButtonId
+
+        if (checkedRadioButtonId != -1) {
+            val checkedRadioButton = findViewById<RadioButton>(checkedRadioButtonId)
+            return radioGroup.indexOfChild(checkedRadioButton)
+        }
+
+        return -1
     }
 }

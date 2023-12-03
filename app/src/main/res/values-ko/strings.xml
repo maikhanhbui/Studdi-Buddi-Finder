@@ -108,5 +108,10 @@
     <string name="toast_login_required">로그인이 필요합니다</string>
     <string name="toast_create_session_success">세션 생성 성공</string>
     <string name="toast_create_session_error">세션 생성 오류: </string>
+    <string name="toast_update_profile_success">프로필 업데이트 성공</string>
+    <string name="toast_update_profile_error">프로필 업데이트 오류</string>
 
+    //ocr
+    <string name="select_an_image_from_gallery">갤러리에서 이미지 선택</string>
+    <string name="convert_notes_to_text">메모를 텍스트로 변환</string>
 </resources>

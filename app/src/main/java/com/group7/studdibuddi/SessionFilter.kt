@@ -22,6 +22,10 @@ object SessionFilter {
             if (!session.isPublic && !includePublic) {
                 return@filter false
             }
+            // Forbid not logged in user to view public session
+            if (!session.isPublic && DatabaseUtil.currentUser == null) {
+                return@filter false
+            }
             if (locationFilter > 0) {
                 if (session.location != locationFilter - 1) {
                     return@filter false

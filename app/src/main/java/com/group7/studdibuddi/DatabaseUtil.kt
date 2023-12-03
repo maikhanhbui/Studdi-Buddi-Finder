@@ -12,8 +12,12 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.session.Session
+import com.group7.studdibuddi.userProfile.User
 
 object DatabaseUtil {
 
@@ -35,10 +39,17 @@ object DatabaseUtil {
     private val toastCreateSessionSuccess by lazy { R.string.toast_create_session_success }
     private val toastCreateSessionError by lazy { R.string.toast_create_session_error }
 
+    private val toastUpdateProfileSuccess by lazy { R.string.toast_update_profile_success }
+    private val toastUpdateProfileError by lazy { R.string.toast_update_profile_error }
+
     fun initDatabase(){
         database = FirebaseDatabase.getInstance()
         auth = Firebase.auth
         currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser != null) {
+            initUser()
+        }
     }
 
     fun createAccount(
@@ -252,6 +263,78 @@ object DatabaseUtil {
 //        val activeNetworkInfo = connectivityManager.activeNetworkInfo
 //        return activeNetworkInfo != null
         return true
+    }
+
+    var currentUserProfile: User? = null
+
+    private fun initUser(){
+        val userId = currentUser!!.uid
+        val currentUserRef = database.getReference("/users/$userId")
+
+        val userListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Check if the dataSnapshot exists and has children
+                if (dataSnapshot.exists() && dataSnapshot.childrenCount > 0) {
+                    // Retrieve the user data
+                    val user = dataSnapshot.getValue(User::class.java)
+                    // Use the user object as needed
+                    if (user != null) {
+                        currentUserProfile = user
+                    }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle errors
+            }
+        }
+        currentUserRef.addListenerForSingleValueEvent(userListener)
+    }
+
+    fun userProfileUpdate(activity: Activity,
+                          name: String,
+                          email: String,
+                          number: String,
+                          gender: Int,
+                          coursesEnrolled: String,
+                          major: String,
+                          callback: (Boolean) -> Unit) {
+
+        if (currentUser == null){
+            Toast.makeText(activity, toastLoginRequired, Toast.LENGTH_SHORT).show()
+            callback(false)
+        }
+        val userId = currentUser!!.uid
+        val currentUserRef = database.getReference("/users/$userId")
+
+        val updatedUserData = User()
+        updatedUserData.userId = userId
+        updatedUserData.userName = name
+        updatedUserData.personalEmail = email
+        updatedUserData.phoneNumber = number
+        updatedUserData.gender = gender
+        updatedUserData.coursesEnrolled = coursesEnrolled
+        updatedUserData.major = major
+
+        currentUserRef.setValue(updatedUserData).addOnCompleteListener(activity) { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "Update user profile successfully")
+                Toast.makeText(
+                    activity,
+                    toastUpdateProfileSuccess,
+                    Toast.LENGTH_SHORT,
+                ).show()
+                currentUserProfile = updatedUserData
+                callback(true)
+            } else {
+                Log.e(TAG, "createSession:failure", task.exception)
+                Toast.makeText(
+                    activity,
+                    "$toastUpdateProfileError ${task.exception?.message}",
+                    Toast.LENGTH_SHORT,
+                ).show()
+                callback(false)
+            }
+        }
     }
 
 
