@@ -9,8 +9,8 @@
 
     <string name="menu_home">홈</string>
     <string name="menu_pref">설정</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">노트 추출</string>
+    <string name="menu_manage">내 세션</string>
 
 
     //user-profile
@@ -98,6 +98,8 @@
     <string name="location_range_in_km">위치 범위 (KM)</string>
     <string name="reset">초기화</string>
     <string name="close">닫기</string>
+    <string name="start_time_filter">시작 시간</string>
+    <string name="end_time_filter">종료 시간</string>
 
     //toast messages
     <string name="toast_verification_link_sent">확인 링크가 전송되었습니다: </string>
@@ -116,4 +118,17 @@
     //ocr
     <string name="select_an_image_from_gallery">갤러리에서 이미지 선택</string>
     <string name="convert_notes_to_text">메모를 텍스트로 변환</string>
+
+    //session list
+    <string name="show_only_owned">소유자만 표시</string>
+
+    //join
+    <string name="show_group">그룹 보기</string>
+    <string name="users_in_group">그룹의 사용자</string>
+    <string name="no_users_in_the_group">그룹에 사용자가 없습니다</string>
+    <string name="leave">나가기</string>
+    <string name="successfully_left_group">그룹에서 성공적으로 나왔습니다</string>
+    <string name="join">참가</string>
+    <string name="successfully_joined_group">그룹에 성공적으로 참가했습니다</string>
+    <string name="ok">확인</string>
 </resources>
