@@ -1,9 +1,7 @@
 package com.group7.studdibuddi
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -33,7 +31,6 @@ class UserProfileActivity : BaseActivity() {
     private lateinit var genderView: RadioGroup
     private lateinit var courseView: TextView
     private lateinit var majorView: TextView
-    private lateinit var sharedPreference: SharedPreferences
 
     private lateinit var profilePictureUri: Uri
     private lateinit var tempProfilePictureUri: Uri
@@ -137,15 +134,6 @@ class UserProfileActivity : BaseActivity() {
         //loads saved data
         loadProfile()
 
-        if (savedInstanceState != null) {
-            nameView.text = savedInstanceState.getString("NAMEVIEW_KEY")
-            emailView.text = savedInstanceState.getString("EMAILVIEW_KEY")
-            phoneView.text = savedInstanceState.getString("PHONEVIEW_KEY")
-            genderView.check(savedInstanceState.getInt("GENDERVIEW_KEY"))
-            courseView.text = savedInstanceState.getString("COURSEVIEW_KEY")
-            majorView.text = savedInstanceState.getString("MAJORVIEW_KEY")
-        }
-
         saveButton.setOnClickListener {
             if (tempProfilePicture.exists()) {
                 tempProfilePicture.renameTo(profilePicture)
@@ -163,17 +151,11 @@ class UserProfileActivity : BaseActivity() {
                 courseView.text.toString(),
                 majorView.text.toString()) { success ->
                 if (success) {
-                    saveProfile()
                     finish()
                 } else {
                     //displays error messages
                 }
             }
-
-//            var intent: Intent? = null
-//            intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         cancelButton.setOnClickListener {
             finish()
@@ -211,17 +193,6 @@ class UserProfileActivity : BaseActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val checkedGender = genderView.checkedRadioButtonId
-        outState.putInt("GENDERVIEW_KEY", checkedGender)
-        outState.putString("NAMEVIEW_KEY", nameView.text.toString())
-        outState.putString("EMAILVIEW_KEY", emailView.text.toString())
-        outState.putString("PHONEVIEW_KEY", phoneView.text.toString())
-        outState.putString("COURSEVIEW_KEY", courseView.text.toString())
-        outState.putString("MAJORVIEW_KEY", majorView.text.toString())
-    }
-
     private fun loadProfile() {
         // Load the user's profile from database
         if(DatabaseUtil.currentUserProfile != null){
@@ -236,28 +207,7 @@ class UserProfileActivity : BaseActivity() {
             }
             courseView.text = DatabaseUtil.currentUserProfile!!.coursesEnrolled
             majorView.text = DatabaseUtil.currentUserProfile!!.major
-        }else {
-            sharedPreference = getSharedPreferences("SAVE_PROFILE", Context.MODE_PRIVATE)
-            nameView.text = sharedPreference.getString("NAMEVIEW_KEY", "")
-            emailView.text = sharedPreference.getString("EMAILVIEW_KEY", "")
-            phoneView.text = sharedPreference.getString("PHONEVIEW_KEY", "")
-            genderView.check(sharedPreference.getInt("GENDERVIEW_KEY", -1))
-            courseView.text = sharedPreference.getString("CLASSVIEW_KEY", "")
-            majorView.text = sharedPreference.getString("MAJORVIEW_KEY", "")
         }
-    }
-
-    private fun saveProfile() {
-        sharedPreference = getSharedPreferences("SAVE_PROFILE", Context.MODE_PRIVATE)
-        val checkedGender: Int = genderView.checkedRadioButtonId
-        sharedPreference.edit()
-            .putString("NAMEVIEW_KEY", nameView.text.toString())
-            .putString("EMAILVIEW_KEY", emailView.text.toString())
-            .putString("PHONEVIEW_KEY", phoneView.text.toString())
-            .putInt("GENDERVIEW_KEY", checkedGender)
-            .putString("CLASSVIEW_KEY", courseView.text.toString())
-            .putString("MAJORVIEW_KEY", majorView.text.toString())
-            .apply()
     }
 
     private fun getCheckedRadioButtonPosition(radioGroup: RadioGroup): Int {
