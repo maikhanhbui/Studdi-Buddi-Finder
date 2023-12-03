@@ -267,7 +267,7 @@ object DatabaseUtil {
 
     var currentUserProfile: User? = null
 
-    fun initUser(){
+    private fun initUser(){
         val userId = currentUser!!.uid
         val currentUserRef = database.getReference("/users/$userId")
 
