@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -317,12 +318,71 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 val session = snapshot.getValue(Session::class.java)
                 session?.let {
                     if (DatabaseUtil.currentUser?.uid == it.ownerId) {
+
                         // Current user is the owner, show delete option
                         val dialogBuilder = AlertDialog.Builder(context)
                         val locationId = it.location
                         val locationString = getLocationStringFromInt(locationId)
+
                         dialogBuilder.setTitle(it.sessionName)
                         dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString ?: "Unknown Location"}\n$DESCRIPTION_BUTTON_TITLE: ${it.description ?: "No description available"}\n$COURSE_BUTTON_TITLE: ${it.courseId ?: "No course ID available"}")
+
+                        dialogBuilder.setNeutralButton("Show Group") { dialog, _ ->
+                            // Fetch user details based on the user IDs in usersJoined list
+                            val usersJoined = it.usersJoined
+
+                            if (usersJoined.isNotEmpty()) {
+                                // Fetch user details for each user ID
+                                val userDetailsList = ArrayList<String>()
+
+                                val remainingUserDetails = usersJoined.size
+
+                                for (userId in usersJoined) {
+                                    val userRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
+                                    userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(userSnapshot: DataSnapshot) {
+                                            val userName = userSnapshot.child("userName").getValue(String::class.java)
+                                            val userEmail = userSnapshot.child("personalEmail").getValue(String::class.java)
+
+                                            if (userName != null && userEmail != null) {
+                                                val userDetails = "$userName - $userEmail"
+                                                userDetailsList.add(userDetails)
+                                            }
+
+                                            // Display the user details once all data is fetched
+                                            if (userDetailsList.size == remainingUserDetails) {
+                                                val userGroupString = userDetailsList.joinToString("\n")
+
+                                                // Create a custom dialog to display user details
+                                                val dialogView = layoutInflater.inflate(R.layout.layout_custom_user_details, null)
+                                                val textUserDetails = dialogView.findViewById<TextView>(R.id.textUserDetails)
+
+                                                // Set the user details in the TextView
+                                                textUserDetails.text = "Users in Group:\n$userGroupString"
+
+                                                // Create and show the custom dialog
+                                                val customDialog = AlertDialog.Builder(context)
+                                                    .setView(dialogView)
+                                                    .setPositiveButton("OK") { _, _ ->
+                                                        // Handle the OK button click if needed
+                                                    }
+                                                    .create()
+
+                                                customDialog.show()
+                                            }
+                                        }
+
+                                        override fun onCancelled(databaseError: DatabaseError) {
+                                            // Handle error if needed
+                                        }
+                                    })
+                                }
+                            } else {
+                                // Handle case when the usersJoined list is empty
+                                Toast.makeText(context, "No users in the group", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
                         dialogBuilder.setPositiveButton(DELETE_BUTTON_TITLE) { dialog, _ ->
                             deleteSessionFromDatabase(sessionId, marker)
                             dialog.dismiss()
@@ -333,11 +393,41 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     } else {
                         // Current user is not the owner, show message
                         //Toast.makeText(context, "You are not the owner of this session", Toast.LENGTH_SHORT).show()
+                        val isUserJoined = it.usersJoined.contains(DatabaseUtil.currentUser?.uid!!)
+
                         val dialogBuilder = AlertDialog.Builder(context)
                         val locationId = it.location
                         val locationString = getLocationStringFromInt(locationId)
                         dialogBuilder.setTitle(it.sessionName)
                         dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString ?: "Unknown Location"}\n$DESCRIPTION_BUTTON_TITLE: ${it.description ?: "No description available"}\n$COURSE_BUTTON_TITLE: ${it.courseId ?: "No course ID available"}")
+
+                        if (isUserJoined) {
+                            // Current user is already joined, show "Leave" button
+                            dialogBuilder.setNeutralButton("Leave") { dialog, _ ->
+                                // Remove the current user from joinedUserIds list
+                                it.usersJoined.remove(DatabaseUtil.currentUser?.uid)
+                                // Save the updated session to Firebase
+                                sessionsRef.child(sessionId).setValue(it)
+
+                                Toast.makeText(context, "Successfully left group!", Toast.LENGTH_SHORT).show()
+
+                                // Add your logic for "Leave group" action here
+                                dialog.dismiss()
+                            }
+                        } else {
+                            // Current user is not joined, show "Join" button
+                            dialogBuilder.setNeutralButton("Join") { dialog, _ ->
+                                // Add the current user to joinedUserIds list
+                                it.usersJoined.add(DatabaseUtil.currentUser?.uid ?: "")
+                                // Save the updated session to Firebase
+                                sessionsRef.child(sessionId).setValue(it)
+
+                                Toast.makeText(context, "Successfully joined group!", Toast.LENGTH_SHORT).show()
+
+                                // Add your logic for "Join group" action here
+                                dialog.dismiss()
+                            }
+                        }
 
                         dialogBuilder.setPositiveButton("OK") { dialog, _ ->
                             dialog.dismiss()
@@ -352,6 +442,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         })
     }
+
 
     fun getLocationStringFromInt(locationId: Int): String {
         return when (locationId) {

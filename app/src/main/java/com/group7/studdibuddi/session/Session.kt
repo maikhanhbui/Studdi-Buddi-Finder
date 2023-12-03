@@ -26,9 +26,12 @@ data class Session (
 
     var joinedUserIds: String = "",
 
+    var usersJoined: MutableList<String> = mutableListOf(),
+
     var isPublic: Boolean = false,
 
     var startTime: Long = System.currentTimeMillis(),
 
-    var endTime: Long = System.currentTimeMillis()+(1000*600)
+    var endTime: Long = System.currentTimeMillis()+(1000*600),
+
 )
