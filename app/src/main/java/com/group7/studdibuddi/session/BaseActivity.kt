@@ -1,4 +1,4 @@
-package com.group7.studdibuddi.ui
+package com.group7.studdibuddi.session
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

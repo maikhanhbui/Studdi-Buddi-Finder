@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.group7.studdibuddi.databinding.ActivityMainBinding
-import com.group7.studdibuddi.ui.BaseActivity
+import com.group7.studdibuddi.session.BaseActivity
 
 class MainActivity : BaseActivity() {
 

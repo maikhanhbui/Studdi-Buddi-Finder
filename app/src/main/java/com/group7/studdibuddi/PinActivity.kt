@@ -11,11 +11,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
-import com.group7.studdibuddi.ui.BaseActivity
+import com.group7.studdibuddi.session.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
