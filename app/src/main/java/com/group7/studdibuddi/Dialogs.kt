@@ -102,7 +102,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         // Button action before the map is ready
         builder.setNegativeButton(CANCEL_BUTTON_TITLE, this)
 
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton(getString(R.string.ok)) { dialog, which ->
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 if (selectedLatLng == null) {
                     Toast.makeText(requireContext(), NO_LOCATION_TITLE, Toast.LENGTH_SHORT)
@@ -193,10 +193,10 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         builder.setView(view)
 
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
 
         }
-        .setNegativeButton(getString(R.string.reset)){ dialog, which ->
+        .setNegativeButton(getString(R.string.reset)){ _, _ ->
                 SessionFilter.resetFilter()
         }
 

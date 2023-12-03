@@ -118,6 +118,16 @@
     <string name="select_an_image_from_gallery">Chọn ảnh từ thư viên</string>
     <string name="convert_notes_to_text">Chuyển đổi thành văn bản</string>
 
-    //session list
+    //my session list
     <string name="show_only_owned">Chỉ hiện phiên học tôi sở hữu</string>
+
+    //join
+    <string name="show_group">Hiện người tham gia</string>
+    <string name="users_in_group">Người tham gia</string>
+    <string name="no_users_in_the_group">Không có người tham gia</string>
+    <string name="leave">Rời khỏi nhóm</string>
+    <string name="successfully_left_group">Rời khỏi nhóm thành công</string>
+    <string name="join">Tham gia nhóm</string>
+    <string name="successfully_joined_group">Tham gia nhóm thành công</string>
+    <string name="ok">OK</string>
 </resources>

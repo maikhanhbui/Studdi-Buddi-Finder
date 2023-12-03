@@ -121,4 +121,14 @@
 
     //session list
     <string name="show_only_owned">Afficher uniquement les propriétaires</string>
+
+    //join
+    <string name="show_group">Afficher le groupe</string>
+    <string name="users_in_group">Utilisateurs dans le groupe</string>
+    <string name="no_users_in_the_group">Aucun utilisateur dans le groupe</string>
+    <string name="leave">Quitter</string>
+    <string name="successfully_left_group">Groupe quitté avec succès</string>
+    <string name="join">Rejoindre</string>
+    <string name="successfully_joined_group">Groupe rejoint avec succès</string>
+    <string name="ok">OK</string>
 </resources>

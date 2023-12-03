@@ -121,4 +121,14 @@
 
     //session list
     <string name="show_only_owned">소유자만 표시</string>
+
+    //join
+    <string name="show_group">그룹 보기</string>
+    <string name="users_in_group">그룹의 사용자</string>
+    <string name="no_users_in_the_group">그룹에 사용자가 없습니다</string>
+    <string name="leave">나가기</string>
+    <string name="successfully_left_group">그룹에서 성공적으로 나왔습니다</string>
+    <string name="join">참가</string>
+    <string name="successfully_joined_group">그룹에 성공적으로 참가했습니다</string>
+    <string name="ok">확인</string>
 </resources>
