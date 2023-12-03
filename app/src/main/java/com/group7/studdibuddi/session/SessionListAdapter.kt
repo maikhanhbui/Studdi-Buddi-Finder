@@ -7,6 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.group7.studdibuddi.R
+import com.group7.studdibuddi.Util
 import java.text.DecimalFormat
 
 class SessionListAdapter(private val context: Context, private var sessionList: List<Session>) : BaseAdapter(){
@@ -28,10 +29,12 @@ class SessionListAdapter(private val context: Context, private var sessionList: 
         val sessionImage: ImageView = view.findViewById(R.id.session_im_view)
         val sessionName: TextView = view.findViewById(R.id.session_name)
         val sessionDescription: TextView = view.findViewById(R.id.session_description)
+        val sessionLocation: TextView = view.findViewById(R.id.session_location)
 
         //TODO: Set image of the session here
         sessionName.text = sessionList[position].sessionName
         sessionDescription.text = sessionList[position].description
+        sessionLocation.text = context.getString(R.string.location_)+Util.getLocationStringFromInt(sessionList[position].location)
 
         return view
     }

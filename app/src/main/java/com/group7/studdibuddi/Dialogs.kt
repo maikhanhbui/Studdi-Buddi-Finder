@@ -39,7 +39,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
     private lateinit var CANCEL_BUTTON_TITLE: String
     private lateinit var DIALOG_TITLE: String
     private lateinit var NO_LOCATION_TITLE: String
-    private lateinit var NEUTURAL_TITLE: String
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bundle = arguments
         val dialogId = bundle!!.getInt(DIALOG_KEY)
@@ -193,11 +193,11 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         builder.setView(view)
 
-        builder.setPositiveButton(getString(R.string.reset)) { dialog, which ->
-                SessionFilter.resetFilter()
+        builder.setPositiveButton("OK") { dialog, which ->
+
         }
-        .setNegativeButton(CANCEL_BUTTON_TITLE){ dialog, which ->
-//                dialog.cancel()
+        .setNegativeButton(getString(R.string.reset)){ dialog, which ->
+                SessionFilter.resetFilter()
         }
 
         return builder

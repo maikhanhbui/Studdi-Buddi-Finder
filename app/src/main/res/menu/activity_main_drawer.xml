@@ -10,6 +10,11 @@
             android:title="@string/menu_home" />
 
         <item
+            android:id="@+id/nav_t3"
+            android:icon="@drawable/car_ui_icon_edit"
+            android:title="@string/menu_t3" />
+
+        <item
             android:id="@+id/nav_t2"
             android:icon="@drawable/ic_menu_notes"
             android:title="@string/menu_t2" />
@@ -18,9 +23,5 @@
             android:id="@+id/nav_t1"
             android:icon="@drawable/ic_menu_settings"
             android:title="@string/menu_pref" />
-
-        <item
-            android:id="@+id/nav_t3"
-            android:title="@string/menu_t3" />
     </group>
 </menu>

@@ -60,6 +60,8 @@
     <string name="map_picker_button">지도에서 위치 선택</string>
     <string name="description">설명</string>
     <string name="session_description_hint">스터디 세션에 대한 설명</string>
+    <string name="location_">위치: </string>
+    <string name="pick_a_location">위치를 선택하세요</string>
 
     //log in, register, log out
     <string name="log_in_button">로그인</string>

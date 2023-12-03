@@ -44,6 +44,22 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/session_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end|top"
+                android:text="session_location"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <!-- Third row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/session_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,8 +68,6 @@
                 android:textSize="16sp" />
 
         </RelativeLayout>
-
-        <!-- Third row -->
         <!-- Add more rows as needed -->
 
     </LinearLayout>

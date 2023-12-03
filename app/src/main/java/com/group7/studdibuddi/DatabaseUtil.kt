@@ -70,7 +70,8 @@ object DatabaseUtil {
                         .addOnCompleteListener { task2 ->
                             if (task2.isSuccessful) {
                                 // Email sent, inform the user to check their email
-                                Toast.makeText(activity, "$toastVerificationLinkSent ${user.email}", Toast.LENGTH_SHORT).show()
+                                val message = activity.getString(toastVerificationLinkSent)
+                                Toast.makeText(activity, "$message ${user.email}", Toast.LENGTH_SHORT).show()
                                 callback(true)
                             } else {
                                 // Failed to send verification email, show error message
@@ -96,7 +97,8 @@ object DatabaseUtil {
                         Toast.makeText(activity, toastInvalidEmailFormat, Toast.LENGTH_SHORT).show()
                     } else {
                         // Other authentication failures
-                        Toast.makeText(activity, "$toastAuthenticationFailed: " + exception?.message, Toast.LENGTH_SHORT).show()
+                        val message = activity.getString(toastAuthenticationFailed)
+                        Toast.makeText(activity, "$message: " + exception?.message, Toast.LENGTH_SHORT).show()
                     }
 
                     callback(false)
@@ -238,9 +240,10 @@ object DatabaseUtil {
                 callback(true)
             } else {
                 Log.e(TAG, "createSession:failure", task.exception)
+                val message = activity.getString(toastCreateSessionError)
                 Toast.makeText(
                     activity,
-                    "$toastCreateSessionError ${task.exception?.message}",
+                    "$message ${task.exception?.message}",
                     Toast.LENGTH_SHORT,
                 ).show()
                 callback(false)

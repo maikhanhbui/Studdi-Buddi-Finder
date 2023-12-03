@@ -59,6 +59,8 @@
     <string name="map_picker_button">Chọn địa điểm trên bản đồ</string>
     <string name="description">Miêu tả</string>
     <string name="session_description_hint">Điền miêu tả phiên học</string>
+    <string name="location_">Địa điểm: </string>
+    <string name="pick_a_location">Hãy chọn địa điểm</string>
 
     //log in, register, log out
     <string name="log_in_button">Đăng nhập</string>
