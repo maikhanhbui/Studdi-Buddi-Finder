@@ -108,4 +108,10 @@
     <string name="toast_login_required">Connexion requise</string>
     <string name="toast_create_session_success">Créer une session avec succès</string>
     <string name="toast_create_session_error">Erreur lors de la création de la session : </string>
+    <string name="toast_update_profile_success">Profil mis à jour avec succès</string>
+    <string name="toast_update_profile_error">Erreur de mise à jour du profil</string>
+
+    //ocr
+    <string name="select_an_image_from_gallery">Sélectionner une image depuis la galerie</string>
+    <string name="convert_notes_to_text">Convertir des notes en texte</string>
 </resources>

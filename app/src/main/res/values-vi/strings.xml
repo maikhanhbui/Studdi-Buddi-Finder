@@ -107,4 +107,10 @@
     <string name="toast_login_required">Cần đăng nhập</string>
     <string name="toast_create_session_success">Tạo phiên học thành công</string>
     <string name="toast_create_session_error">Tạo phiên học không thành công: </string>
+    <string name="toast_update_profile_success">Cập nhật thông tin tài khoản thành công</string>
+    <string name="toast_update_profile_error">Cập nhật thông tin tài khoản không thành công</string>
+
+    //ocr
+    <string name="select_an_image_from_gallery">Chọn ảnh từ thư viên</string>
+    <string name="convert_notes_to_text">Chuyển đổi thành văn bản</string>
 </resources>
