@@ -152,8 +152,23 @@ class UserProfileActivity : BaseActivity() {
             if (pickedProfilePicture.exists()) {
                 pickedProfilePicture.renameTo(profilePicture)
             }
-            saveProfile()
-            finish()
+
+            DatabaseUtil.userProfileUpdate(
+                this,
+                    nameView.text.toString(),
+                emailView.text.toString(),
+                phoneView.text.toString(),
+                genderView.checkedRadioButtonId,
+                courseView.text.toString(),
+                majorView.text.toString()) { success ->
+                if (success) {
+                    saveProfile()
+                    finish()
+                } else {
+                    //displays error messages
+                }
+            }
+
 //            var intent: Intent? = null
 //            intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
@@ -214,6 +229,15 @@ class UserProfileActivity : BaseActivity() {
         genderView.check(sharedPreference.getInt("GENDERVIEW_KEY", -1))
         courseView.text = sharedPreference.getString("CLASSVIEW_KEY", "")
         majorView.text = sharedPreference.getString("MAJORVIEW_KEY", "")
+
+        if(DatabaseUtil.currentUserProfile != null){
+            nameView.text = DatabaseUtil.currentUserProfile!!.userName
+            emailView.text = DatabaseUtil.currentUserProfile!!.personalEmail
+            phoneView.text = DatabaseUtil.currentUserProfile!!.phoneNumber
+            genderView.check(DatabaseUtil.currentUserProfile!!.gender)
+            courseView.text = DatabaseUtil.currentUserProfile!!.coursesEnrolled
+            majorView.text = DatabaseUtil.currentUserProfile!!.major
+        }
     }
 
     private fun saveProfile() {
