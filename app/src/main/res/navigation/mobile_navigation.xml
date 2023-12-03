@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_t2"
-        android:name="com.group7.studdibuddi.ui.t2.T2Fragment"
+        android:name="com.group7.studdibuddi.ui.notes.NotesFragment"
         android:label="@string/menu_t2"
         tools:layout="@layout/fragment_t2" />
 
