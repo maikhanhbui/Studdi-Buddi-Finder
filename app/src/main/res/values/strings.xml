@@ -108,4 +108,7 @@
     <string name="toast_create_session_success">Create Session Successfully</string>
     <string name="toast_create_session_error">Create Session Error: </string>
 
+    <string name="toast_update_profile_success">Update Profile Successfully: </string>
+    <string name="toast_update_profile_error">Update Profile Error: </string>
+
 </resources>
