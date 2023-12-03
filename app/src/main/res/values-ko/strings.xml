@@ -98,6 +98,8 @@
     <string name="location_range_in_km">위치 범위 (KM)</string>
     <string name="reset">초기화</string>
     <string name="close">닫기</string>
+    <string name="start_time_filter">시작 시간</string>
+    <string name="end_time_filter">종료 시간</string>
 
     //toast messages
     <string name="toast_verification_link_sent">확인 링크가 전송되었습니다: </string>
@@ -116,4 +118,7 @@
     //ocr
     <string name="select_an_image_from_gallery">갤러리에서 이미지 선택</string>
     <string name="convert_notes_to_text">메모를 텍스트로 변환</string>
+
+    //session list
+    <string name="show_only_owned">소유자만 표시</string>
 </resources>

@@ -124,8 +124,8 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         val mapFragment = requireFragmentManager().findFragmentById(R.id.picker_map) as SupportMapFragment?
         mapFragment?.getMapAsync { googleMap ->
             // Placeholder coordinates for SFU Burnaby
-            val southwest = LatLng(49.270316, -122.931407) // Replace with actual southwest coordinates
-            val northeast = LatLng(49.281851, -122.901690) // Replace with actual northeast coordinates
+            val southwest = LatLng(49.270316, -122.931407)
+            val northeast = LatLng(49.281851, -122.901690)
             val sfuBurnabyBounds = LatLngBounds(southwest, northeast)
             // Set padding if needed
             val padding = 100 // You can adjust this value based on your preference

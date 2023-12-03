@@ -97,6 +97,8 @@
     <string name="location_range_in_km">Khoảng cách KM tới địa điểm</string>
     <string name="reset">Đặt lại</string>
     <string name="close">Đóng</string>
+    <string name="start_time_filter">Bắt đầu</string>
+    <string name="end_time_filter">Kết thúc</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
@@ -115,4 +117,7 @@
     //ocr
     <string name="select_an_image_from_gallery">Chọn ảnh từ thư viên</string>
     <string name="convert_notes_to_text">Chuyển đổi thành văn bản</string>
+
+    //session list
+    <string name="show_only_owned">Chỉ hiện phiên học tôi sở hữu</string>
 </resources>

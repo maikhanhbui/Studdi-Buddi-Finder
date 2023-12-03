@@ -42,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Start Time"
+            android:hint="@string/start_time_filter"
             android:inputType="none"
             android:focusable="false"
             android:clickable="true" />
@@ -53,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="End Time"
+            android:hint="@string/end_time_filter"
             android:inputType="none"
             android:focusable="false"
             android:clickable="true" />
@@ -81,6 +81,7 @@
     <EditText
         android:id="@+id/editTextNameContains"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
 
 </LinearLayout>

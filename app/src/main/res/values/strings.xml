@@ -97,6 +97,8 @@
     <string name="location_range_in_km">Location Range in KM</string>
     <string name="reset">Reset</string>
     <string name="close">Close</string>
+    <string name="start_time_filter">Start Time</string>
+    <string name="end_time_filter">End Time</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Verification link sent to </string>
@@ -115,5 +117,8 @@
     //ocr
     <string name="select_an_image_from_gallery">Select an Image from Gallery</string>
     <string name="convert_notes_to_text">Convert Notes to Text</string>
+
+    //session list
+    <string name="show_only_owned">Show only owned</string>
 
 </resources>

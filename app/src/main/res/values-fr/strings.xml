@@ -98,6 +98,8 @@
     <string name="location_range_in_km">Plage de localisation en KM</string>
     <string name="reset">Réinitialiser</string>
     <string name="close">Fermer</string>
+    <string name="start_time_filter">Heure de début</string>
+    <string name="end_time_filter">Heure de fin</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Lien de vérification envoyé à </string>
@@ -116,4 +118,7 @@
     //ocr
     <string name="select_an_image_from_gallery">Sélectionner une image depuis la galerie</string>
     <string name="convert_notes_to_text">Convertir des notes en texte</string>
+
+    //session list
+    <string name="show_only_owned">Afficher uniquement les propriétaires</string>
 </resources>
