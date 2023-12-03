@@ -9,7 +9,7 @@
     <string name="menu_home">HOME</string>
     <string name="menu_pref">SETTINGS</string>
     <string name="menu_t2">NOTES EXTRACTION</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_t3">MY SESSIONS</string>
 
 
     //user-profile
@@ -110,5 +110,6 @@
 
     <string name="toast_update_profile_success">Update Profile Successfully: </string>
     <string name="toast_update_profile_error">Update Profile Error: </string>
+    <string name="location_">"Location: "</string>
 
 </resources>

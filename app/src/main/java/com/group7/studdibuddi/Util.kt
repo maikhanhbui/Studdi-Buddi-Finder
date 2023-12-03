@@ -47,4 +47,24 @@ object Util {
 
         return R * c // Distance in kilometers
     }
+
+    fun getLocationStringFromInt(locationId: Int): String {
+        return when (locationId) {
+            0 -> "AQ"
+            1 -> "AAB"
+            2 -> "ASB"
+            3 -> "BEE"
+            4 -> "BFC"
+            5 -> "T3"
+            6 -> "BLU"
+            7 -> "CCC"
+            8 -> "CML"
+            9 -> "CSTN"
+            10 -> "DAC"
+            11 -> "DIS1"
+            12 -> "DIS2"
+            13 -> "ECC"
+            else -> "NA"
+        }
+    }
 }

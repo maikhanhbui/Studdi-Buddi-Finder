@@ -19,7 +19,7 @@ object SessionFilter {
 
     fun filterSessions(sessions: List<Session>): List<Session> {
         return sessions.filter { session ->
-            if (!session.isPublic && !includePublic) {
+            if (session.isPublic && !includePublic) {
                 return@filter false
             }
             // Forbid not logged in user to view public session

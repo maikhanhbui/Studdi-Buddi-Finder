@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_t3"
-        android:name="com.group7.studdibuddi.ui.t3.T3Fragment"
+        android:name="com.group7.studdibuddi.ui.manage.ManageFragment"
         android:label="@string/menu_t3"
-        tools:layout="@layout/fragment_t3" />
+        tools:layout="@layout/fragment_manage" />
 </navigation>
