@@ -14,7 +14,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.group7.studdibuddi.Util
-import com.group7.studdibuddi.databinding.FragmentT2Binding
+import com.group7.studdibuddi.databinding.FragmentNotesBinding
 import com.group7.studdibuddi.ui.settings.NotesViewModel
 import java.io.IOException
 
@@ -22,7 +22,7 @@ class NotesFragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
 
-    private var _binding: FragmentT2Binding? = null
+    private var _binding: FragmentNotesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,7 +36,7 @@ class NotesFragment : Fragment() {
         val notesViewModel =
             ViewModelProvider(this).get(NotesViewModel::class.java)
 
-        _binding = FragmentT2Binding.inflate(inflater, container, false)
+        _binding = FragmentNotesBinding.inflate(inflater, container, false)
         binding.buttonInput.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)

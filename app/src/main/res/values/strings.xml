@@ -107,8 +107,11 @@
     <string name="toast_login_required">Login required</string>
     <string name="toast_create_session_success">Create Session Successfully</string>
     <string name="toast_create_session_error">Create Session Error: </string>
+    <string name="toast_update_profile_success">Update Profile Successfully</string>
+    <string name="toast_update_profile_error">Update Profile Error</string>
 
-    <string name="toast_update_profile_success">Update Profile Successfully: </string>
-    <string name="toast_update_profile_error">Update Profile Error: </string>
+    //ocr
+    <string name="select_an_image_from_gallery">Select an Image from Gallery</string>
+    <string name="convert_notes_to_text">Convert Notes to Text</string>
 
 </resources>

@@ -21,7 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.group7.studdibuddi.ui.BaseActivity
+import com.group7.studdibuddi.session.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -63,7 +63,7 @@ class UserProfileActivity : BaseActivity() {
         setContentView(R.layout.activity_user_profile)
         title = getString(R.string.profile)
 
-        LOG_OUT_BUTTON_TITLE = getString(R.string.log_in_button)
+        LOG_OUT_BUTTON_TITLE = getString(R.string.log_out_button)
         NOT_LOGGED_IN_TITLE = getString(R.string.not_logged_in)
         SELECT_IMAGE_TITLE = getString(R.string.select_profile_image)
 
