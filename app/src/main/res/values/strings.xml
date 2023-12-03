@@ -59,6 +59,8 @@
     <string name="map_picker_button">Choose Location on Map</string>
     <string name="description">Description</string>
     <string name="session_description_hint">About your study session</string>
+    <string name="location_">Location: </string>
+    <string name="pick_a_location">Please pick a location</string>
 
     //log in, register, log out
     <string name="log_in_button">Log in</string>
@@ -109,13 +111,6 @@
     <string name="toast_create_session_error">Create Session Error: </string>
     <string name="toast_update_profile_success">Update Profile Successfully</string>
     <string name="toast_update_profile_error">Update Profile Error</string>
-
-
-    <string name="toast_update_profile_success">Update Profile Successfully: </string>
-    <string name="toast_update_profile_error">Update Profile Error: </string>
-    <string name="location_">Location: </string>
-
-    <string name="pick_a_location">Please pick a location</string>
 
     //ocr
     <string name="select_an_image_from_gallery">Select an Image from Gallery</string>

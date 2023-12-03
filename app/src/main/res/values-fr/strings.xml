@@ -60,6 +60,8 @@
     <string name="map_picker_button">Choisir l\'emplacement sur la carte</string>
     <string name="description">Description</string>
     <string name="session_description_hint">À propos de votre session d\'étude</string>
+    <string name="location_">Emplacement : </string>
+    <string name="pick_a_location">Veuillez choisir un emplacement</string>
 
     //log in, register, log out
     <string name="log_in_button">Se connecter</string>
