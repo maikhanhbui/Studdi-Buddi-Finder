@@ -14,13 +14,13 @@
     <fragment
         android:id="@+id/nav_t3"
         android:name="com.group7.studdibuddi.ui.manage.ManageFragment"
-        android:label="@string/menu_t3"
+        android:label="@string/menu_manage"
         tools:layout="@layout/fragment_manage" />
 
     <fragment
         android:id="@+id/nav_t2"
         android:name="com.group7.studdibuddi.ui.notes.NotesFragment"
-        android:label="@string/menu_t2"
+        android:label="@string/menu_notes"
         tools:layout="@layout/fragment_notes" />
 
     <fragment

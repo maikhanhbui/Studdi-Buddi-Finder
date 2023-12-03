@@ -8,8 +8,8 @@
 
     <string name="menu_home">HOME</string>
     <string name="menu_pref">SETTINGS</string>
-    <string name="menu_t2">NOTES EXTRACTION</string>
-    <string name="menu_t3">MY SESSIONS</string>
+    <string name="menu_notes">NOTES EXTRACTION</string>
+    <string name="menu_manage">MY SESSIONS</string>
 
 
     //user-profile

@@ -9,8 +9,8 @@
 
     <string name="menu_home">TRANG CHỦ</string>
     <string name="menu_pref">CÀI ĐẶT</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">CHUYỂN ĐỔI VĂN BẢN</string>
+    <string name="menu_manage">PHIÊN HỌC CỦA TÔI</string>
 
     //user-profile
     <string name="your_name">Điền họ và tên</string>

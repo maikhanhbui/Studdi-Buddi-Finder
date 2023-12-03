@@ -9,8 +9,8 @@
 
     <string name="menu_home">ACCUEIL</string>
     <string name="menu_pref">PARAMÈTRES</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">EXTRACTION DE NOTES</string>
+    <string name="menu_manage">MES SESSIONS</string>
 
 
     //user-profile

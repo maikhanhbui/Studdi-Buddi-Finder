@@ -9,8 +9,8 @@
 
     <string name="menu_home">홈</string>
     <string name="menu_pref">설정</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">노트 추출</string>
+    <string name="menu_manage">내 세션</string>
 
 
     //user-profile
