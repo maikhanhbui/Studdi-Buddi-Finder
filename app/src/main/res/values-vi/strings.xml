@@ -9,8 +9,8 @@
 
     <string name="menu_home">TRANG CHỦ</string>
     <string name="menu_pref">CÀI ĐẶT</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">CHUYỂN ĐỔI VĂN BẢN</string>
+    <string name="menu_manage">PHIÊN HỌC CỦA TÔI</string>
 
     //user-profile
     <string name="your_name">Điền họ và tên</string>
@@ -97,6 +97,8 @@
     <string name="location_range_in_km">Khoảng cách KM tới địa điểm</string>
     <string name="reset">Đặt lại</string>
     <string name="close">Đóng</string>
+    <string name="start_time_filter">Bắt đầu</string>
+    <string name="end_time_filter">Kết thúc</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
@@ -115,4 +117,17 @@
     //ocr
     <string name="select_an_image_from_gallery">Chọn ảnh từ thư viên</string>
     <string name="convert_notes_to_text">Chuyển đổi thành văn bản</string>
+
+    //my session list
+    <string name="show_only_owned">Chỉ hiện phiên học tôi sở hữu</string>
+
+    //join
+    <string name="show_group">Hiện người tham gia</string>
+    <string name="users_in_group">Người tham gia</string>
+    <string name="no_users_in_the_group">Không có người tham gia</string>
+    <string name="leave">Rời khỏi nhóm</string>
+    <string name="successfully_left_group">Rời khỏi nhóm thành công</string>
+    <string name="join">Tham gia nhóm</string>
+    <string name="successfully_joined_group">Tham gia nhóm thành công</string>
+    <string name="ok">OK</string>
 </resources>

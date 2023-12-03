@@ -9,8 +9,8 @@
 
     <string name="menu_home">ACCUEIL</string>
     <string name="menu_pref">PARAMÈTRES</string>
-    <string name="menu_t2">T2</string>
-    <string name="menu_t3">T3</string>
+    <string name="menu_notes">EXTRACTION DE NOTES</string>
+    <string name="menu_manage">MES SESSIONS</string>
 
 
     //user-profile
@@ -98,6 +98,8 @@
     <string name="location_range_in_km">Plage de localisation en KM</string>
     <string name="reset">Réinitialiser</string>
     <string name="close">Fermer</string>
+    <string name="start_time_filter">Heure de début</string>
+    <string name="end_time_filter">Heure de fin</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Lien de vérification envoyé à </string>
@@ -116,4 +118,17 @@
     //ocr
     <string name="select_an_image_from_gallery">Sélectionner une image depuis la galerie</string>
     <string name="convert_notes_to_text">Convertir des notes en texte</string>
+
+    //session list
+    <string name="show_only_owned">Afficher uniquement les propriétaires</string>
+
+    //join
+    <string name="show_group">Afficher le groupe</string>
+    <string name="users_in_group">Utilisateurs dans le groupe</string>
+    <string name="no_users_in_the_group">Aucun utilisateur dans le groupe</string>
+    <string name="leave">Quitter</string>
+    <string name="successfully_left_group">Groupe quitté avec succès</string>
+    <string name="join">Rejoindre</string>
+    <string name="successfully_joined_group">Groupe rejoint avec succès</string>
+    <string name="ok">OK</string>
 </resources>

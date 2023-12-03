@@ -102,7 +102,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         // Button action before the map is ready
         builder.setNegativeButton(CANCEL_BUTTON_TITLE, this)
 
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton(getString(R.string.ok)) { dialog, which ->
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 if (selectedLatLng == null) {
                     Toast.makeText(requireContext(), NO_LOCATION_TITLE, Toast.LENGTH_SHORT)
@@ -124,8 +124,8 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         val mapFragment = requireFragmentManager().findFragmentById(R.id.picker_map) as SupportMapFragment?
         mapFragment?.getMapAsync { googleMap ->
             // Placeholder coordinates for SFU Burnaby
-            val southwest = LatLng(49.270316, -122.931407) // Replace with actual southwest coordinates
-            val northeast = LatLng(49.281851, -122.901690) // Replace with actual northeast coordinates
+            val southwest = LatLng(49.270316, -122.931407)
+            val northeast = LatLng(49.281851, -122.901690)
             val sfuBurnabyBounds = LatLngBounds(southwest, northeast)
             // Set padding if needed
             val padding = 100 // You can adjust this value based on your preference
@@ -193,10 +193,10 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         builder.setView(view)
 
-        builder.setPositiveButton("OK") { dialog, which ->
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
 
         }
-        .setNegativeButton(getString(R.string.reset)){ dialog, which ->
+        .setNegativeButton(getString(R.string.reset)){ _, _ ->
                 SessionFilter.resetFilter()
         }
 

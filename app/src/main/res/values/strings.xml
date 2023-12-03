@@ -8,8 +8,8 @@
 
     <string name="menu_home">HOME</string>
     <string name="menu_pref">SETTINGS</string>
-    <string name="menu_t2">NOTES EXTRACTION</string>
-    <string name="menu_t3">MY SESSIONS</string>
+    <string name="menu_notes">NOTES EXTRACTION</string>
+    <string name="menu_manage">MY SESSIONS</string>
 
 
     //user-profile
@@ -97,6 +97,8 @@
     <string name="location_range_in_km">Location Range in KM</string>
     <string name="reset">Reset</string>
     <string name="close">Close</string>
+    <string name="start_time_filter">Start Time</string>
+    <string name="end_time_filter">End Time</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Verification link sent to </string>
@@ -116,4 +118,16 @@
     <string name="select_an_image_from_gallery">Select an Image from Gallery</string>
     <string name="convert_notes_to_text">Convert Notes to Text</string>
 
+    //my session list
+    <string name="show_only_owned">Show only owned</string>
+
+    //join
+    <string name="show_group">Show Group</string>
+    <string name="users_in_group">Users in Group</string>
+    <string name="no_users_in_the_group">No users in the group</string>
+    <string name="leave">Leave</string>
+    <string name="successfully_left_group">Successfully left group</string>
+    <string name="join">Join</string>
+    <string name="successfully_joined_group">Successfully joined group</string>
+    <string name="ok">OK</string>
 </resources>
