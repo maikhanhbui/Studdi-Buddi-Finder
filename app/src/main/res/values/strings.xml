@@ -110,6 +110,8 @@
 
     <string name="toast_update_profile_success">Update Profile Successfully: </string>
     <string name="toast_update_profile_error">Update Profile Error: </string>
-    <string name="location_">"Location: "</string>
+    <string name="location_">Location: </string>
+
+    <string name="pick_a_location">Please pick a location</string>
 
 </resources>

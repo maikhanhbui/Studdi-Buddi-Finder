@@ -40,9 +40,10 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
     private var isPickingLocation = false
     private var mapPickerDialog: Dialogs? = null
 
-    private var selectLatLng: LatLng = DatabaseUtil.sfuLocation
+    private var selectLatLng: LatLng? = null
     private lateinit var GIVE_A_NAME_TITLE: String
     private lateinit var LOCATION_SELECTED_TITLE: String
+    private lateinit var PICK_A_LOCATION_TITLE: String
 
 
     private lateinit var selectedStartCalendar: Calendar
@@ -78,17 +79,21 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         mapPickerButton.setOnClickListener{ locationPicking() }
 
         GIVE_A_NAME_TITLE = getString(R.string.give_a_name)
+        PICK_A_LOCATION_TITLE = getString(R.string.pick_a_location)
         LOCATION_SELECTED_TITLE = getString(R.string.location_selected)
 
         saveButton.setOnClickListener {
             if (session_name.text.isEmpty()){
                 Toast.makeText(this, GIVE_A_NAME_TITLE, Toast.LENGTH_SHORT).show()
             }
+            else if (selectLatLng == null){
+                Toast.makeText(this, PICK_A_LOCATION_TITLE, Toast.LENGTH_SHORT).show()
+            }
             else {
                 DatabaseUtil.createSession(this,
                     session_name.text.toString(),
                     locationSpinner.selectedItemPosition,
-                    selectLatLng,
+                    selectLatLng!!,
                     session_course.text.toString(),
                     session_description.text.toString(),
                     isPublic,
@@ -126,8 +131,11 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
             isPickingLocation = savedInstanceState.getBoolean("IS_PICKING_LOCATION", false)
 
-            selectLatLng = LatLng(savedInstanceState.getDouble("SELECTED_LAT", DatabaseUtil.sfuLocation.latitude),
-            savedInstanceState.getDouble("SELECTED_LON", DatabaseUtil.sfuLocation.longitude))
+            val restoredLat = savedInstanceState.getDouble("SELECTED_LAT", -1.0)
+            val restoredLon = savedInstanceState.getDouble("SELECTED_LON", -1.0)
+            if (restoredLat != -1.0 && restoredLon != -1.0) {
+                selectLatLng = LatLng(restoredLat, restoredLon)
+            }
 
             selectedStartCalendar.timeInMillis = savedInstanceState.getLong("start_time", System.currentTimeMillis())
             selectedEndCalendar.timeInMillis = savedInstanceState.getLong("end_time", System.currentTimeMillis())
@@ -200,8 +208,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
         outState.putBoolean("IS_PICKING_LOCATION", isPickingLocation)
 
-        outState.putDouble("SELECTED_LAT", selectLatLng.latitude)
-        outState.putDouble("SELECTED_LON", selectLatLng.longitude)
+        selectLatLng?.let { outState.putDouble("SELECTED_LAT", it.latitude) }
+        selectLatLng?.let { outState.putDouble("SELECTED_LON", it.longitude) }
 
         // Save picker dialog state to keep the picker consistent during rotation
         outState.putBoolean("date_picker_showing", datePickerShowing)
