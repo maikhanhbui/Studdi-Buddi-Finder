@@ -323,6 +323,7 @@ object DatabaseUtil {
                     toastUpdateProfileSuccess,
                     Toast.LENGTH_SHORT,
                 ).show()
+                currentUserProfile = updatedUserData
                 callback(true)
             } else {
                 Log.e(TAG, "createSession:failure", task.exception)
