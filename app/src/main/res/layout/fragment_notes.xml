@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/text_box_background"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:textIsSelectable="true"/>
     </LinearLayout>
 </ScrollView>
