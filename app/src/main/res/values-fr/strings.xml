@@ -149,8 +149,8 @@
     <string name="session_error">Erreur de session</string>
     <string name="session_information">INFORMATIONS SUR LA SESSION</string>
     <string name="delete_session">Supprimer la session</string>
-    <string name="please_check_your_internet_connection">Please check your internet connection</string>
-    <string name="saving_session_error">Saving Session Error</string>
-    <string name="save_profile_error">Save profile error</string>
-    <string name="location_permission_not_granted">Location Permission Not Granted</string>
+    <string name="please_check_your_internet_connection">Veuillez vérifier votre connexion Internet</string>
+    <string name="saving_session_error">Erreur lors de l\'enregistrement de la session</string>
+    <string name="save_profile_error">Erreur d\'enregistrement du profil</string>
+    <string name="location_permission_not_granted">Autorisation de localisation non accordée</string>
 </resources>
