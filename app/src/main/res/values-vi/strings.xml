@@ -41,6 +41,8 @@
     <string name="session_name_hint">Điền tên phiên học</string>
     <string name="session_location">Địa điểm</string>
     <string name="session_course">ID lớp học</string>
+    <string name="session_start_time">Thời gian bắt đầu</string>
+    <string name="session_end_time">Thời gian kết thúc</string>
     <string name="session_course_hint">Điền ID lớp học</string>
     <string name="title_activity_login">Đăng nhập</string>
     <string name="title_activity_register">Đăng kí</string>
