@@ -33,8 +33,8 @@ class MySessionActivity : ComponentActivity() {
         binding.textViewCourseId.text = "${getString(R.string.course_number)}: ${curSession.courseId}"
         binding.textViewSessionDescription.text = "${getString(R.string.description_2)}: ${curSession.description}"
 
-        binding.textViewStartTime.text = "${getString(R.string.start_time)}: ${Util.timeStampToTimeString(curSession.startTime)}"
-        binding.textViewEndTime.text = "${getString(R.string.end_time)}: ${Util.timeStampToTimeString(curSession.endTime)}"
+        binding.textViewStartTime.text = "${getString(R.string.start_time)} ${Util.timeStampToTimeString(curSession.startTime)}"
+        binding.textViewEndTime.text = "${getString(R.string.end_time)} ${Util.timeStampToTimeString(curSession.endTime)}"
 
         binding.buttonChat.setOnClickListener{
             val intent = Intent(this, ChatActivity::class.java)

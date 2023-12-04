@@ -137,11 +137,11 @@
     <string name="type_a_message">메시지 입력</string>
     <string name="send">보내기</string>
     <string name="pick_image">이미지 선택</string>
-    <string name="session_name_2">세션 이름:</string>
-    <string name="location_number">위치:</string>
-    <string name="course_number">과목 번호:</string>
-    <string name="description_2">설명:</string>
-    <string name="group_members">그룹 멤버:</string>
+    <string name="session_name_2">세션 이름</string>
+    <string name="location_number">위치 번호</string>
+    <string name="course_number">과목 번호</string>
+    <string name="description_2">설명</string>
+    <string name="group_members">그룹 멤버</string>
     <string name="leave_session">세션 나가기</string>
     <string name="chat">채팅</string>
     <string name="session_error">세션 오류</string>

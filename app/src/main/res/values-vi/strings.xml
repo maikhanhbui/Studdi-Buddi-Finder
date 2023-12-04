@@ -136,11 +136,11 @@
     <string name="type_a_message">Điền một tin nhắn</string>
     <string name="send">Gửi</string>
     <string name="pick_image">Chọn ảnh</string>
-    <string name="session_name_2">Tên phiên học:</string>
-    <string name="location_number">Địa điểm:</string>
-    <string name="course_number">Lớp học:</string>
-    <string name="description_2">Miêu tả:</string>
-    <string name="group_members">Thành viên trong nhóm học:</string>
+    <string name="session_name_2">Tên phiên học</string>
+    <string name="location_number">Số địa điểm</string>
+    <string name="course_number">Lớp học</string>
+    <string name="description_2">Miêu tả</string>
+    <string name="group_members">Thành viên trong nhóm học</string>
     <string name="leave_session">Rời khỏi phiên học</string>
     <string name="chat">Nhắn tin</string>
     <string name="session_error">Lỗi phiên học</string>

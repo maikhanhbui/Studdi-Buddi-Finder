@@ -136,11 +136,11 @@
     <string name="type_a_message">Type a message</string>
     <string name="send">Send</string>
     <string name="pick_image">Pick Image</string>
-    <string name="session_name_2">Session Name:</string>
-    <string name="location_number">Location:</string>
-    <string name="course_number">Course Number:</string>
-    <string name="description_2">Description:</string>
-    <string name="group_members">Group Members:</string>
+    <string name="session_name_2">Session Name</string>
+    <string name="location_number">Location Number</string>
+    <string name="course_number">Course Number</string>
+    <string name="description_2">Description</string>
+    <string name="group_members">Group Members</string>
     <string name="leave_session">Leave Session</string>
     <string name="chat">Chat</string>
     <string name="session_error">Session Error</string>
