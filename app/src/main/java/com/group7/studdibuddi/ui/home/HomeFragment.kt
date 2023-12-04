@@ -45,6 +45,11 @@ import com.group7.studdibuddi.session.SessionListAdapter
 import com.group7.studdibuddi.session.SessionViewModel
 import com.group7.studdibuddi.session.SessionViewModelFactory
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -406,7 +411,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         }
 
                         dialogBuilder.setPositiveButton(DELETE_BUTTON_TITLE) { dialog, _ ->
-                            deleteSessionFromDatabase(sessionId, marker)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                deleteSessionFromDatabase(sessionId, marker)
+                            }
                             dialog.dismiss()
                         }
                         dialogBuilder.setNegativeButton(CANCEL_BUTTON_TITLE) { dialog, _ -> dialog.dismiss() }
@@ -488,22 +495,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     // Function to delete session from database and the corresponding marker
-    private fun deleteSessionFromDatabase(sessionId: String, marker: Marker) {
-        val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
-        sessionsRef.child(sessionId).removeValue()
-            .addOnSuccessListener {
-                // Successfully deleted, now remove the marker
+    private suspend fun deleteSessionFromDatabase(sessionId: String, marker: Marker) {
+        try {
+            val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+            sessionsRef.child(sessionId).removeValue().await()
+            withContext(Dispatchers.Main) {
                 marker.remove()
                 Toast.makeText(context, DELETE_SUCCESS_TITLE, Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener {
-                // Handle failure, e.g., show a toast
-                Toast.makeText(context, "$DELETE_NOT_SUCCESS_TITLE: ${it.message}", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    "$DELETE_NOT_SUCCESS_TITLE: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        }
     }
 
 
-    val METERS_PER_DEGREE_LATITUDE = 111319.9
+
+        val METERS_PER_DEGREE_LATITUDE = 111319.9
 
     // Offset the view location to south in order to view the pin better
     fun offSetLocation(location: LatLng): LatLng {
