@@ -74,13 +74,10 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
     private lateinit var SELECT_IMAGE_TITLE: String
 
-    private lateinit var profilePictureUri: Uri
     private lateinit var tempProfilePictureUri: Uri
     private lateinit var pickedProfilePictureUri: Uri
-    private lateinit var profilePicture: File
     private lateinit var tempProfilePicture: File
     private lateinit var pickedProfilePicture: File
-    private val profilePictureName = "pfp.jpg"
     private val tempProfilePictureName = "temp_pfp.jpg"
     private val pickedProfilePictureName = "picked_pfp.jpg"
 
@@ -115,6 +112,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         imageView = findViewById(R.id.session_photo)
         SELECT_IMAGE_TITLE = getString(R.string.select_profile_image)
 
+        Util.checkPermissions(this)
 
         //Get uri for temp profile picture
         tempProfilePicture = File(getExternalFilesDir(null), tempProfilePictureName)
@@ -153,7 +151,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                         if (tempProfilePicture.exists()) {
                             Toast.makeText(this, " Uploading image", Toast.LENGTH_SHORT).show()
                             // Wait for call back to close, otherwise the file might be deleted while uploading
-                            DatabaseUtil.uploadImageToFirebaseStorage(tempProfilePictureUri, sessionKey){success->
+                            DatabaseUtil.uploadImageToFirebaseStorage(tempProfilePictureUri, sessionKey){
                                 finish()
                             }
                         }
@@ -163,7 +161,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                     }
                     else{
                         saveButton.isEnabled = true
-                        Toast.makeText(this, "Saving Session Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,
+                            getString(R.string.saving_session_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -171,7 +170,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
         pinViewModel = ViewModelProvider(this)[PinViewModel::class.java]
         // Load the picture
-        pinViewModel.userImage.observe(this) { it ->
+        pinViewModel.userImage.observe(this) {
             imageView.setImageBitmap(it)
         }
 
@@ -382,7 +381,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
             this.updateTime()
         }
 
-        var datePickerDialog: DatePickerDialog
+        val datePickerDialog: DatePickerDialog
         if (isStartTime) {
             datePickerDialog = DatePickerDialog(
                 this, dateSetListener,

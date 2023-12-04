@@ -25,6 +25,7 @@ class MySessionActivity : ComponentActivity() {
             Log.d("database", "Chat session data error")
             finish()
         }
+
         val curSession = SessionUtil.selectedSession!!
 
         // Draw the info
@@ -79,7 +80,7 @@ class MySessionActivity : ComponentActivity() {
         val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
         curSession.usersJoined.remove(DatabaseUtil.currentUser?.uid)
         sessionsRef.child(curSession.sessionKey).setValue(curSession)
-        Toast.makeText(this, "Successfully left group!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.successfully_left_group), Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -87,11 +88,11 @@ class MySessionActivity : ComponentActivity() {
         val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
         sessionsRef.child(curSession.sessionKey).removeValue()
             .addOnSuccessListener {
-                Toast.makeText(this, "Successfully deleted session!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.delete_successfully), Toast.LENGTH_SHORT).show()
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to delete session: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${getString(R.string.delete_unsuccessfully)}: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

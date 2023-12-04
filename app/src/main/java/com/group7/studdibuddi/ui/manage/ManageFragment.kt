@@ -10,18 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.group7.studdibuddi.MySessionActivity
 import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.databinding.FragmentManageBinding
-import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.session.SessionListAdapter
 import com.group7.studdibuddi.session.SessionViewModel
 import com.group7.studdibuddi.session.SessionViewModelFactory
-import com.group7.studdibuddi.ui.settings.ManageViewModel
-
-
-private lateinit var sessionViewModel: SessionViewModel
-private lateinit var sessionListAdapter: SessionListAdapter
-private lateinit var viewModelFactory: SessionViewModelFactory
-
 class ManageFragment : Fragment() {
+    private lateinit var sessionViewModel: SessionViewModel
+    private lateinit var sessionListAdapter: SessionListAdapter
+    private lateinit var viewModelFactory: SessionViewModelFactory
 
     private var _binding: FragmentManageBinding? = null
 
@@ -34,16 +29,13 @@ class ManageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val manageViewModel =
-            ViewModelProvider(this).get(ManageViewModel::class.java)
+        ViewModelProvider(this)[ManageViewModel::class.java]
 
         _binding = FragmentManageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         viewModelFactory = SessionViewModelFactory()
-        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(
-            SessionViewModel::class.java)
-
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[SessionViewModel::class.java]
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
@@ -66,8 +58,6 @@ class ManageFragment : Fragment() {
             val intent = Intent(requireContext(), MySessionActivity::class.java)
             startActivity(intent)
         }
-
-
 
         return root
     }

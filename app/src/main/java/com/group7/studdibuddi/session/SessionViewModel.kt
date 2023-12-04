@@ -14,8 +14,6 @@ import com.google.firebase.database.ValueEventListener
 class SessionViewModel : ViewModel() {
 
     private val _allSessionLiveData = MutableLiveData<List<Session>>()
-    val allSessionLiveData: LiveData<List<Session>>
-        get() = _allSessionLiveData
 
     // Filtered sessions
     private val _filteredSessionLiveData = MutableLiveData<List<Session>>()
@@ -60,13 +58,6 @@ class SessionViewModel : ViewModel() {
         _joinedSessionLiveData.value = _allSessionLiveData.value?.let { sessions ->
             SessionUtil.joinedSessions(sessions)
         }
-    }
-
-
-    // Function to update data in Firebase
-    fun updateData(newSessions: List<Session>) {
-        // Update data in Firebase
-        sessionDataReference.setValue(newSessions)
     }
 }
 

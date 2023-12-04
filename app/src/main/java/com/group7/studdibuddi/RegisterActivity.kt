@@ -38,11 +38,8 @@ class RegisterActivity : ComponentActivity() {
                     passwordEntry.text.toString()
                 ) { success ->
                     if (success) {
-                        //Toast.makeText(this, "Registered successfully! Please verify your email", Toast.LENGTH_SHORT).show()
                         finish()
-                    } else {
-                        // Error messages are displayed
-                    }
+                    } else { }
                 }
             }
 

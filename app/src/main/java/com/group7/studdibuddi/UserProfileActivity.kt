@@ -122,7 +122,7 @@ class UserProfileActivity : BaseActivity() {
 
         //View
         profilePictureViewModel = ViewModelProvider(this)[UserPFPViewModel::class.java]
-        profilePictureViewModel.userImage.observe(this) { it ->
+        profilePictureViewModel.userImage.observe(this) {
             imageView.setImageBitmap(it)
         }
 
@@ -154,7 +154,7 @@ class UserProfileActivity : BaseActivity() {
                 if (success) {
                     finish()
                 } else {
-                    Toast.makeText(this, "Save profile error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.save_profile_error), Toast.LENGTH_SHORT).show()
                     saveButton.isEnabled = true
                 }
             }

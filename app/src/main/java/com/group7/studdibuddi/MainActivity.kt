@@ -39,13 +39,14 @@ class MainActivity : BaseActivity() {
         LOG_IN_BUTTON_TITLE = getString(R.string.log_in_button)
 
         if (!DatabaseUtil.isNetworkAvailable(this)){
-            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,
+                getString(R.string.please_check_your_internet_connection), Toast.LENGTH_SHORT).show()
         }
 
         // Database set up
         DatabaseUtil.initDatabase()
 
-        binding.appBarMain.fab.setOnClickListener { view ->
+        binding.appBarMain.fab.setOnClickListener {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 val intent = Intent(this, PinActivity::class.java)
                 startActivity(intent)

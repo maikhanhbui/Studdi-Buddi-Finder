@@ -120,7 +120,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Session List:
         viewModelFactory = SessionViewModelFactory()
-        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[SessionViewModel::class.java]
+//        sessionViewModel.fetchData()
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
@@ -360,7 +361,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         } else {
-            Toast.makeText(requireContext(), "Location Permission Not Granted", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                getString(R.string.location_permission_not_granted), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -479,7 +481,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
                                 Toast.makeText(context, getString(R.string.successfully_left_group), Toast.LENGTH_SHORT).show()
 
-                                // Add your logic for "Leave group" action here
                                 dialog.dismiss()
                             }
                         } else if (DatabaseUtil.currentUser != null) {
@@ -493,7 +494,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                 Toast.makeText(context,
                                     getString(R.string.successfully_joined_group), Toast.LENGTH_SHORT).show()
 
-                                // Add your logic for "Join group" action here
                                 dialog.dismiss()
                             }
                         }
@@ -553,12 +553,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
-
     val METERS_PER_DEGREE_LATITUDE = 111319.9
 
     // Offset the view location to south in order to view the pin better
-    fun offSetLocation(location: LatLng): LatLng {
+    private fun offSetLocation(location: LatLng): LatLng {
         val originalLocation = Location("original_location")
         originalLocation.latitude = location.latitude
         originalLocation.longitude = location.longitude

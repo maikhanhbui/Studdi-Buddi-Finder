@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -28,11 +27,9 @@ import com.group7.studdibuddi.userProfile.User
 
 object DatabaseUtil {
 
-    lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     var currentUser: FirebaseUser? = null
-
-    val sfuLocation = LatLng(49.279, -122.918)
 
     // Strings
     private val toastVerificationLinkSent by lazy { R.string.toast_verification_link_sent }
@@ -93,51 +90,33 @@ object DatabaseUtil {
                     Log.w(TAG, "createUserWithEmail:failure", exception)
 
                     // Check specific error cases and display relevant error messages
-                    if (exception is FirebaseAuthUserCollisionException) {
-                        // User with this email already exists
-                        Toast.makeText(activity, toastUserExists, Toast.LENGTH_SHORT).show()
-                    } else if (exception is FirebaseAuthWeakPasswordException) {
-                        // Password is too weak
-                        Toast.makeText(activity, toastWeakPassword, Toast.LENGTH_SHORT).show()
-                    } else if (exception is FirebaseAuthInvalidCredentialsException) {
-                        // Invalid email format
-                        Toast.makeText(activity, toastInvalidEmailFormat, Toast.LENGTH_SHORT).show()
-                    } else {
-                        // Other authentication failures
-                        val message = activity.getString(toastAuthenticationFailed)
-                        Toast.makeText(activity, "$message: " + exception?.message, Toast.LENGTH_SHORT).show()
+                    when (exception) {
+                        is FirebaseAuthUserCollisionException -> {
+                            // User with this email already exists
+                            Toast.makeText(activity, toastUserExists, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is FirebaseAuthWeakPasswordException -> {
+                            // Password is too weak
+                            Toast.makeText(activity, toastWeakPassword, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            // Invalid email format
+                            Toast.makeText(activity, toastInvalidEmailFormat, Toast.LENGTH_SHORT).show()
+                        }
+
+                        else -> {
+                            // Other authentication failures
+                            val message = activity.getString(toastAuthenticationFailed)
+                            Toast.makeText(activity, "$message: " + exception?.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     callback(false)
                 }
             }
     }
-
-    private fun sendEmailVerification(activity: Activity, user: FirebaseUser) {
-        user.sendEmailVerification()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Email sent, inform the user to check their email
-                    // Toast.makeText(activity, "Verification email sent to ${user.email}", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Failed to send verification email, show error message
-                    Toast.makeText(activity, "Failed to send verification email, try again", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-
-    private fun checkEmailVerification(activity: Activity) {
-        // Check if the user's email is verified
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user?.isEmailVerified == true) {
-            // User's email is verified, proceed to the next screen or action
-        } else {
-            // Inform the user that their email is not verified yet
-            Toast.makeText(activity, "Email not yet verified", Toast.LENGTH_SHORT).show()
-        }
-    }
-
 
     fun signIn(
         activity: Activity,
@@ -150,8 +129,6 @@ object DatabaseUtil {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-
-
 
                     // Email is successfully verified
                     val user = auth.currentUser
@@ -181,7 +158,6 @@ object DatabaseUtil {
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    val exception = task.exception
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
 
                     Toast.makeText(
@@ -258,29 +234,22 @@ object DatabaseUtil {
         }
     }
 
-    fun loadSession(){
-
-    }
-
-    // Room database local access
-    fun restoreLocalData(activity: Activity){
-
-    }
-
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val network = connectivityManager.activeNetwork
             val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
-            return networkCapabilities?.let {
-                it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+            networkCapabilities?.let {
+                it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || it.hasTransport(
+                    NetworkCapabilities.TRANSPORT_CELLULAR
+                )
             } ?: false
         } else {
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            return activeNetworkInfo?.isConnectedOrConnecting == true
+            activeNetworkInfo?.isConnectedOrConnecting == true
         }
     }
 
