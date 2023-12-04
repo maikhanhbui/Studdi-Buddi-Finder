@@ -73,6 +73,7 @@
     <string name="entry_cant_be_empty">Không được để trống</string>
     <string name="email_domain_must_be_sfu">Phải là email của SFU</string>
     <string name="not_logged_in">Đang không đăng nhập</string>
+    <string name="log_in_register">ĐĂNG NHẬP &amp; ĐĂNG KÍ</string>
 
     //preference
     <string name="language_array_title">Lựa chọn ngôn ngữ</string>
@@ -131,5 +132,5 @@
     <string name="successfully_joined_group">Tham gia nhóm thành công</string>
     <string name="ok">OK</string>
     <string name="start_time_cannot_be_later_than_end_time">Thời gian bắt đầu không thể sau thời gian kết thúc</string>
-    <string name="end_time_cannot_be_earlier_than_start_time">Thời gian kết thúc không thể trước thời gian bắt đầu</string>
+    <string name="end_time_cannot_be_earlier_than_start_time">Thời gian kết thúc không thể trước thời gian bắt </string>
 </resources>

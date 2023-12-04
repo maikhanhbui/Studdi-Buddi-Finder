@@ -46,11 +46,18 @@ Check it out at [Show and Tell 2](https://youtu.be/MU-1P7AF3Eg)!
 - [x] delete pin on map (Zhenao Li)
 - [x] create popped up dialog box for viewing study session information (Jachak Sekhon)
 
-### Final
-- [ ] add private/public study sessions (log in required/not required)
-- [ ] add study session list
-- [ ] add database for user profile settings associated with each user account
-- [ ] add time slots for study sessions
-- [ ] add support for different languages
+#### Final
+- [x] add support for map filter (filtering study sessions) (Billy Shi)
+- [x] add private/public study session feature (log in required/not required) (Billy Shi)
+- [x] add database for user profile settings associated with each user account (Billy Shi)
+- [x] add time slots for study sessions (Billy Shi)
+- [x] add study session listview (Billy Shi)
+- [x] add support for different languages (Mai Khanh Bui)
+- [x] add support for different themes (day and night) (Mai Khanh Bui)
+- [x] add support for Optical Character Recognition (OCR) for converting image to text (Zhenao Li)
+- [x] add support for join and leave a study session feature (Jachak Sekhon)
+- [x] add support for viewing participants of each study session (exclusive to the session owner) (Jachak Sekhon)
+- [ ] add support for chat function
+- [ ] add support for managing owned and joined study sessions
 
 ...To be updated
