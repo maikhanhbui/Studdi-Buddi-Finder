@@ -445,7 +445,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                 // Add your logic for "Leave group" action here
                                 dialog.dismiss()
                             }
-                        } else {
+                        } else if (DatabaseUtil.currentUser != null) {
                             // Current user is not joined, show "Join" button
                             dialogBuilder.setNeutralButton(getString(R.string.join)) { dialog, _ ->
                                 // Add the current user to joinedUserIds list
