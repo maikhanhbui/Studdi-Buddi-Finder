@@ -99,8 +99,6 @@
     <string name="location_range_in_km">위치 범위 (KM)</string>
     <string name="reset">초기화</string>
     <string name="close">닫기</string>
-    <string name="start_time_filter">시작 시간</string>
-    <string name="end_time_filter">종료 시간</string>
 
     //toast messages
     <string name="toast_verification_link_sent">확인 링크가 전송되었습니다: </string>
@@ -120,9 +118,6 @@
     <string name="select_an_image_from_gallery">갤러리에서 이미지 선택</string>
     <string name="convert_notes_to_text">메모를 텍스트로 변환</string>
 
-    //session list
-    <string name="show_only_owned">소유자만 표시</string>
-
     //join
     <string name="show_group">그룹 보기</string>
     <string name="users_in_group">그룹의 사용자</string>
@@ -132,16 +127,24 @@
     <string name="join">참가</string>
     <string name="successfully_joined_group">그룹에 성공적으로 참가했습니다</string>
     <string name="ok">확인</string>
+
     <string name="start_time_cannot_be_later_than_end_time">시작 시간은 종료 시간보다 늦을 수 없습니다</string>
     <string name="end_time_cannot_be_earlier_than_start_time">종료 시간은 시작 시간보다 일찍일 수 없습니다</string>
-    <string name="session_name_2">Session Name:</string>
-    <string name="location_number">Location Number:</string>
-    <string name="course_number">Course Number:</string>
-    <string name="description_2">Description:</string>
-    <string name="group_members">Group Members:</string>
-    <string name="leave_session">Leave Session</string>
-    <string name="chat">Chat</string>
-    <string name="session_error">Session Error</string>
-    <string name="session_information">SESSION INFORMATION</string>
-    <string name="delete_session">Delete Session</string>
+
+    //my điểmsession list
+    <string name="show_only_owned">소유자만 표시</string>
+    <string name="title_activity_my_session">내세션액티비티</string>
+    <string name="type_a_message">메시지 입력</string>
+    <string name="send">보내기</string>
+    <string name="pick_image">이미지 선택</string>
+    <string name="session_name_2">세션 이름:</string>
+    <string name="location_number">위치:</string>
+    <string name="course_number">과목 번호:</string>
+    <string name="description_2">설명:</string>
+    <string name="group_members">그룹 멤버:</string>
+    <string name="leave_session">세션 나가기</string>
+    <string name="chat">채팅</string>
+    <string name="session_error">세션 오류</string>
+    <string name="session_information">세션 정보</string>
+    <string name="delete_session">세션 삭제</string>
 </resources>
