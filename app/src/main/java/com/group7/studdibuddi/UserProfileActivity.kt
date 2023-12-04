@@ -141,7 +141,8 @@ class UserProfileActivity : BaseActivity() {
             if (pickedProfilePicture.exists()) {
                 pickedProfilePicture.renameTo(profilePicture)
             }
-
+            // Disable the button in case user repeat request
+            saveButton.isEnabled = false
             DatabaseUtil.userProfileUpdate(
                 this,
                     nameView.text.toString(),

@@ -137,6 +137,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                 Toast.makeText(this, PICK_A_LOCATION_TITLE, Toast.LENGTH_SHORT).show()
             }
             else {
+                // Disable the button in case user repeat request
+                saveButton.isEnabled = false
                 DatabaseUtil.createSession(this,
                     session_name.text.toString(),
                     locationSpinner.selectedItemPosition,
