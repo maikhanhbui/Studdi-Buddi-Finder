@@ -241,8 +241,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
             val comparisonResult = targetTime.compareTo(if (isStartTime) selectedEndCalendar else selectedStartCalendar)
 
             if ((isStartTime && comparisonResult > 0) || (!isStartTime && comparisonResult < 0)) {
-                val errorMessage = if (isStartTime) "Start time cannot be later than end time"
-                else "End time cannot be earlier than start time"
+                val errorMessage = if (isStartTime) getString(R.string.start_time_cannot_be_later_than_end_time)
+                else getString(R.string.end_time_cannot_be_earlier_than_start_time)
 
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             } else {
@@ -255,7 +255,7 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
             this.updateTime()
         }
 
-        var datePickerDialog = DatePickerDialog(this)
+        var datePickerDialog: DatePickerDialog
         if (isStartTime) {
             datePickerDialog = DatePickerDialog(
                 this, dateSetListener,
@@ -292,8 +292,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
             val comparisonResult = targetCalendar.compareTo(if (isStartTime) selectedEndCalendar else selectedStartCalendar)
 
             if ((isStartTime && comparisonResult > 0) || (!isStartTime && comparisonResult < 0)) {
-                val errorMessage = if (isStartTime) "Start time cannot be later than end time"
-                else "End time cannot be earlier than start time"
+                val errorMessage = if (isStartTime) getString(R.string.start_time_cannot_be_later_than_end_time)
+                else getString(R.string.end_time_cannot_be_earlier_than_start_time)
 
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             } else {
@@ -328,8 +328,8 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
 
     private fun updateTime(){
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        startTimeText.text = "Start Time: " + dateFormat.format(selectedStartCalendar.time)
-        endTimeText.text = "End Time: " + dateFormat.format(selectedEndCalendar.time)
+        startTimeText.text = getString(R.string.start_time) + dateFormat.format(selectedStartCalendar.time)
+        endTimeText.text = getString(R.string.end_time) + dateFormat.format(selectedEndCalendar.time)
     }
 
 }
