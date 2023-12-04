@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/markerImageView"
+        android:layout_width="32dp"
+        android:layout_height="22dp"
+        android:src="@drawable/sfu_logo" />
+
+    <TextView
+        android:id="@+id/markerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:text="Title"
+        android:layout_gravity="center"
+        />
+</LinearLayout>

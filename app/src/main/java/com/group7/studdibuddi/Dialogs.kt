@@ -18,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.group7.studdibuddi.session.SessionUtil
 
 class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterface.OnDismissListener {
 
@@ -153,41 +154,43 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         val view = requireActivity().layoutInflater.inflate(R.layout.dialog_filter, null)
 
         val publicCheckBox = view.findViewById<CheckBox>(R.id.checkBoxPublic)
-        publicCheckBox.isChecked = SessionFilter.includePublic
+        publicCheckBox.isChecked = SessionUtil.includePublic
         publicCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            SessionFilter.includePublic = isChecked
+            SessionUtil.includePublic = isChecked
         }
 
         val locationSpinner = view.findViewById<Spinner>(R.id.spinnerLocation)
-        locationSpinner.setSelection(SessionFilter.locationFilter)
+        locationSpinner.setSelection(SessionUtil.locationFilter)
         locationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                SessionFilter.locationFilter = position
+                SessionUtil.locationFilter = position
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         val editLocationRange = view.findViewById<EditText>(R.id.editTextLocationRange)
-        editLocationRange.setText(SessionFilter.distanceRange.toString())
+        editLocationRange.setText(SessionUtil.distanceRange.toString())
         editLocationRange.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrEmpty()) {
-                    SessionFilter.distanceRange = s.toString().toDouble()
-                } else{SessionFilter.distanceRange = 0.0}
+                    SessionUtil.distanceRange = s.toString().toDouble()
+                } else{
+                    SessionUtil.distanceRange = 0.0}
             }
         })
 
         val editTextNameContains = view.findViewById<EditText>(R.id.editTextNameContains)
-        editTextNameContains.setText(SessionFilter.nameContain)
+        editTextNameContains.setText(SessionUtil.nameContain)
         editTextNameContains.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrEmpty()) {
-                    SessionFilter.nameContain = s.toString()
-                }else{SessionFilter.nameContain = ""}
+                    SessionUtil.nameContain = s.toString()
+                }else{
+                    SessionUtil.nameContain = ""}
             }
         })
 
@@ -197,7 +200,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         }
         .setNegativeButton(getString(R.string.reset)){ _, _ ->
-                SessionFilter.resetFilter()
+                SessionUtil.resetFilter()
         }
 
         return builder

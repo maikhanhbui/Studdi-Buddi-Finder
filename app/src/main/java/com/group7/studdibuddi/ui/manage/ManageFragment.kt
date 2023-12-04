@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.group7.studdibuddi.LoginActivity
+import com.group7.studdibuddi.MySessionActivity
+import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.databinding.FragmentManageBinding
+import com.group7.studdibuddi.session.Session
+import com.group7.studdibuddi.session.SessionListAdapter
+import com.group7.studdibuddi.session.SessionViewModel
+import com.group7.studdibuddi.session.SessionViewModelFactory
 import com.group7.studdibuddi.ui.settings.ManageViewModel
+
+
+private lateinit var sessionViewModel: SessionViewModel
+private lateinit var sessionListAdapter: SessionListAdapter
+private lateinit var viewModelFactory: SessionViewModelFactory
 
 class ManageFragment : Fragment() {
 
@@ -33,7 +40,33 @@ class ManageFragment : Fragment() {
         _binding = FragmentManageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        viewModelFactory = SessionViewModelFactory()
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(
+            SessionViewModel::class.java)
+//        sessionViewModel.fetchData()
 
+        sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
+
+        binding.manageSessionList.adapter = sessionListAdapter
+
+        sessionViewModel.joinedSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+            // Update when observe changes
+            sessionListAdapter.replace(sessions)
+            sessionListAdapter.notifyDataSetChanged()
+        }
+
+        binding.ownerCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            // Your code here to handle the checkbox state change
+            SessionUtil.showOwnedOnly = isChecked
+            sessionViewModel.updateJoined()
+        }
+
+        binding.manageSessionList.setOnItemClickListener { _, _, position, _ ->
+            SessionUtil.selectedSession = sessionListAdapter.getItem(position)
+
+            val intent = Intent(requireContext(), MySessionActivity::class.java)
+            startActivity(intent)
+        }
 
 
 
