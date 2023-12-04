@@ -1,6 +1,5 @@
 package com.group7.studdibuddi.Chat
 
-import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

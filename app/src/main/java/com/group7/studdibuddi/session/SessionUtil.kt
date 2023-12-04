@@ -14,8 +14,8 @@ object SessionUtil {
     // Filters:
     var includePublic: Boolean = true
     var locationFilter: Int = 0
-    var startTime: Long? = null
-    var endTime: Long? = null
+    private var startTime: Long? = null
+    private var endTime: Long? = null
     var nameContain: String = ""
     var distanceRange: Double = 0.0
 
@@ -62,7 +62,7 @@ object SessionUtil {
         }
     }
 
-    fun isWithinRange(lat: Double, lon: Double): Boolean{
+    private fun isWithinRange(lat: Double, lon: Double): Boolean{
         val distance = Util.calculateDistance(
             lat, lon,
             currentLatLng!!.latitude, currentLatLng!!.longitude
@@ -123,6 +123,6 @@ object SessionUtil {
         endTime = null
         nameContain = ""
         distanceRange = 0.0
-        Log.d("filter", "filter resetted")
+        Log.d("filter", "filter reset")
     }
 }

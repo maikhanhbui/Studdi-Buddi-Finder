@@ -48,16 +48,11 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
 
         if (dialogId == MAP_PICKER_KEY) {
             builder = this.locationPickerDialog(builder)
-        }
-        else if(dialogId == FILTER_KEY) {
+        } else if (dialogId == FILTER_KEY) {
             this.filterDialog(builder)
         }
-        // Other Dialog goes here
 
-
-        val ret = builder.create()
-
-        return ret
+        return builder.create()
     }
 
     override fun onClick(dialogInterface: DialogInterface, id: Int) {
@@ -74,7 +69,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
         // Clean up the map after
         val mapFragment = requireFragmentManager().findFragmentById(R.id.picker_map) as SupportMapFragment?
         if (mapFragment != null){
-            getFragmentManager()?.beginTransaction()?.remove(mapFragment)?.commit()
+            fragmentManager?.beginTransaction()?.remove(mapFragment)?.commit()
         }
         onDismissListener?.invoke()
         super.onDismiss(dialog)
@@ -129,7 +124,7 @@ class Dialogs: DialogFragment(), DialogInterface.OnClickListener, DialogInterfac
             val northeast = LatLng(49.281851, -122.901690)
             val sfuBurnabyBounds = LatLngBounds(southwest, northeast)
             // Set padding if needed
-            val padding = 100 // You can adjust this value based on your preference
+            val padding = 100
             googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(sfuBurnabyBounds, padding))
 
             googleMap.setOnMapClickListener { latLng ->

@@ -1,9 +1,5 @@
 package com.group7.studdibuddi.session
 
-import java.text.DateFormat
-import java.util.Calendar
-import java.util.Date
-
 data class Session (
 
     var sessionId: Long = 0L,

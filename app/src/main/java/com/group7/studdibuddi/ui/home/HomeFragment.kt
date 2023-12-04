@@ -120,7 +120,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         // Session List:
         viewModelFactory = SessionViewModelFactory()
-        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(SessionViewModel::class.java)
+        sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[SessionViewModel::class.java]
 //        sessionViewModel.fetchData()
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
@@ -342,12 +342,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             googleMap.isMyLocationEnabled = true
 
             // Get the last known location and add a marker
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                location?.let {
-//                    val userLatLng = LatLng(it.latitude, it.longitude)
-//                    googleMap.addMarker(MarkerOptions().position(userLatLng).title(LOCATION_BUTTON_TITLE))
-                }
-            }
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? -> location?.let {} }
             // Create a location request to set the priority and interval
             val locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -362,17 +357,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     if (location != null) {
                         SessionUtil.currentLatLng = LatLng(location.latitude, location.longitude)
                     }
-                    if (::sessionViewModel.isInitialized) {
-//                        sessionViewModel.updateFilter()
-                    }
                 }
             }
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         } else {
-            // You may want to handle the case where permission is not granted
-            // Show a message or request permission again
-            // You can also disable certain features that require location
-            // For example, you might disable the "My Location" layer or show a message to the user
+            Toast.makeText(requireContext(),
+                getString(R.string.location_permission_not_granted), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -383,7 +373,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         _binding = null
     }
 
-    // Temporary function for session dialog and session deletion
+    // Function for session dialog and session deletion
     // Compare the currentUser with ownerId so that only the owner can view and delete
     private fun showSessionDialog(sessionId: String, marker: Marker) {
         val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
@@ -491,7 +481,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
                                 Toast.makeText(context, getString(R.string.successfully_left_group), Toast.LENGTH_SHORT).show()
 
-                                // Add your logic for "Leave group" action here
                                 dialog.dismiss()
                             }
                         } else if (DatabaseUtil.currentUser != null) {
@@ -505,7 +494,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                 Toast.makeText(context,
                                     getString(R.string.successfully_joined_group), Toast.LENGTH_SHORT).show()
 
-                                // Add your logic for "Join group" action here
                                 dialog.dismiss()
                             }
                         }
@@ -565,12 +553,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
-
-        val METERS_PER_DEGREE_LATITUDE = 111319.9
+    val METERS_PER_DEGREE_LATITUDE = 111319.9
 
     // Offset the view location to south in order to view the pin better
-    fun offSetLocation(location: LatLng): LatLng {
+    private fun offSetLocation(location: LatLng): LatLng {
         val originalLocation = Location("original_location")
         originalLocation.latitude = location.latitude
         originalLocation.longitude = location.longitude

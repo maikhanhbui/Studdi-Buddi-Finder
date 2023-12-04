@@ -148,4 +148,8 @@
     <string name="session_error">Lỗi phiên học</string>
     <string name="session_information">THÔNG TIN PHIÊN HỌC</string>
     <string name="delete_session">Xoá phiên học</string>
+    <string name="please_check_your_internet_connection">Hãy kiểm tra kết nối mạng của bạn</string>
+    <string name="saving_session_error">Lỗi lưu phiên học</string>
+    <string name="save_profile_error">Lỗi lưu thông tin tài khoản</string>
+    <string name="location_permission_not_granted">Không có quyền truy cập vị trí</string>
 </resources>

@@ -35,7 +35,7 @@ class LoginActivity : ComponentActivity() {
                     if (success) {
                         Toast.makeText(this, LOG_IN_BUTTON_TITLE, Toast.LENGTH_SHORT).show()
                         //go back to home page
-                        var intent: Intent?
+                        val intent: Intent?
                         intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {

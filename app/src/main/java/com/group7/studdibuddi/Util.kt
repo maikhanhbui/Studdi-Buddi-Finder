@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
-import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
@@ -19,7 +18,6 @@ import kotlin.math.sqrt
 
 object Util {
     fun checkPermissions(activity: Activity?) {
-        if (Build.VERSION.SDK_INT < 23) return
         if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -36,7 +34,7 @@ object Util {
     }
 
     fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val R = 6371 // Earth radius in kilometers
+        val r = 6371 // Earth radius in kilometers
 
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
@@ -47,7 +45,7 @@ object Util {
 
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-        return R * c // Distance in kilometers
+        return r * c // Distance in kilometers
     }
 
     fun getLocationStringFromInt(locationId: Int): String {

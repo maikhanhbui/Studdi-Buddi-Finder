@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,10 +37,16 @@ class MainActivity : BaseActivity() {
 
         PROFILE_BUTTON_TITLE = getString(R.string.profile)
         LOG_IN_BUTTON_TITLE = getString(R.string.log_in_button)
+
+        if (!DatabaseUtil.isNetworkAvailable(this)){
+            Toast.makeText(this,
+                getString(R.string.please_check_your_internet_connection), Toast.LENGTH_SHORT).show()
+        }
+
         // Database set up
         DatabaseUtil.initDatabase()
 
-        binding.appBarMain.fab.setOnClickListener { view ->
+        binding.appBarMain.fab.setOnClickListener {
             if (FirebaseAuth.getInstance().currentUser != null) {
                 val intent = Intent(this, PinActivity::class.java)
                 startActivity(intent)

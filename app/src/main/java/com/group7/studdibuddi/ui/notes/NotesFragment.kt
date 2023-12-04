@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.mlkit.vision.common.InputImage
@@ -20,9 +19,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.group7.studdibuddi.Util
 import com.group7.studdibuddi.databinding.FragmentNotesBinding
-import com.group7.studdibuddi.ui.settings.NotesViewModel
 import java.io.IOException
-
 
 class NotesFragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
@@ -39,8 +36,7 @@ class NotesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notesViewModel =
-            ViewModelProvider(this).get(NotesViewModel::class.java)
+        ViewModelProvider(this)[NotesViewModel::class.java]
 
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         binding.buttonInput.setOnClickListener {
@@ -54,8 +50,7 @@ class NotesFragment : Fragment() {
             }
         }
         Util.checkPermissions(requireActivity())
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -63,6 +58,7 @@ class NotesFragment : Fragment() {
         _binding = null
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {

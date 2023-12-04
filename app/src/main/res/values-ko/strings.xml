@@ -149,4 +149,8 @@
     <string name="session_error">세션 오류</string>
     <string name="session_information">세션 정보</string>
     <string name="delete_session">세션 삭제</string>
+    <string name="please_check_your_internet_connection">인터넷 연결을 확인하세요</string>
+    <string name="saving_session_error">세션 저장 오류</string>
+    <string name="save_profile_error">프로필 저장 오류</string>
+    <string name="location_permission_not_granted">위치 권한이 허용되지 않았습니다</string>
 </resources>

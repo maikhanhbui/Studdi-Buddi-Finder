@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.group7.studdibuddi.R
 import com.group7.studdibuddi.Util
 import com.squareup.picasso.Picasso
-import java.text.DecimalFormat
 
 class SessionListAdapter(private val context: Context, private var sessionList: List<Session>) : BaseAdapter(){
 
