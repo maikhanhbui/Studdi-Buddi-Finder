@@ -10,6 +10,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -66,5 +68,10 @@ object Util {
             13 -> "ECC"
             else -> "NA"
         }
+    }
+
+    fun timeStampToTimeString(ts: Long): String{
+        val timeFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
+        return timeFormat.format(ts)
     }
 }

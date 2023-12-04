@@ -1,6 +1,9 @@
 package com.group7.studdibuddi
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,8 +25,9 @@ class MySessionActivity : ComponentActivity() {
         binding = ActivityMySessionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (SessionUtil.selectedSession == null){
+        if (SessionUtil.selectedSession == null || DatabaseUtil.currentUser == null){
             Toast.makeText(this, "Session Error", Toast.LENGTH_SHORT).show()
+            Log.d("database", "Chat session data error")
             finish()
         }
         val curSession = SessionUtil.selectedSession!!
@@ -34,9 +38,13 @@ class MySessionActivity : ComponentActivity() {
         binding.textViewCourseId.text = "Course Number: ${curSession.courseId}"
         binding.textViewSessionDescription.text = "Description: ${curSession.description}"
 
-        val timeFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
-        binding.textViewStartTime.text = "Start Time: ${timeFormat.format(curSession.startTime)}"
-        binding.textViewEndTime.text = "End Time: ${timeFormat.format(curSession.endTime)}"
+        binding.textViewStartTime.text = "Start Time: ${Util.timeStampToTimeString(curSession.startTime)}"
+        binding.textViewEndTime.text = "End Time: ${Util.timeStampToTimeString(curSession.endTime)}"
+
+        binding.buttonChat.setOnClickListener{
+            val intent = Intent(this, ChatActivity::class.java)
+            startActivity(intent)
+        }
 
         // Get Group Member names
         SessionUtil.joinedUser(curSession.usersJoined, curSession.ownerId) { usernames ->

@@ -340,5 +340,18 @@ object DatabaseUtil {
         }
     }
 
+    fun findUserName(userId: String, callback: (String?) -> Unit) {
+        val userRef = FirebaseDatabase.getInstance().getReference("users")
+        val userQuery = userRef.child(userId)
+        userQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val username = snapshot.child("userName").getValue(String::class.java)
+                // Add the username to the list
+                callback(username)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
 
 }

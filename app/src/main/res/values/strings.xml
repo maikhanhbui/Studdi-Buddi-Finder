@@ -131,4 +131,6 @@
     <string name="successfully_joined_group">Successfully joined group</string>
     <string name="ok">OK</string>
     <string name="title_activity_my_session">MySessionActivity</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="send">Send</string>
 </resources>
