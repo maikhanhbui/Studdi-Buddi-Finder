@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.Dialogs
 import com.group7.studdibuddi.R
+import com.group7.studdibuddi.Util
 import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
@@ -72,6 +73,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var LOCATION_BUTTON_TITLE: String
     private lateinit var DESCRIPTION_BUTTON_TITLE: String
     private lateinit var COURSE_BUTTON_TITLE: String
+    private lateinit var START_TIME_BUTTON_TITLE: String
+    private lateinit var END_TIME_BUTTON_TITLE: String
     private lateinit var DELETE_SUCCESS_TITLE: String
     private lateinit var DELETE_NOT_SUCCESS_TITLE: String
     private lateinit var MARKER_NOT_FOUND_TITLE: String
@@ -95,6 +98,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         LOCATION_BUTTON_TITLE = getString(R.string.session_location)
         DESCRIPTION_BUTTON_TITLE = getString(R.string.description)
         COURSE_BUTTON_TITLE = getString(R.string.session_course)
+        START_TIME_BUTTON_TITLE = getString(R.string.session_start_time)
+        END_TIME_BUTTON_TITLE = getString(R.string.session_end_time)
         DELETE_SUCCESS_TITLE = getString(R.string.delete_successfully)
         DELETE_NOT_SUCCESS_TITLE = getString(R.string.delete_unsuccessfully)
         MARKER_NOT_FOUND_TITLE = getString(R.string.marker_not_found)
@@ -352,7 +357,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         val locationString = getLocationStringFromInt(locationId)
 
                         dialogBuilder.setTitle(it.sessionName)
-                        dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString}\n$DESCRIPTION_BUTTON_TITLE: ${it.description}\n$COURSE_BUTTON_TITLE: ${it.courseId}")
+                        dialogBuilder.setMessage("\n$LOCATION_BUTTON_TITLE: ${locationString}\n$DESCRIPTION_BUTTON_TITLE: ${it.description}\n$COURSE_BUTTON_TITLE: ${it.courseId}\n" +
+                                "$START_TIME_BUTTON_TITLE: ${Util.timeStampToTimeString(it.startTime)}\n" +
+                                "$END_TIME_BUTTON_TITLE: ${Util.timeStampToTimeString(it.endTime)}")
 
                         dialogBuilder.setNeutralButton(getString(R.string.show_group)) { _, _ ->
                             // Fetch user details based on the user IDs in usersJoined list

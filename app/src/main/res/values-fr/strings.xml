@@ -42,6 +42,8 @@
     <string name="session_name_hint">Votre nom de session ici</string>
     <string name="session_location">Emplacement</string>
     <string name="session_course">ID du cours</string>
+    <string name="session_start_time">Heure de début</string>
+    <string name="session_end_time">Heure de fin</string>
     <string name="session_course_hint">Votre ID de cours ici</string>
     <string name="title_activity_login">Activité de connexion</string>
     <string name="title_activity_register">Activité d\'inscription</string>
