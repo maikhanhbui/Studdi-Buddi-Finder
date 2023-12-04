@@ -138,5 +138,6 @@
 
     <string name="start_time_cannot_be_later_than_end_time">Start time cannot be later than end time</string>
     <string name="end_time_cannot_be_earlier_than_start_time">End time cannot be earlier than start time</string>
+    <string name="pick_image">Pick Image</string>
 
 </resources>
