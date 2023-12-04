@@ -8,7 +8,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.group7.studdibuddi.SessionFilter
 
 // View Model where contains livedata pulled from the repository,
 // any database actions can be defined here for easy access and the livedata can update accordingly for observer
@@ -18,11 +17,17 @@ class SessionViewModel : ViewModel() {
     val allSessionLiveData: LiveData<List<Session>>
         get() = _allSessionLiveData
 
+    // Filtered sessions
     private val _filteredSessionLiveData = MutableLiveData<List<Session>>()
     val filteredSessionLiveData: LiveData<List<Session>>
         get() = _filteredSessionLiveData
 
-    // Step 4: Fetch and Update Data
+    // Joined sessions
+    private val _joinedSessionLiveData = MutableLiveData<List<Session>>()
+    val joinedSessionLiveData: LiveData<List<Session>>
+        get() = _joinedSessionLiveData
+
+
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val sessionDataReference = firebaseDatabase.getReference("session")
 
@@ -34,7 +39,8 @@ class SessionViewModel : ViewModel() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val sessions = snapshot.children.mapNotNull { it.getValue(Session::class.java) }
                 _allSessionLiveData.value = sessions
-                _filteredSessionLiveData.value = SessionFilter.filterSessions(sessions)
+                _filteredSessionLiveData.value = SessionUtil.filterSessions(sessions)
+                _joinedSessionLiveData.value = SessionUtil.joinedSessions(sessions)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -46,7 +52,13 @@ class SessionViewModel : ViewModel() {
 
     fun updateFilter() {
         _filteredSessionLiveData.value = _allSessionLiveData.value?.let { sessions ->
-            SessionFilter.filterSessions(sessions)
+            SessionUtil.filterSessions(sessions)
+        }
+    }
+
+    fun updateJoined() {
+        _joinedSessionLiveData.value = _allSessionLiveData.value?.let { sessions ->
+            SessionUtil.joinedSessions(sessions)
         }
     }
 

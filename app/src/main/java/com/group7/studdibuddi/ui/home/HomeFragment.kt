@@ -3,12 +3,15 @@ package com.group7.studdibuddi.ui.home
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -27,6 +30,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -34,7 +38,7 @@ import com.google.firebase.database.ValueEventListener
 import com.group7.studdibuddi.DatabaseUtil
 import com.group7.studdibuddi.Dialogs
 import com.group7.studdibuddi.R
-import com.group7.studdibuddi.SessionFilter
+import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.databinding.FragmentHomeBinding
 import com.group7.studdibuddi.session.SessionListAdapter
@@ -177,12 +181,30 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     val sessionLatLng = LatLng(it.latitude, it.longitude)
                     // Set pin with title of the session name
                     // Modified to establish relationship between marker and session
+                    val customMarkerView = layoutInflater.inflate(R.layout.custom_marker, null)
+                    val imageView = customMarkerView.findViewById<ImageView>(R.id.markerImageView)
+                    val textView = customMarkerView.findViewById<TextView>(R.id.markerTextView)
+                    // Set the image and text
+                    imageView.setImageResource(R.drawable.sfu_logo)
+                    textView.text = session.sessionName
+                    val markerOptions = MarkerOptions()
+                        .position(sessionLatLng).title(sessionKey)
+                        .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(customMarkerView)))
                     val newMarker =
-                        gMap.addMarker(MarkerOptions().position(sessionLatLng).title(sessionKey))
+                        gMap.addMarker(markerOptions)
                     markerMap[sessionKey] = newMarker!!
                 }
             }
         }
+    }
+
+    private fun createDrawableFromView(view: View): Bitmap {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -286,7 +308,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     // Get the current LatLng from the location result
                     val location = locationResult.lastLocation
                     if (location != null) {
-                        SessionFilter.currentLatLng = LatLng(location.latitude, location.longitude)
+                        SessionUtil.currentLatLng = LatLng(location.latitude, location.longitude)
                     }
                     if (::sessionViewModel.isInitialized) {
 //                        sessionViewModel.updateFilter()
