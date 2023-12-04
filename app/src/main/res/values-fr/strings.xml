@@ -140,7 +140,7 @@
     <string name="send">Envoyer</string>
     <string name="pick_image">Choisir une image</string>
     <string name="session_name_2">Nom de la session</string>
-    <string name="location_number">Numéro de l\'emplacement</string>
+    <string name="location_number">Emplacement</string>
     <string name="course_number">Numéro du cours</string>
     <string name="description_2">Description</string>
     <string name="group_members">Membres du groupe</string>
