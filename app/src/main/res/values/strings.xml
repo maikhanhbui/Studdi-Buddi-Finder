@@ -139,7 +139,7 @@
     <string name="send">Send</string>
     <string name="pick_image">Pick Image</string>
     <string name="session_name_2">Session Name</string>
-    <string name="location_number">Location Number</string>
+    <string name="location_number">Location</string>
     <string name="course_number">Course Number</string>
     <string name="description_2">Description</string>
     <string name="group_members">Group Members</string>
