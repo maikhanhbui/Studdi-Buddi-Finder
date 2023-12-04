@@ -147,5 +147,6 @@
     <string name="leave_session">Leave Session</string>
     <string name="chat">Chat</string>
     <string name="session_error">Session Error</string>
+    <string name="session_information">SESSION INFORMATION</string>
 
 </resources>
