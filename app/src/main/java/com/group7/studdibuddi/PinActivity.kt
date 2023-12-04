@@ -160,8 +160,10 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                         else {
                             finish()
                         }
-                    } else {
-                        //displays error messages
+                    }
+                    else{
+                        saveButton.isEnabled = true
+                        Toast.makeText(this, "Saving Session Error", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

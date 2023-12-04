@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,6 +37,11 @@ class MainActivity : BaseActivity() {
 
         PROFILE_BUTTON_TITLE = getString(R.string.profile)
         LOG_IN_BUTTON_TITLE = getString(R.string.log_in_button)
+
+        if (!DatabaseUtil.isNetworkAvailable(this)){
+            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show()
+        }
+
         // Database set up
         DatabaseUtil.initDatabase()
 

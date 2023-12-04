@@ -43,7 +43,7 @@ class ManageFragment : Fragment() {
         viewModelFactory = SessionViewModelFactory()
         sessionViewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(
             SessionViewModel::class.java)
-//        sessionViewModel.fetchData()
+
 
         sessionListAdapter = SessionListAdapter(requireActivity(), emptyList())
 
@@ -56,7 +56,6 @@ class ManageFragment : Fragment() {
         }
 
         binding.ownerCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            // Your code here to handle the checkbox state change
             SessionUtil.showOwnedOnly = isChecked
             sessionViewModel.updateJoined()
         }

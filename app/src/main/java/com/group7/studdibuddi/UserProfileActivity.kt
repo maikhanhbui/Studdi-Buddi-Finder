@@ -154,7 +154,8 @@ class UserProfileActivity : BaseActivity() {
                 if (success) {
                     finish()
                 } else {
-                    //displays error messages
+                    Toast.makeText(this, "Save profile error", Toast.LENGTH_SHORT).show()
+                    saveButton.isEnabled = true
                 }
             }
         }
