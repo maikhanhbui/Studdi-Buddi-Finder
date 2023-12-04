@@ -34,4 +34,6 @@ data class Session (
 
     var endTime: Long = System.currentTimeMillis()+(1000*600),
 
+    var imageURL: String = ""
+
 )

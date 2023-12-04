@@ -25,40 +25,6 @@
         android:layout_height="wrap_content"
         android:entries="@array/filter_location_list" />
 
-    <!-- Time Range Picker -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_time_range"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Start Time -->
-        <EditText
-            android:id="@+id/editTextStartTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/start_time_filter"
-            android:inputType="none"
-            android:focusable="false"
-            android:clickable="true" />
-
-        <!-- End Time -->
-        <EditText
-            android:id="@+id/editTextEndTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/end_time_filter"
-            android:inputType="none"
-            android:focusable="false"
-            android:clickable="true" />
-    </LinearLayout>
-
     <!-- Location Range -->
     <TextView
         android:layout_width="wrap_content"

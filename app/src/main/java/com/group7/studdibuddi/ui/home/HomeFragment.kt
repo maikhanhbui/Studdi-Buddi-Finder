@@ -46,6 +46,8 @@ import com.group7.studdibuddi.session.SessionListAdapter
 import com.group7.studdibuddi.session.SessionViewModel
 import com.group7.studdibuddi.session.SessionViewModelFactory
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -179,7 +181,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         filterDialog.show(childFragmentManager, "filter_dialog")
     }
 
-    private fun pinUpdate(sessions: List<Session>){
+    private fun pinUpdate(sessions: List<Session>) {
         if (::gMap.isInitialized) {
             // Clear existing markers
             gMap.clear()
@@ -187,26 +189,50 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             for (session in sessions) {
                 val sessionKey = session.sessionKey
-                session.let {
-                    val sessionLatLng = LatLng(it.latitude, it.longitude)
-                    // Set pin with title of the session name
-                    // Modified to establish relationship between marker and session
-                    val customMarkerView = layoutInflater.inflate(R.layout.custom_marker, null)
-                    val imageView = customMarkerView.findViewById<ImageView>(R.id.markerImageView)
-                    val textView = customMarkerView.findViewById<TextView>(R.id.markerTextView)
-                    // Set the image and text
-                    imageView.setImageResource(R.drawable.sfu_logo)
-                    textView.text = session.sessionName
+                val sessionLatLng = LatLng(session.latitude, session.longitude)
+
+                // Set pin with title of the session name
+                val customMarkerView = layoutInflater.inflate(R.layout.custom_marker, null)
+                val imageView = customMarkerView.findViewById<ImageView>(R.id.markerImageView)
+                val textView = customMarkerView.findViewById<TextView>(R.id.markerTextView)
+
+                // Set the text
+                textView.text = session.sessionName
+                imageView.setImageResource(R.drawable.sfu_logo)
+
+                // Load the image asynchronously with Picasso
+                if (session.imageURL.isNotEmpty()) {
+                    Picasso.get().load(session.imageURL).into(imageView, object : Callback {
+                        override fun onSuccess() {
+                            // Image loaded successfully, create and add the marker to the map
+                            val markerOptions = MarkerOptions()
+                                .position(sessionLatLng)
+                                .title(sessionKey)
+                                .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(customMarkerView)))
+
+                            val newMarker = gMap.addMarker(markerOptions)
+                            markerMap[sessionKey] = newMarker!!
+                        }
+
+                        override fun onError(e: Exception?) {
+                            // Handle error loading image
+                            Log.e("Picasso", "Error loading image for session $sessionKey", e)
+                        }
+                    })
+                } else {
+                    // If no image URL is provided, create and add the marker without an image
                     val markerOptions = MarkerOptions()
-                        .position(sessionLatLng).title(sessionKey)
+                        .position(sessionLatLng)
+                        .title(sessionKey)
                         .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(customMarkerView)))
-                    val newMarker =
-                        gMap.addMarker(markerOptions)
+
+                    val newMarker = gMap.addMarker(markerOptions)
                     markerMap[sessionKey] = newMarker!!
                 }
             }
         }
     }
+
 
     private fun createDrawableFromView(view: View): Bitmap {
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
