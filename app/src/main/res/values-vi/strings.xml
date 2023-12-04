@@ -133,4 +133,12 @@
     <string name="ok">OK</string>
     <string name="start_time_cannot_be_later_than_end_time">Thời gian bắt đầu không thể sau thời gian kết thúc</string>
     <string name="end_time_cannot_be_earlier_than_start_time">Thời gian kết thúc không thể trước thời gian bắt </string>
+    <string name="session_name_2">Session Name:</string>
+    <string name="location_number">Location Number:</string>
+    <string name="course_number">Course Number:</string>
+    <string name="description_2">Description:</string>
+    <string name="group_members">Group Members:</string>
+    <string name="leave_session">Leave Session</string>
+    <string name="chat">Chat</string>
+    <string name="session_error">Session Error</string>
 </resources>

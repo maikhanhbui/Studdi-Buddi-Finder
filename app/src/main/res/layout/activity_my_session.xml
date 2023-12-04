@@ -10,7 +10,7 @@
         android:id="@+id/textViewSessionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Session Name: "
+        android:text="@string/session_name_2"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Location Number: "
+        android:text="@string/location_number"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Course Number: "
+        android:text="@string/course_number"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Description: "
+        android:text="@string/description_2"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Start Time: "
+        android:text="@string/start_time"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="End Time: "
+        android:text="@string/end_time"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -63,11 +63,9 @@
         android:id="@+id/textViewGroup"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-
         android:layout_weight="1"
         android:layout_marginTop="8dp"
-
-        android:text="Group Members: "
+        android:text="@string/group_members"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -83,12 +81,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:onClick="leaveSession"
-            android:text="Leave Session" />
+            android:text="@string/leave_session" />
         <Button
             android:id="@+id/buttonChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chat"/>
+            android:text="@string/chat"/>
     </LinearLayout>
 
 </LinearLayout>

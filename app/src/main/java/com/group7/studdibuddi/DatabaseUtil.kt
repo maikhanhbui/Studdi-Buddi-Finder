@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.userProfile.User
-import com.google.firebase.firestore.FirebaseFirestore
 
 object DatabaseUtil {
 
