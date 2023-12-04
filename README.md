@@ -46,7 +46,7 @@ Check it out at [Show and Tell 2](https://youtu.be/MU-1P7AF3Eg)!
 - [x] delete pin on map (Zhenao Li)
 - [x] create popped up dialog box for viewing study session information (Jachak Sekhon)
 
-### Final
+#### Final
 - [x] add support for map filter (filtering study sessions) (Billy Shi)
 - [x] add private/public study session feature (log in required/not required) (Billy Shi)
 - [x] add database for user profile settings associated with each user account (Billy Shi)
