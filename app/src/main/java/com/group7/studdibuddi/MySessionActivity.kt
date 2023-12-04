@@ -29,7 +29,7 @@ class MySessionActivity : ComponentActivity() {
 
         // Draw the info
         binding.textViewSessionName.text = "${getString(R.string.session_name_2)}: ${curSession.sessionName}"
-        binding.textViewSessionLocation.text = "${getString(R.string.location_number)}: ${curSession.location}"
+        binding.textViewSessionLocation.text = "${getString(R.string.location_number)}: ${Util.getLocationStringFromInt(curSession.location)}"
         binding.textViewCourseId.text = "${getString(R.string.course_number)}: ${curSession.courseId}"
         binding.textViewSessionDescription.text = "${getString(R.string.description_2)}: ${curSession.description}"
 
