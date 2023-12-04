@@ -73,6 +73,7 @@
     <string name="entry_cant_be_empty">Entry cannot be empty</string>
     <string name="email_domain_must_be_sfu">Email domain must be SFU</string>
     <string name="not_logged_in">Not logged in</string>
+    <string name="log_in_register">LOG IN &amp; REGISTER</string>
 
     //preference
     <string name="language_array_title">Language Preference</string>
@@ -130,7 +131,12 @@
     <string name="join">Join</string>
     <string name="successfully_joined_group">Successfully joined group</string>
     <string name="ok">OK</string>
+
     <string name="title_activity_my_session">MySessionActivity</string>
     <string name="type_a_message">Type a message</string>
     <string name="send">Send</string>
+
+    <string name="start_time_cannot_be_later_than_end_time">Start time cannot be later than end time</string>
+    <string name="end_time_cannot_be_earlier_than_start_time">End time cannot be earlier than start time</string>
+
 </resources>

@@ -422,7 +422,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     } else {
                         // Current user is not the owner, show message
                         //Toast.makeText(context, "You are not the owner of this session", Toast.LENGTH_SHORT).show()
-                        val isUserJoined = it.usersJoined.contains(DatabaseUtil.currentUser?.uid!!)
+
+                        val currentUser = DatabaseUtil.currentUser
+                        val isUserJoined = currentUser != null && it.usersJoined.contains(DatabaseUtil.currentUser?.uid!!)
 
                         val dialogBuilder = AlertDialog.Builder(context)
                         val locationId = it.location
