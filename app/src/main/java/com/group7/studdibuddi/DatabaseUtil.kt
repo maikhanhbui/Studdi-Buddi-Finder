@@ -2,6 +2,7 @@ package com.group7.studdibuddi
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.Firebase
@@ -16,6 +17,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import com.group7.studdibuddi.session.Session
 import com.group7.studdibuddi.userProfile.User
 
@@ -207,11 +209,11 @@ object DatabaseUtil {
                       isPublic: Boolean,
                       startTime: Long,
                       endTime: Long,
-                      callback: (Boolean) -> Unit) {
+                      callback: (String?) -> Unit) {
 
         if (currentUser == null){
             Toast.makeText(activity, toastLoginRequired, Toast.LENGTH_SHORT).show()
-            callback(false)
+            callback(null)
         }
         val sessionDatabase = database.getReference("session")
         // push assigns the session with a random unique id
@@ -237,7 +239,7 @@ object DatabaseUtil {
                     toastCreateSessionSuccess,
                     Toast.LENGTH_SHORT,
                 ).show()
-                callback(true)
+                callback(newSessionRef.key.toString())
             } else {
                 Log.e(TAG, "createSession:failure", task.exception)
                 val message = activity.getString(toastCreateSessionError)
@@ -246,7 +248,7 @@ object DatabaseUtil {
                     "$message ${task.exception?.message}",
                     Toast.LENGTH_SHORT,
                 ).show()
-                callback(false)
+                callback(null)
             }
         }
     }
@@ -352,6 +354,46 @@ object DatabaseUtil {
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+
+    fun uploadImageToFirebaseStorage(imageUri: Uri?, sessionId: String, callback: (Boolean) -> Unit) {
+        imageUri?.let {
+            val storageReference = FirebaseStorage.getInstance().reference.child("images")
+            val imageRef = storageReference.child("$sessionId/imageName.jpg")
+
+            val uploadTask = imageRef.putFile(imageUri)
+
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imageRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    val imageUrl = downloadUri.toString()
+                    updateSessionImage(sessionId, imageUrl)
+                    callback(true)
+                } else {
+                    callback(false)
+                    // Handle the error
+                }
+            }
+        }
+    }
+    private fun updateSessionImage(sessionId: String, imageUrl: String) {
+        val sessionRef = database.getReference("/session/$sessionId/imageURL")
+
+        sessionRef.setValue(imageUrl)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreUpdateError", "Error updating session image URL: $e")
+            }
+    }
+
+
 
 
 }
