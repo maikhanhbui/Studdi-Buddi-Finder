@@ -1,6 +1,9 @@
 package com.group7.studdibuddi.ui.notes
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +11,8 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.mlkit.vision.common.InputImage
@@ -17,6 +22,7 @@ import com.group7.studdibuddi.Util
 import com.group7.studdibuddi.databinding.FragmentNotesBinding
 import com.group7.studdibuddi.ui.settings.NotesViewModel
 import java.io.IOException
+
 
 class NotesFragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
@@ -75,6 +81,14 @@ class NotesFragment : Fragment() {
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
                     binding.textViewResult.text = visionText.text
+
+                    val clipboard: ClipboardManager? =
+                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+                    val clip = ClipData.newPlainText("note", visionText.text)
+                    if (clipboard != null) {
+                        clipboard.setPrimaryClip(clip)
+                        Toast.makeText(requireContext(), "Note Saved to Clipboard", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 .addOnFailureListener { e ->
                     println(e)

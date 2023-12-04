@@ -7,6 +7,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -168,6 +170,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         return root
     }
 
+    // This resets the view for loading the images
+    private fun refreshView() {
+        sessionViewModel.filteredSessionLiveData.observe(viewLifecycleOwner) { sessions ->
+            pinUpdate(sessions)
+            sessionListAdapter.replace(sessions)
+            sessionListAdapter.notifyDataSetChanged()
+        }
+    }
+
     private fun filterDialog(){
         val filterDialog = Dialogs()
         val bundle = Bundle()
@@ -251,6 +262,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             this.pinUpdate(sessions)
             sessionListAdapter.replace(sessions)
             sessionListAdapter.notifyDataSetChanged()
+
+            // Schedule a refresh after 2 seconds to load the images for pins
+            Handler(Looper.getMainLooper()).postDelayed({
+                refreshView()
+            }, 1000)
         }
 
         // Ensure map is fully loaded before manipulating it
