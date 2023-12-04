@@ -77,13 +77,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center">
+        <!-- Leave Button -->
         <Button
-            android:id="@+id/buttonEditSession"
+            android:id="@+id/buttonLeaveSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:onClick="leaveSession"
-            android:text="Leave Session" />
+            android:text="Leave Session"
+            android:visibility="gone" /> <!-- initially set to gone -->
+
+        <!-- Delete Button -->
+        <Button
+            android:id="@+id/buttonDeleteSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:onClick="deleteSession"
+            android:text="Delete Session"
+            android:visibility="gone" /> <!-- initially set to gone -->
         <Button
             android:id="@+id/buttonChat"
             android:layout_width="wrap_content"
