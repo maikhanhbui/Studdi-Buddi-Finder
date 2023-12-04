@@ -73,6 +73,7 @@
     <string name="entry_cant_be_empty">Entry cannot be empty</string>
     <string name="email_domain_must_be_sfu">Email domain must be SFU</string>
     <string name="not_logged_in">Not logged in</string>
+    <string name="log_in_register">LOG IN &amp; REGISTER</string>
 
     //preference
     <string name="language_array_title">Language Preference</string>

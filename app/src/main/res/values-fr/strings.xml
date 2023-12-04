@@ -74,6 +74,7 @@
     <string name="entry_cant_be_empty">L\'entrée ne peut pas être vide</string>
     <string name="email_domain_must_be_sfu">Le domaine de l\'e-mail doit être SFU</string>
     <string name="not_logged_in">Non connecté</string>
+    <string name="log_in_register">CONNEXION &amp; INSCRIPTION</string>
 
     //preference
     <string name="language_array_title">Préférence de langue</string>
