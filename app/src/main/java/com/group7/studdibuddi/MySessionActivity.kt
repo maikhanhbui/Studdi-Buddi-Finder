@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.google.firebase.database.FirebaseDatabase
 import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.databinding.ActivityMySessionBinding
 import java.text.SimpleDateFormat
@@ -20,10 +23,13 @@ import java.util.Locale
 
 class MySessionActivity : ComponentActivity() {
     private lateinit var binding: ActivityMySessionBinding
+    private lateinit var leaveButton : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMySessionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        leaveButton = findViewById(R.id.buttonEditSession)
 
         if (SessionUtil.selectedSession == null || DatabaseUtil.currentUser == null){
             Toast.makeText(this, "Session Error", Toast.LENGTH_SHORT).show()
@@ -51,5 +57,14 @@ class MySessionActivity : ComponentActivity() {
             binding.textViewGroup.text = "Group Members: ${usernames.joinToString(", ")}"
         }
 
+        leaveButton.setOnClickListener {
+            val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+            curSession.usersJoined.remove(DatabaseUtil.currentUser?.uid)
+            sessionsRef.child(curSession.sessionKey).setValue(curSession)
+            Toast.makeText(this, "Successfully left group!", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
     }
+
 }
