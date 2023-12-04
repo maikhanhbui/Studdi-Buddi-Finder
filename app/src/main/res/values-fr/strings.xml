@@ -134,4 +134,13 @@
     <string name="ok">OK</string>
     <string name="start_time_cannot_be_later_than_end_time">L\'heure de début ne peut pas être ultérieure à l\'heure de fin</string>
     <string name="end_time_cannot_be_earlier_than_start_time">L\'heure de fin ne peut pas être antérieure à l\'heure de début</string>
+    <string name="session_name_2">Session Name:</string>
+    <string name="location_number">Location Number:</string>
+    <string name="course_number">Course Number:</string>
+    <string name="description_2">Description:</string>
+    <string name="group_members">Group Members:</string>
+    <string name="leave_session">Leave Session</string>
+    <string name="chat">Chat</string>
+    <string name="session_error">Session Error</string>
+    <string name="session_information">SESSION INFORMATION</string>
 </resources>

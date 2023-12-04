@@ -1,20 +1,34 @@
 package com.group7.studdibuddi
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.model.LatLng
 import com.group7.studdibuddi.session.BaseActivity
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -31,6 +45,9 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
     private lateinit var startTimePickerButton: Button
     private lateinit var endTimeText: TextView
     private lateinit var endTimePickerButton: Button
+
+    private lateinit var imageView: ImageView
+    private lateinit var pickImageButton: Button
 
     private lateinit var mapPickerButton: Button
 
@@ -54,6 +71,24 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
     private var isPickingStartTime = true
 
     private var isPublic = true
+
+    private lateinit var SELECT_IMAGE_TITLE: String
+
+    private lateinit var profilePictureUri: Uri
+    private lateinit var tempProfilePictureUri: Uri
+    private lateinit var pickedProfilePictureUri: Uri
+    private lateinit var profilePicture: File
+    private lateinit var tempProfilePicture: File
+    private lateinit var pickedProfilePicture: File
+    private val profilePictureName = "pfp.jpg"
+    private val tempProfilePictureName = "temp_pfp.jpg"
+    private val pickedProfilePictureName = "picked_pfp.jpg"
+
+    private lateinit var cameraResult: ActivityResultLauncher<Intent>
+    private lateinit var galleryResult: ActivityResultLauncher<Intent>
+
+    private lateinit var pinViewModel: PinViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin_activity)
@@ -74,6 +109,19 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         endTimePickerButton = findViewById(R.id.end_time_picker)
 
         publicCheckBox = findViewById(R.id.check_box_public)
+
+        pickImageButton = findViewById(R.id.pick_button)
+
+        imageView = findViewById(R.id.session_photo)
+        SELECT_IMAGE_TITLE = getString(R.string.select_profile_image)
+
+
+        //Get uri for temp profile picture
+        tempProfilePicture = File(getExternalFilesDir(null), tempProfilePictureName)
+        tempProfilePictureUri = FileProvider.getUriForFile(this, "com.group7.studdibuddi", tempProfilePicture)
+
+        pickedProfilePicture = File(getExternalFilesDir(null), pickedProfilePictureName)
+        pickedProfilePictureUri = FileProvider.getUriForFile(this, "com.group7.studdibuddi", tempProfilePicture)
 
         mapPickerButton.setOnClickListener{ locationPicking() }
 
@@ -97,15 +145,82 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
                     session_description.text.toString(),
                     isPublic,
                     selectedStartCalendar.timeInMillis,
-                    selectedEndCalendar.timeInMillis){ success ->
-                    if (success) {
-                        finish()
+                    selectedEndCalendar.timeInMillis){ sessionKey ->
+                    if (sessionKey != null) {
+                        // If session is created correctly, then upload its image
+                        if (tempProfilePicture.exists()) {
+                            Toast.makeText(this, " Uploading image", Toast.LENGTH_SHORT).show()
+                            // Wait for call back to close, otherwise the file might be deleted while uploading
+                            DatabaseUtil.uploadImageToFirebaseStorage(tempProfilePictureUri, sessionKey){success->
+                                finish()
+                            }
+                        }
+                        else {
+                            finish()
+                        }
                     } else {
                         //displays error messages
                     }
                 }
             }
         }
+
+        pinViewModel = ViewModelProvider(this)[PinViewModel::class.java]
+        // Load the picture
+        pinViewModel.userImage.observe(this) { it ->
+            imageView.setImageBitmap(it)
+        }
+
+        if(tempProfilePicture.exists()) {
+            imageView.setImageBitmap(Util.getBitmap(this, tempProfilePictureUri))
+        }
+
+        //Set cameraResult to temporary profile picture
+        cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if(result.resultCode == Activity.RESULT_OK){
+                val bitmap = Util.getBitmap(this, tempProfilePictureUri)
+                pinViewModel.userImage.value = bitmap
+                MediaStore.Images.Media.insertImage(this.contentResolver, bitmap, tempProfilePictureName, null)
+            }
+        }
+
+        galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if(result.resultCode == Activity.RESULT_OK){
+                //save Uri picked to tempProfilePicture
+                tempProfilePictureUri = result.data?.data!!
+                val bitmap = Util.getBitmap(this, tempProfilePictureUri)
+                val fOut = FileOutputStream(tempProfilePicture)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut)
+                fOut.flush()
+                fOut.close()
+                //set imageview
+                pinViewModel.userImage.value = Util.getBitmap(this, tempProfilePictureUri)
+            }
+        }
+
+        pickImageButton.setOnClickListener {
+            val items = resources.getStringArray(R.array.change_profile_picture)
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            var intent: Intent
+            alertDialogBuilder.setTitle(SELECT_IMAGE_TITLE)
+                .setItems(items) { _, index -> when(index)
+                {
+                    0 -> {
+                        intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, tempProfilePictureUri)
+                        cameraResult.launch(intent)
+                    }
+                    1 -> {
+                        intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                        galleryResult.launch(intent)
+                    }
+                }
+                }
+            alertDialogBuilder.show()
+        }
+
         cancelButton.setOnClickListener { finish() }
         setupSpinners()
 
@@ -160,6 +275,14 @@ class PinActivity: BaseActivity(), DialogInterface.OnCancelListener, Dialogs.Loc
         this.updateTime()
         // Continue to show dialog
         if (isPickingLocation){ locationPicking() }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Clear the image
+        if (tempProfilePicture.exists()) {
+            tempProfilePicture.delete()
+        }
     }
 
     private fun setupSpinners() {
