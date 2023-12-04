@@ -1,6 +1,5 @@
 package com.group7.studdibuddi
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,28 +7,18 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.google.firebase.database.FirebaseDatabase
 import com.group7.studdibuddi.session.SessionUtil
 import com.group7.studdibuddi.databinding.ActivityMySessionBinding
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.group7.studdibuddi.session.Session
 
 class MySessionActivity : ComponentActivity() {
     private lateinit var binding: ActivityMySessionBinding
-    private lateinit var leaveButton : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMySessionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        leaveButton = findViewById(R.id.buttonEditSession)
 
         if (SessionUtil.selectedSession == null || DatabaseUtil.currentUser == null){
             Toast.makeText(this, getString(R.string.session_error), Toast.LENGTH_SHORT).show()
@@ -44,8 +33,8 @@ class MySessionActivity : ComponentActivity() {
         binding.textViewCourseId.text = "${getString(R.string.course_number)}: ${curSession.courseId}"
         binding.textViewSessionDescription.text = "${getString(R.string.description_2)}: ${curSession.description}"
 
-        binding.textViewStartTime.text = "${getString(R.string.start_time)}: ${Util.timeStampToTimeString(curSession.startTime)}"
-        binding.textViewEndTime.text = "${getString(R.string.end_time)}: ${Util.timeStampToTimeString(curSession.endTime)}"
+        binding.textViewStartTime.text = "${getString(R.string.start_time)} ${Util.timeStampToTimeString(curSession.startTime)}"
+        binding.textViewEndTime.text = "${getString(R.string.end_time)} ${Util.timeStampToTimeString(curSession.endTime)}"
 
         binding.buttonChat.setOnClickListener{
             val intent = Intent(this, ChatActivity::class.java)
@@ -57,14 +46,53 @@ class MySessionActivity : ComponentActivity() {
             binding.textViewGroup.text = "${getString(R.string.group_members)}: ${usernames.joinToString(", ")}"
         }
 
-        leaveButton.setOnClickListener {
-            val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
-            curSession.usersJoined.remove(DatabaseUtil.currentUser?.uid)
-            sessionsRef.child(curSession.sessionKey).setValue(curSession)
-            Toast.makeText(this, getString(R.string.successfully_left_group), Toast.LENGTH_SHORT).show()
-            finish()
+        // Check if the current user is the owner
+        val isCurrentUserOwner = DatabaseUtil.currentUser?.uid == curSession.ownerId
+
+        if (!isCurrentUserOwner) {
+            // Show "Leave" button
+            showLeaveButton(curSession)
+        } else {
+            // Show "Delete" button
+            showDeleteButton(curSession)
         }
 
+    }
+
+    private fun showLeaveButton(curSession: Session) {
+        val leaveButton = findViewById<Button>(R.id.buttonLeaveSession)
+        leaveButton.visibility = View.VISIBLE
+        leaveButton.setOnClickListener {
+            leaveGroup(curSession)
+        }
+    }
+
+    private fun showDeleteButton(curSession: Session) {
+        val deleteButton = findViewById<Button>(R.id.buttonDeleteSession)
+        deleteButton.visibility = View.VISIBLE
+        deleteButton.setOnClickListener {
+            deleteSession(curSession)
+        }
+    }
+
+    private fun leaveGroup(curSession: Session) {
+        val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+        curSession.usersJoined.remove(DatabaseUtil.currentUser?.uid)
+        sessionsRef.child(curSession.sessionKey).setValue(curSession)
+        Toast.makeText(this, "Successfully left group!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    private fun deleteSession(curSession: Session) {
+        val sessionsRef = FirebaseDatabase.getInstance().getReference("session")
+        sessionsRef.child(curSession.sessionKey).removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Successfully deleted session!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to delete session: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

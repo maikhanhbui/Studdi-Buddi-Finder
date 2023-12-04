@@ -99,8 +99,6 @@
     <string name="location_range_in_km">Plage de localisation en KM</string>
     <string name="reset">Réinitialiser</string>
     <string name="close">Fermer</string>
-    <string name="start_time_filter">Heure de début</string>
-    <string name="end_time_filter">Heure de fin</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Lien de vérification envoyé à </string>
@@ -120,9 +118,6 @@
     <string name="select_an_image_from_gallery">Sélectionner une image depuis la galerie</string>
     <string name="convert_notes_to_text">Convertir des notes en texte</string>
 
-    //session list
-    <string name="show_only_owned">Afficher uniquement les propriétaires</string>
-
     //join
     <string name="show_group">Afficher le groupe</string>
     <string name="users_in_group">Utilisateurs dans le groupe</string>
@@ -132,15 +127,24 @@
     <string name="join">Rejoindre</string>
     <string name="successfully_joined_group">Groupe rejoint avec succès</string>
     <string name="ok">OK</string>
+
     <string name="start_time_cannot_be_later_than_end_time">L\'heure de début ne peut pas être ultérieure à l\'heure de fin</string>
     <string name="end_time_cannot_be_earlier_than_start_time">L\'heure de fin ne peut pas être antérieure à l\'heure de début</string>
-    <string name="session_name_2">Session Name:</string>
-    <string name="location_number">Location Number:</string>
-    <string name="course_number">Course Number:</string>
-    <string name="description_2">Description:</string>
-    <string name="group_members">Group Members:</string>
-    <string name="leave_session">Leave Session</string>
+
+    //my session list
+    <string name="show_only_owned">Afficher uniquement les propriétaires</string>
+    <string name="title_activity_my_session">MonActiviteSession</string>
+    <string name="type_a_message">Tapez un message</string>
+    <string name="send">Envoyer</string>
+    <string name="pick_image">Choisir une image</string>
+    <string name="session_name_2">Nom de la session</string>
+    <string name="location_number">Numéro de l\'emplacement</string>
+    <string name="course_number">Numéro du cours</string>
+    <string name="description_2">Description</string>
+    <string name="group_members">Membres du groupe</string>
+    <string name="leave_session">Quitter la session</string>
     <string name="chat">Chat</string>
-    <string name="session_error">Session Error</string>
-    <string name="session_information">SESSION INFORMATION</string>
+    <string name="session_error">Erreur de session</string>
+    <string name="session_information">INFORMATIONS SUR LA SESSION</string>
+    <string name="delete_session">Supprimer la session</string>
 </resources>

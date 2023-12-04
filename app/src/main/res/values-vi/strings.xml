@@ -98,8 +98,6 @@
     <string name="location_range_in_km">Khoảng cách KM tới địa điểm</string>
     <string name="reset">Đặt lại</string>
     <string name="close">Đóng</string>
-    <string name="start_time_filter">Bắt đầu</string>
-    <string name="end_time_filter">Kết thúc</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Link xác nhận đã được gửi đến </string>
@@ -119,9 +117,6 @@
     <string name="select_an_image_from_gallery">Chọn ảnh từ thư viên</string>
     <string name="convert_notes_to_text">Chuyển đổi thành văn bản</string>
 
-    //my session list
-    <string name="show_only_owned">Chỉ hiện phiên học tôi sở hữu</string>
-
     //join
     <string name="show_group">Hiện người tham gia</string>
     <string name="users_in_group">Người tham gia</string>
@@ -131,15 +126,24 @@
     <string name="join">Tham gia nhóm</string>
     <string name="successfully_joined_group">Tham gia nhóm thành công</string>
     <string name="ok">OK</string>
+
     <string name="start_time_cannot_be_later_than_end_time">Thời gian bắt đầu không thể sau thời gian kết thúc</string>
     <string name="end_time_cannot_be_earlier_than_start_time">Thời gian kết thúc không thể trước thời gian bắt </string>
-    <string name="session_name_2">Session Name:</string>
-    <string name="location_number">Location Number:</string>
-    <string name="course_number">Course Number:</string>
-    <string name="description_2">Description:</string>
-    <string name="group_members">Group Members:</string>
-    <string name="leave_session">Leave Session</string>
-    <string name="chat">Chat</string>
-    <string name="session_error">Session Error</string>
-    <string name="session_information">SESSION INFORMATION</string>
+
+    //my session list
+    <string name="show_only_owned">Chỉ hiện phiên học tôi sở hữu</string>
+    <string name="title_activity_my_session">Phiên học của tôi</string>
+    <string name="type_a_message">Điền một tin nhắn</string>
+    <string name="send">Gửi</string>
+    <string name="pick_image">Chọn ảnh</string>
+    <string name="session_name_2">Tên phiên học</string>
+    <string name="location_number">Số địa điểm</string>
+    <string name="course_number">Lớp học</string>
+    <string name="description_2">Miêu tả</string>
+    <string name="group_members">Thành viên trong nhóm học</string>
+    <string name="leave_session">Rời khỏi phiên học</string>
+    <string name="chat">Nhắn tin</string>
+    <string name="session_error">Lỗi phiên học</string>
+    <string name="session_information">THÔNG TIN PHIÊN HỌC</string>
+    <string name="delete_session">Xoá phiên học</string>
 </resources>

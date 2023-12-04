@@ -98,8 +98,6 @@
     <string name="location_range_in_km">Location Range in KM</string>
     <string name="reset">Reset</string>
     <string name="close">Close</string>
-    <string name="start_time_filter">Start Time</string>
-    <string name="end_time_filter">End Time</string>
 
     //toast messages
     <string name="toast_verification_link_sent">Verification link sent to </string>
@@ -119,9 +117,6 @@
     <string name="select_an_image_from_gallery">Select an Image from Gallery</string>
     <string name="convert_notes_to_text">Convert Notes to Text</string>
 
-    //my session list
-    <string name="show_only_owned">Show only owned</string>
-
     //join
     <string name="show_group">Show Group</string>
     <string name="users_in_group">Users in Group</string>
@@ -132,21 +127,23 @@
     <string name="successfully_joined_group">Successfully joined group</string>
     <string name="ok">OK</string>
 
+    <string name="start_time_cannot_be_later_than_end_time">Start time cannot be later than end time</string>
+    <string name="end_time_cannot_be_earlier_than_start_time">End time cannot be earlier than start time</string>
+
+    //my session list
+    <string name="show_only_owned">Show only owned</string>
     <string name="title_activity_my_session">MySessionActivity</string>
     <string name="type_a_message">Type a message</string>
     <string name="send">Send</string>
-
-    <string name="start_time_cannot_be_later_than_end_time">Start time cannot be later than end time</string>
-    <string name="end_time_cannot_be_earlier_than_start_time">End time cannot be earlier than start time</string>
     <string name="pick_image">Pick Image</string>
-    <string name="session_name_2">Session Name:</string>
-    <string name="location_number">Location Number:</string>
-    <string name="course_number">Course Number:</string>
-    <string name="description_2">Description:</string>
-    <string name="group_members">Group Members:</string>
+    <string name="session_name_2">Session Name</string>
+    <string name="location_number">Location Number</string>
+    <string name="course_number">Course Number</string>
+    <string name="description_2">Description</string>
+    <string name="group_members">Group Members</string>
     <string name="leave_session">Leave Session</string>
     <string name="chat">Chat</string>
     <string name="session_error">Session Error</string>
     <string name="session_information">SESSION INFORMATION</string>
-
+    <string name="delete_session">Delete Session</string>
 </resources>
