@@ -55,7 +55,9 @@ Check it out at [Show and Tell 2](https://youtu.be/MU-1P7AF3Eg)!
 - [x] add support for different languages (Mai Khanh Bui)
 - [x] add support for different themes (day and night) (Mai Khanh Bui)
 - [x] add support for Optical Character Recognition (OCR) for converting image to text (Zhenao Li)
-- [x] added support for join and leave a study session feature (Jachak Sekhon)
-- [x] added support for viewing participants of each study session (exclusive to the session owner) (Jachak Sekhon)
+- [x] add support for join and leave a study session feature (Jachak Sekhon)
+- [x] add support for viewing participants of each study session (exclusive to the session owner) (Jachak Sekhon)
+- [ ] add support for chat function
+- [ ] add support for managing owned and joined study sessions
 
 ...To be updated
