@@ -183,6 +183,8 @@ class UserProfileActivity : BaseActivity() {
         logOutButton.setOnClickListener{
             if (FirebaseAuth.getInstance().currentUser != null) {
                 FirebaseAuth.getInstance().signOut()
+                DatabaseUtil.currentUser = null
+                DatabaseUtil.currentUserProfile = null
                 Toast.makeText(this,LOG_OUT_BUTTON_TITLE, Toast.LENGTH_SHORT).show()
                 val intent: Intent?
                 intent = Intent(this, MainActivity::class.java)
